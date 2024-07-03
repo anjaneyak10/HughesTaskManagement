@@ -41,7 +41,9 @@ export class LoginComponent implements OnInit {
         this.authService.login(email, password).subscribe(
           () => {
             console.log('Login successful');
-            this.router.navigate(['/dashboard']);
+
+            // Navigate to the dashboard according to user roles
+            
           },
           (error) => {
             console.error('Login failed', error);
