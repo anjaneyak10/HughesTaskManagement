@@ -8,7 +8,6 @@ import { AppRoutingModule } from './components/app-routing.module';
 import { AppComponent } from './components/app/app.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthInterceptor } from './components/interceptors/auth.interceptor';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { EmployeeDashboardComponent } from './components/employee-dashboard/employee-dashboard.component';
 import { FunctionalLeadDashboardComponent } from './components/functional-lead-dashboard/functional-lead-dashboard.component';
 import { ExecutiveDashboardComponent } from './components/executive-dashboard/executive-dashboard.component';
@@ -17,7 +16,6 @@ import { ExecutiveDashboardComponent } from './components/executive-dashboard/ex
   declarations: [
     AppComponent,
     LoginComponent,
-    DashboardComponent,
     EmployeeDashboardComponent,
     FunctionalLeadDashboardComponent,
     ExecutiveDashboardComponent

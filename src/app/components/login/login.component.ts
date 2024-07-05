@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -10,47 +10,81 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
+  errorMessage: string = '';
+  debugMessage: string = '';
+
 
   constructor(
-    private formBuilder: FormBuilder,
+    private fb: FormBuilder,
     private authService: AuthService,
     private router: Router
   ) {
-    this.loginForm = this.formBuilder.group({
+    this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
+      password: ['', [Validators.required]]
     });
   }
 
+  ngOnInit(): void {}
 
-  ngOnInit() {
-    this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
-    });
+  get email() {
+    return this.loginForm.get('email');
   }
 
-  get email() { return this.loginForm.get('email'); }
-  get password() { return this.loginForm.get('password'); }
+  get password() {
+    return this.loginForm.get('password');
+  }
 
-  onSubmit() {
-    if (this.loginForm.valid) {
-      const email = this.email?.value;
-      const password = this.password?.value;
-      if (email && password) {
-        this.authService.login(email, password).subscribe(
-          () => {
-            console.log('Login successful');
+  onSubmit(): void {
+    
+    this.debugMessage = 'Form submitted';
+    console.log('Form submitted');
 
-            // Navigate to the dashboard according to user roles
-            
-          },
-          (error) => {
-            console.error('Login failed', error);
-            // Handle error (e.g., show error message to user)
-          }
-        );
+    if (this.loginForm.invalid) {
+      this.debugMessage = 'Form is invalid';
+      console.log('Form is invalid');
+      return;
+    }
+
+    const { email, password } = this.loginForm.value;
+
+    this.authService.login(email, password).subscribe(
+      response => {
+        console.log('Login response:', response);
+        if (response && response.token && response.token.jwt) {
+          this.authService.setToken(response.token.jwt);
+          this.authService.setUserRole(response.token.user.role);
+          const userRole = this.authService.getUserRole();
+          console.log('User role:', userRole);
+          this.redirectBasedOnRole(userRole);
+        } else {
+          this.errorMessage = 'Invalid response from server';
+        }
+      },
+      error => {
+        console.error('Login error:', error);
+        this.errorMessage = 'Invalid email or password';
       }
+    );
+  }
+
+
+  private redirectBasedOnRole(userRole: string | null) {
+    // console.log('Role:', userRole);
+    switch(userRole) {
+      case 'xyz':
+        this.router.navigate(['employee-dashboard']);
+        break;
+      case 'executive':
+        this.router.navigate(['executive-dashboard']);
+        break;
+      case 'functional-lead':
+        this.router.navigate(['functional-lead-dashboard']);
+        break;
+      default:
+        this.errorMessage = 'Unknown role';
+        console.error('Unknown role:', userRole);
     }
   }
+
 }
