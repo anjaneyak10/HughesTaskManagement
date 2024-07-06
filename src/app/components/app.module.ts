@@ -14,6 +14,7 @@ import { AuthService } from '../services/auth.service';
 import { AuthGuard } from './guard/auth.guard';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { NavbarComponent } from './navbar/navbar.component';
+import { CreateProjectComponent } from './create-project/create-project.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { NavbarComponent } from './navbar/navbar.component';
     ExecutiveDashboardComponent,
     ReactiveFormsModule,
     FunctionalLeadDashboardComponent,
-    NavbarComponent
+    NavbarComponent,
+    CreateProjectComponent
   ],
   imports: [
     BrowserModule,

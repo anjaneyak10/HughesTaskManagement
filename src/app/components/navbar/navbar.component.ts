@@ -9,16 +9,17 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class NavbarComponent {
 
-  constructor(private authService: AuthService){
+  constructor(private authService: AuthService,
+    private router: Router
+
+  ){
   }
   homeButtonClick() {
     this.authService.navigateBasedOnUserRole();
-    
   }
 
-  onButton2Click() {
-    console.log('Button 2 clicked');
-    // Add your logic here
+  createProject() {
+    this.router.navigate(['/createproject']);
   }
 
   onButton3Click() {

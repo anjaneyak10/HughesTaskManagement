@@ -60,13 +60,13 @@ export class AuthService {
     console.log('User role:', userRole);
     switch(userRole) {
       case 'functionalLead':
-        this.router.navigate(['functional-lead-dashboard']);
+        this.router.navigate(['functionalleaddashboard']);
         break;
       case 'employee':
-        this.router.navigate(['employee-dashboard']);
+        this.router.navigate(['employeedashboard']);
         break;
       case 'executive':
-        this.router.navigate(['executive-dashboard']);
+        this.router.navigate(['executivedashboard']);
         break;
       default:
         this.router.navigate(['login']);
