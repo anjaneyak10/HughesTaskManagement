@@ -8,7 +8,7 @@ import { FunctionalLeadDashboardComponent } from './functional-lead-dashboard/fu
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent }, 
-  { path: 'employee-dashboard', component: EmployeeDashboardComponent, canActivate: [AuthGuard] },
+  { path: 'employeedashboard', component: EmployeeDashboardComponent, canActivate: [AuthGuard] },
   { path: 'executivedashboard' , component: ExecutiveDashboardComponent, canActivate: [AuthGuard]},
   { path: 'functionalleaddashboard' , component: ExecutiveDashboardComponent, canActivate: [AuthGuard]},
   { path: '**', redirectTo: 'login' }
