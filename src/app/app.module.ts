@@ -11,6 +11,7 @@ import { AuthInterceptor } from './components/interceptors/auth.interceptor';
 import { EmployeeDashboardComponent } from './components/employee-dashboard/employee-dashboard.component';
 import { FunctionalLeadDashboardComponent } from './components/functional-lead-dashboard/functional-lead-dashboard.component';
 import { ExecutiveDashboardComponent } from './components/executive-dashboard/executive-dashboard.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ExecutiveDashboardComponent } from './components/executive-dashboard/ex
     LoginComponent,
     EmployeeDashboardComponent,
     FunctionalLeadDashboardComponent,
-    ExecutiveDashboardComponent
+    ExecutiveDashboardComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

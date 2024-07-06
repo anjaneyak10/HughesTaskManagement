@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
           this.authService.setUserRole(response.token.user.role);
           const userRole = this.authService.getUserRole();
           console.log('User role:', userRole);
-          this.redirectBasedOnRole(userRole);
+          this.authService.navigateBasedOnUserRole();
         } else {
           this.errorMessage = 'Invalid response from server';
         }
@@ -67,24 +67,4 @@ export class LoginComponent implements OnInit {
       }
     );
   }
-
-
-  private redirectBasedOnRole(userRole: string | null) {
-    // console.log('Role:', userRole);
-    switch(userRole) {
-      case 'xyz':
-        this.router.navigate(['employee-dashboard']);
-        break;
-      case 'executive':
-        this.router.navigate(['executive-dashboard']);
-        break;
-      case 'functional-lead':
-        this.router.navigate(['functional-lead-dashboard']);
-        break;
-      default:
-        this.errorMessage = 'Unknown role';
-        console.error('Unknown role:', userRole);
-    }
-  }
-
 }

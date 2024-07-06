@@ -54,4 +54,22 @@ export class AuthService {
   isLoggedIn(): boolean {
     return !!this.getToken();
   }
+
+  navigateBasedOnUserRole(): void {
+    const userRole = this.getUserRole();
+    console.log('User role:', userRole);
+    switch(userRole) {
+      case 'functionalLead':
+        this.router.navigate(['functionalleaddashboard']);
+        break;
+      case 'employee':
+        this.router.navigate(['employeedashboard']);
+        break;
+      case 'executive':
+        this.router.navigate(['executivedashboard']);
+        break;
+      default:
+        this.router.navigate(['login']);
+    }
+  }
 }
