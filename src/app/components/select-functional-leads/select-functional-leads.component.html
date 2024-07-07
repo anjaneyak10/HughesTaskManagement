@@ -1,0 +1,14 @@
+<!-- src/app/select-functional-leads/select-functional-leads.component.html -->
+<div class="select-functional-leads-form">
+    <h2>Select Functional Leads for {{ project.projectName }}</h2>
+    <form (ngSubmit)="onSubmit()" #functionalLeadsForm="ngForm">
+      <div *ngFor="let func of functions">
+        <label>{{ func.function }}</label>
+        <select [(ngModel)]="selectedLeads[func.function]" name="lead{{ func.function }}" required>
+          <option *ngFor="let lead of functionalLeads" [value]="lead.id">{{ lead.name }}</option>
+        </select>
+      </div>
+      <button type="submit" [disabled]="!functionalLeadsForm.form.valid">Submit</button>
+    </form>
+  </div>
+  

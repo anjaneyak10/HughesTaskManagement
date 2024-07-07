@@ -22,5 +22,13 @@ export class ProjectserviceService {
       map(response => response.templates)
     );
   }
+  getFunctions(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/getallfunctions`, {}).pipe(
+      tap(response => {
+        console.log('Functions received:', response);
+      }),
+      map(response => response)
+    );
+  }
 
 }

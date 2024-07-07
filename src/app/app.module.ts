@@ -12,6 +12,7 @@ import { FunctionalLeadDashboardComponent } from './components/functional-lead-d
 import { ExecutiveDashboardComponent } from './components/executive-dashboard/executive-dashboard.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { CreateProjectComponent } from './components/create-project/create-project.component';
+import { SelectFunctionalLeadsComponent } from './components/select-functional-leads/select-functional-leads.component';
 
 @NgModule({
   declarations: [
@@ -22,8 +23,7 @@ import { CreateProjectComponent } from './components/create-project/create-proje
     ExecutiveDashboardComponent,
     NavbarComponent,
     CreateProjectComponent,
-    
-
+    SelectFunctionalLeadsComponent,
   ],
   imports: [
     BrowserModule,

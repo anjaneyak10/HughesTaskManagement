@@ -6,6 +6,7 @@ import { EmployeeDashboardComponent } from './employee-dashboard/employee-dashbo
 import { ExecutiveDashboardComponent } from './executive-dashboard/executive-dashboard.component';
 import { FunctionalLeadDashboardComponent } from './functional-lead-dashboard/functional-lead-dashboard.component';
 import { CreateProjectComponent } from './create-project/create-project.component';
+import { SelectFunctionalLeadsComponent } from './select-functional-leads/select-functional-leads.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent }, 
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'executivedashboard' , component: ExecutiveDashboardComponent, canActivate: [AuthGuard]},
   { path: 'functionalleaddashboard' , component: ExecutiveDashboardComponent, canActivate: [AuthGuard]},
   {path:'createproject',component:CreateProjectComponent,canActivate:[AuthGuard]},
+  {path:'select-functional-leads',component:SelectFunctionalLeadsComponent,canActivate:[AuthGuard]},
   { path: '**', redirectTo: 'login' }
 ];
 
