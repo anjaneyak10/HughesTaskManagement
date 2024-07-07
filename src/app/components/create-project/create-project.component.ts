@@ -1,5 +1,6 @@
 // src/app/create-project/create-project.component.ts
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ProjectserviceService } from 'src/app/services/projectservice.service';
 
 @Component({
@@ -16,7 +17,7 @@ export class CreateProjectComponent implements OnInit {
 
   projectTemplates: Array<{ taskid: number, templateName: string, templateid: number }> = [];
 
-  constructor(private projectService: ProjectserviceService) {}
+  constructor(private projectService: ProjectserviceService,private router:Router) {}
 
   ngOnInit() {
     this.projectService.gettemplate().subscribe(
@@ -38,5 +39,7 @@ export class CreateProjectComponent implements OnInit {
       portfolio: this.portfolio
     };
     console.log('Project Created:', project);
+
+    this.router.navigate(['/select-functional-leads'], { state: { project } });
   }
 }
