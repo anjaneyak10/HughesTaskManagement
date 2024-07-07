@@ -24,6 +24,16 @@ export class AuthService {
     );
   }
 
+  register(email: string, name: string, username: string, role: string, func: string, password: string): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/register`, { email, name, username, role, function: func, password }).pipe(
+      tap(response => {
+        if (response.message === 'User created successfully') {
+          console.log('User registered successfully');
+        }
+      })
+    );
+  }
+
   setToken(token: string): void {
     console.log('Setting token:', token);
     localStorage.setItem('token', token);

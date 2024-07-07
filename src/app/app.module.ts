@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './components/app-routing.module';
 import { AppComponent } from './components/app/app.component';
@@ -13,6 +12,8 @@ import { ExecutiveDashboardComponent } from './components/executive-dashboard/ex
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { CreateProjectComponent } from './components/create-project/create-project.component';
 import { SelectFunctionalLeadsComponent } from './components/select-functional-leads/select-functional-leads.component';
+import { RegisterComponent } from './components/register/register.component'; 
+
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { SelectFunctionalLeadsComponent } from './components/select-functional-l
     NavbarComponent,
     CreateProjectComponent,
     SelectFunctionalLeadsComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
