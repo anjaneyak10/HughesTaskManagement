@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './components/app-routing.module';
@@ -12,6 +11,7 @@ import { EmployeeDashboardComponent } from './components/employee-dashboard/empl
 import { FunctionalLeadDashboardComponent } from './components/functional-lead-dashboard/functional-lead-dashboard.component';
 import { ExecutiveDashboardComponent } from './components/executive-dashboard/executive-dashboard.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { CreateProjectComponent } from './components/create-project/create-project.component';
 
 @NgModule({
   declarations: [
@@ -20,14 +20,17 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     EmployeeDashboardComponent,
     FunctionalLeadDashboardComponent,
     ExecutiveDashboardComponent,
-    NavbarComponent
+    NavbarComponent,
+    CreateProjectComponent,
+    
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
