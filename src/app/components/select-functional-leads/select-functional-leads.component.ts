@@ -1,6 +1,7 @@
 // src/app/select-functional-leads/select-functional-leads.component.ts
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 import { ProjectserviceService } from 'src/app/services/projectservice.service';
 
 @Component({
@@ -11,17 +12,24 @@ import { ProjectserviceService } from 'src/app/services/projectservice.service';
 export class SelectFunctionalLeadsComponent implements OnInit {
   project: any;
   functions: Array<{ function: string }> = [];
-  functionalLeads: Array<{ id: number, name: string }> = [
-    { id: 1, name: 'Lead A' },
-    { id: 2, name: 'Lead B' },
-    { id: 3, name: 'Lead C' }
-  ];
+  functionalLeads: Array<{ email: string, function: string, name: string, role: string, username: string }> = [];
+
   selectedLeads: { [key: string]: number } = {};
 
-  constructor(private projectService: ProjectserviceService, private router: Router) {}
+  constructor(private projectService: ProjectserviceService, private router: Router,private authService:AuthService) {}
+
 
   ngOnInit() {
     // Retrieve the project data from the router state
+    this.authService.getAllUsers().subscribe(
+      (users) => {
+        this.functionalLeads = users;
+        console.log('Functional Leads:', this.functionalLeads);
+      },
+      (error) => {
+        console.error('Error fetching functional leads:', error);
+      }
+    );
     this.project = history.state.project;
     this.projectService.getFunctions().subscribe(
       (functions) => {
@@ -32,11 +40,12 @@ export class SelectFunctionalLeadsComponent implements OnInit {
         console.error('Error fetching functions:', error);
       }
     );
+    console.log('Project:', this.project);
   }
 
   onSubmit() {
     this.project.functionalLeads = this.selectedLeads;
     console.log('Project with Functional Leads:', this.project);
-    // Here, you can make a final submission or navigate to another component if needed
+    
   }
 }
