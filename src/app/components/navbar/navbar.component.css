@@ -1,16 +1,21 @@
 .header {
-  background-color: #21294f;
-  color: #fff;
-  display: flex;
-  font-size: 20px;
-  justify-content: space-between;
-  padding: 11px 14px;
+    background-color: #21294f;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+    height: 95%;
+    justify-content: space-between;
+    padding: 11px 14px;
+    position: fixed;
+    width: auto;
 }
 
 .navigation {
   display: flex;
+  flex-direction: column; /* Stack nav items vertically */
   gap: 20px;
-  margin: auto 0;
+  margin-top: 20px; /* Adjust as needed */
 }
 
 .nav-item {
