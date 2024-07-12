@@ -24,13 +24,24 @@ export class TaskService {
       })
     );
   }
-  getOpenTasks(email: string): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/open_tasks`, { email }).pipe(
-      tap(response => {
-        if (response && response.token) {
-          console.log('response:', response)
-        }
-      })
-    );
-  }
+//   getOpenTasks(email: string): Observable<any> {
+//     return this.http.post<any>(`${this.apiUrl}/open_tasks`, { email }).pipe(
+//       tap(response => {
+//         if (response && response.token) {
+//           console.log('response:', response)
+//         }
+//       })
+//     );
+//   }
+// }
+
+getOpenTasks(email: string): Observable<any> {
+  return this.http.get<any>(`${this.apiUrl}/open_tasks`, { params:{email} }).pipe(
+    tap(response => {
+      if (response && response.token) {
+        console.log('response:', response)
+      }
+    })
+  );
+}
 }

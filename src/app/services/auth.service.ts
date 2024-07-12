@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
-  private baseUrl = 'http://127.0.0.1:5000/auth';
+  private baseUrl = 'http://127.0.0.1:8080/auth';
 
   constructor(private http: HttpClient, private router: Router) {}
 
