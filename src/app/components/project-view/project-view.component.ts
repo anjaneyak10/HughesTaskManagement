@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { TaskService } from 'src/app/services/task.service';
 
 interface Project {
   task: string;
@@ -27,12 +28,15 @@ export class ProjectViewComponent implements OnInit {
   displayedColumns: string[] = ['task', 'completion', 'assignee', 'specialInstructions', 'exceptions', 'dependentTasks'];
   dataSource = new MatTableDataSource(PROJECT_DATA);
 
-  constructor() { }
+  constructor(private taskService: TaskService) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.taskService.getProjectList('sst@gmail.com').subscribe(tasks => {
+      console.log(JSON.stringify(tasks));
+    });
+  }
 
   applyFilter(filterValue: string|null): void {
     this.dataSource.filter = filterValue ? filterValue.trim().toLowerCase() : '';
   }
-
 }

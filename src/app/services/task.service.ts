@@ -32,5 +32,25 @@ export class TaskService {
         }
       })
     );
+
+}
+getProjectList(email: string): Observable<any> {
+  return this.http.get<any>(`${this.apiUrl}/project/get_my projects?email=${email}`).pipe(
+    tap(response => {
+      if (response && response.token) {
+        console.log('response:', response);
+      }
+    })
+  );
+
+}
+getProjectInfo(project_id: string): Observable<any> {
+  return this.http.get<any>(`${this.apiUrl}/project//project/project_view?project_id=${project_id}`).pipe(
+    tap(response => {
+      if (response && response.token) {
+        console.log('response:', response);
+      }
+    })
+  );
 }
 }
