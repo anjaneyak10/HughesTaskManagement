@@ -23,6 +23,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
+
 import { ProjectViewComponent } from './components/project-view/project-view.component';
 
 
@@ -58,8 +60,8 @@ import { ProjectViewComponent } from './components/project-view/project-view.com
     MatInputModule,
     MatFormFieldModule,
     MatAutocompleteModule,
-    MatProgressSpinnerModule
-    
+    MatProgressSpinnerModule,
+    MatSelectModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
