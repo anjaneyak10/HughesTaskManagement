@@ -5,6 +5,12 @@
       <mat-icon mat-card-avatar class="profileTitle" >account_circle</mat-icon>
       <mat-card-title class="cardTitle">My Tasks</mat-card-title>
     </mat-card-header>
+    <ng-container *ngIf="spinner" >
+      <div class="spinner-container">
+    <mat-spinner></mat-spinner>
+    </div>
+  </ng-container>
+,<ng-container *ngIf="!spinner" >
     <mat-card-content>
       <mat-tab-group>
         <mat-tab label="Upcoming">
@@ -42,7 +48,7 @@
         </mat-tab>
         <mat-tab label="Completed">
           <div>
-            <table mat-table [dataSource]="upcomingTasks" class="mat-elevation-z8">
+            <table mat-table [dataSource]="completedTasks" class="mat-elevation-z8">
               <!-- Task Name Column -->
               <ng-container matColumnDef="taskName">
                 <th mat-header-cell *matHeaderCellDef> Task Name </th>
@@ -75,6 +81,9 @@
         </mat-tab>
       </mat-tab-group>
     </mat-card-content>
+  </ng-container>
+  
+  
   </mat-card>
   
   </main>

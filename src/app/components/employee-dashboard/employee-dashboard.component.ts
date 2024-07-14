@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { TaskService } from 'src/app/services/task.service';
+import { forkJoin } from 'rxjs';
 
 interface Task {
   name: string;
@@ -18,38 +19,34 @@ export class EmployeeDashboardComponent {
   openTasks: any[] = [];
   closedTasks: any[] = [];
   displayedColumns: string[] = ['taskName', 'company', 'assignee', 'specialInstructions', 'exceptions'];
-
-  upcomingTasks: Task[] = [
-    { name: 'Obtain Final Site List', organization: 'Nike', assignee: 'Anjan', specialInstructions: 'Something special', exceptions: 'Some Exception' },
-    { name: 'Obtain Final Site List', organization: 'Nike', assignee: 'Anjan', specialInstructions: 'Something special', exceptions: 'Some Exception' },
-    { name: 'Obtain Final Site List', organization: 'Nike', assignee: 'Anjan', specialInstructions: 'Something special', exceptions: 'Some Exception' },
-    { name: 'Obtain Final Site List', organization: 'Nike', assignee: 'Anjan', specialInstructions: 'Something special', exceptions: 'Some Exception' }
-  ];
-
-  overdueTasks: Task[] = [
-    { name: 'Obtain Final Site List', organization: 'Nike', assignee: 'Anjan', specialInstructions: 'Something special', exceptions: 'Some Exception' },
-    // Add more overdue tasks here
-  ];
-
-  completedTasks: Task[] = [
-    { name: 'Obtain Final Site List', organization: 'Nike', assignee: 'Anjan', specialInstructions: 'Something special', exceptions: 'Some Exception' },
-    // Add more completed tasks here
-  ];
-
-  constructor(private taskService: TaskService) { }
-
-  ngOnInit(): void {
-    this.taskService.getOpenTasks('employee@test.com').subscribe(tasks => {
-      this.openTasks = tasks;
-      console.log("@@@"+this.openTasks)
+  spinner = true;
+  upcomingTasks: Task[] = [];
+  completedTasks: Task[] = [];
+  constructor(private taskService: TaskService) {
+    const openTasks$ = this.taskService.getOpenTasks('sst@gmail.com');
+    const closedTasks$ = this.taskService.getclosedTasks('sst@gmail.com');
+  
+    forkJoin([openTasks$, closedTasks$]).subscribe({
+      next: ([openTasksResponse, closedTasksResponse]) => {
+        this.openTasks = openTasksResponse.open_tasks;
+        for (let i of this.openTasks) {
+          console.log(i);
+          this.upcomingTasks.push({name: i[0], organization: i[1], assignee: i[3], specialInstructions: '', exceptions: ''});
+        }
+  
+        this.closedTasks = closedTasksResponse.closed_tasks;
+        for (let i of this.closedTasks) {
+          this.completedTasks.push({name: i[0], organization: i[1], assignee: i[3], specialInstructions: '', exceptions: ''});
+        }
+      },
+      complete: () => {
+        this.spinner = false; // Hide spinner when both requests are completed
+      }
     });
-    this.taskService.getclosedTasks('employee@test.com').subscribe(tasks => {
-      this.closedTasks = tasks;
-      console.log("@@@"+this.closedTasks)});
   }
-  createTask() {
-    // Add logic to create a new task
+      
   }
-}
+ 
+
 
 

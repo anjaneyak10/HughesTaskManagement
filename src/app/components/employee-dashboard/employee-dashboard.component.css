@@ -11,7 +11,12 @@
   mat-card {
     margin: 20px;
   }
-  
+  .spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Use full viewport height */
+  }
   
   mat-list-item {
     display: flex;

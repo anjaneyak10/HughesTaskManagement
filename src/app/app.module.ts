@@ -22,6 +22,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ProjectViewComponent } from './components/project-view/project-view.component';
 
 
@@ -56,7 +57,8 @@ import { ProjectViewComponent } from './components/project-view/project-view.com
     MatTableModule,
     MatInputModule,
     MatFormFieldModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatProgressSpinnerModule
     
   ],
   providers: [
