@@ -17,6 +17,9 @@ export class NavbarComponent {
   homeButtonClick() {
     this.authService.navigateBasedOnUserRole();
   }
+  projectViewClick(){
+    this.router.navigate(['/projectView']);
+  }
 
   createProject() {
     this.router.navigate(['/createproject']);

@@ -16,21 +16,21 @@ export class TaskService {
   
 
   getclosedTasks(email: string): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/closed_tasks`, { email }).pipe(
+    return this.http.get<any>(`${this.apiUrl}/closed_tasks?email=${email}`).pipe(
       tap(response => {
         if (response && response.token) {
-          console.log('response:', response)
+          console.log('response:', response);
         }
       })
     );
   }
   getOpenTasks(email: string): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/open_tasks`, { email }).pipe(
+    return this.http.get<any>(`${this.apiUrl}/open_tasks?email=${email}`).pipe(
       tap(response => {
         if (response && response.token) {
-          console.log('response:', response)
+          console.log('response:', response);
         }
       })
     );
-  }
+}
 }

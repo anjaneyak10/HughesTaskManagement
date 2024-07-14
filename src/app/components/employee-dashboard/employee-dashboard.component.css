@@ -8,7 +8,34 @@
     font-weight: 400;
     padding-bottom: 80px;
   }
+  mat-card {
+    margin: 20px;
+  }
   
+  
+  mat-list-item {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  mat-icon {
+    color: green;
+  }
+  .profileTitle{
+    color: #21294f;
+    font-size: 60px;
+    overflow: inherit;
+
+  }
+  
+  button {
+    margin-bottom: 20px;
+  }
+  .cardTitle{
+    font-size: 46px;
+    color: #21294f;
+    margin-left: 26px;
+  }
   
   
   .navigation {

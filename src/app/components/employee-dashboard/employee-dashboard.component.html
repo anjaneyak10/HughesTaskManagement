@@ -1,98 +1,80 @@
 <main class="main-content">
-    <section class="view-toggle">
-      <h4 class="view-title">My Tasks</h4>
-      <h4 class="view-title">Functional View</h4>
-      <h4 class="view-title">Executive View</h4>
-      <h4 class="view-title">Project View</h4>
-    </section>
-
-    <section class="open-tasks">
-      <h2 class="section-title">Open Tasks</h2>
-      <table class="task-table">
-        <thead>
-          <tr>
-            <th>Task Name</th>
-            <th>Company</th>
-            <th>Assignee</th>
-            <th>Special Instructions</th>
-            <th>Exceptions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <img
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/753b1106c44f7193d31e665b04831e200f5b1a4f686f603d2d5e21e5951d4fa0?apiKey=fc01a4dd06904277af17ff5133e686e8&"
-                alt=""
-                class="task-icon"
-              />
-              <span>Obtain Final Site List</span>
-            </td>
-            <td>Nike</td>
-            <td>Anjan</td>
-            <td>Something special</td>
-            <td>Some Exception</td>
-          </tr>
-          <tr>
-            <td>
-              <img
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/753b1106c44f7193d31e665b04831e200f5b1a4f686f603d2d5e21e5951d4fa0?apiKey=fc01a4dd06904277af17ff5133e686e8&"
-                alt=""
-                class="task-icon"
-              />
-              <span>Obtain Final Site List</span>
-            </td>
-            <td>Nike</td>
-            <td>Anjan</td>
-            <td>Something special</td>
-            <td>Some Exception</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-
-    <section class="close-tasks">
-      <h2 class="section-title">Closed Tasks</h2>
-      <table class="task-table">
-        <thead>
-          <tr>
-            <th>Task Name</th>
-            <th>Company</th>
-            <th>Assignee</th>
-            <th>Special Instructions</th>
-            <th>Exceptions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <img
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/753b1106c44f7193d31e665b04831e200f5b1a4f686f603d2d5e21e5951d4fa0?apiKey=fc01a4dd06904277af17ff5133e686e8&"
-                alt=""
-                class="task-icon"
-              />
-              <span>Obtain Final Site List</span>
-            </td>
-            <td>Nike</td>
-            <td>Anjan</td>
-            <td>Something special</td>
-            <td>Some Exception</td>
-          </tr>
-          <tr>
-            <td>
-              <img
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/753b1106c44f7193d31e665b04831e200f5b1a4f686f603d2d5e21e5951d4fa0?apiKey=fc01a4dd06904277af17ff5133e686e8&"
-                alt=""
-                class="task-icon"
-              />
-              <span>Obtain Final Site List</span>
-            </td>
-            <td>Nike</td>
-            <td>Anjan</td>
-            <td>Something special</td>
-            <td>Some Exception</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
+ 
+  <mat-card>
+    <mat-card-header>
+      <mat-icon mat-card-avatar class="profileTitle" >account_circle</mat-icon>
+      <mat-card-title class="cardTitle">My Tasks</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-tab-group>
+        <mat-tab label="Upcoming">
+          <div>
+            <table mat-table [dataSource]="upcomingTasks" class="mat-elevation-z8">
+              <!-- Task Name Column -->
+              <ng-container matColumnDef="taskName">
+                <th mat-header-cell *matHeaderCellDef> Task Name </th>
+                <td mat-cell *matCellDef="let task"> {{task.name}} </td>
+              </ng-container>
+              <!-- Company Column -->
+              <ng-container matColumnDef="company">
+                <th mat-header-cell *matHeaderCellDef> Company </th>
+                <td mat-cell *matCellDef="let task"> {{task.organization}} </td>
+              </ng-container>
+              <!-- Assignee Column -->
+              <ng-container matColumnDef="assignee">
+                <th mat-header-cell *matHeaderCellDef> Assignee </th>
+                <td mat-cell *matCellDef="let task"> {{task.assignee}} </td>
+              </ng-container>
+              <!-- Special Instructions Column -->
+              <ng-container matColumnDef="specialInstructions">
+                <th mat-header-cell *matHeaderCellDef> Special Instructions </th>
+                <td mat-cell *matCellDef="let task"> {{task.specialInstructions}} </td>
+              </ng-container>
+              <!-- Exceptions Column -->
+              <ng-container matColumnDef="exceptions">
+                <th mat-header-cell *matHeaderCellDef> Exceptions </th>
+                <td mat-cell *matCellDef="let task"> {{task.exceptions}} </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+          </div>
+        </mat-tab>
+        <mat-tab label="Completed">
+          <div>
+            <table mat-table [dataSource]="upcomingTasks" class="mat-elevation-z8">
+              <!-- Task Name Column -->
+              <ng-container matColumnDef="taskName">
+                <th mat-header-cell *matHeaderCellDef> Task Name </th>
+                <td mat-cell *matCellDef="let task"> {{task.name}} </td>
+              </ng-container>
+              <!-- Company Column -->
+              <ng-container matColumnDef="company">
+                <th mat-header-cell *matHeaderCellDef> Company </th>
+                <td mat-cell *matCellDef="let task"> {{task.organization}} </td>
+              </ng-container>
+              <!-- Assignee Column -->
+              <ng-container matColumnDef="assignee">
+                <th mat-header-cell *matHeaderCellDef> Assignee </th>
+                <td mat-cell *matCellDef="let task"> {{task.assignee}} </td>
+              </ng-container>
+              <!-- Special Instructions Column -->
+              <ng-container matColumnDef="specialInstructions">
+                <th mat-header-cell *matHeaderCellDef> Special Instructions </th>
+                <td mat-cell *matCellDef="let task"> {{task.specialInstructions}} </td>
+              </ng-container>
+              <!-- Exceptions Column -->
+              <ng-container matColumnDef="exceptions">
+                <th mat-header-cell *matHeaderCellDef> Exceptions </th>
+                <td mat-cell *matCellDef="let task"> {{task.exceptions}} </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card-content>
+  </mat-card>
+  
   </main>
