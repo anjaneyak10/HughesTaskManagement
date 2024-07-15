@@ -18,7 +18,7 @@ interface Task {
 export class EmployeeDashboardComponent {
   openTasks: any[] = [];
   closedTasks: any[] = [];
-  displayedColumns: string[] = ['taskName', 'company', 'assignee', 'specialInstructions', 'exceptions'];
+  displayedColumns: string[] = ['taskName', 'projectId', 'assignee', 'specialInstructions', 'exceptions'];
   spinner = true;
   upcomingTasks: Task[] = [];
   completedTasks: Task[] = [];
