@@ -1,62 +1,62 @@
 <div class="main-content">
     <mat-card>
-        <ng-container *ngIf="spinner" >
+        <ng-container *ngIf="spinner">
             <div class="spinner-container">
-          <mat-spinner></mat-spinner>
-          </div>
+                <mat-spinner></mat-spinner>
+            </div>
         </ng-container>
-        <ng-container *ngIf="!spinner" >
-        <mat-form-field appearance="outline">
-            <mat-label>Search Projects</mat-label>
-            <mat-select (selectionChange)="applyFilter($event.value)">
-              <mat-option *ngFor="let project of projectNames" [value]="project">
-                {{ project }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        <ng-container *ngIf="dataSource.data.length">
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-      
-          <!-- Task Column -->
-          <ng-container matColumnDef="task">
-            <th mat-header-cell *matHeaderCellDef> Task </th>
-            <td mat-cell *matCellDef="let element"> {{element.task}} </td>
-          </ng-container>
-      
-          <!-- Completion Column -->
-          <ng-container matColumnDef="completion">
-            <th mat-header-cell *matHeaderCellDef> Completion </th>
-            <td mat-cell *matCellDef="let element"> {{element.completion}} </td>
-          </ng-container>
-      
-          <!-- Assignee Column -->
-          <ng-container matColumnDef="assignee">
-            <th mat-header-cell *matHeaderCellDef> Assignee </th>
-            <td mat-cell *matCellDef="let element"> {{element.assignee}} </td>
-          </ng-container>
-      
-          <!-- Special Instructions Column -->
-          <ng-container matColumnDef="specialInstructions">
-            <th mat-header-cell *matHeaderCellDef> Special Instructions </th>
-            <td mat-cell *matCellDef="let element"> {{element.specialInstructions}} </td>
-          </ng-container>
-      
-          <!-- Exceptions Column -->
-          <ng-container matColumnDef="exceptions">
-            <th mat-header-cell *matHeaderCellDef> Exceptions </th>
-            <td mat-cell *matCellDef="let element"> {{element.exceptions}} </td>
-          </ng-container>
-      
-          <!-- Dependent Tasks Column -->
-          <ng-container matColumnDef="dependentTasks">
-            <th mat-header-cell *matHeaderCellDef> Dependent Tasks </th>
-            <td mat-cell *matCellDef="let element"> {{element.dependentTasks}} </td>
-          </ng-container>
-      
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-    </ng-container>
-    </ng-container>
-      </mat-card>
+        <ng-container *ngIf="!spinner">
+            <mat-form-field appearance="outline">
+                <mat-label>Search Projects</mat-label>
+                <mat-select (selectionChange)="applyFilter($event.value)">
+                    <mat-option *ngFor="let project of projectNames" [value]="project">
+                        {{ project }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <ng-container *ngIf="!spinnerTable">
+                <ng-container *ngIf="dataSource.data.length">
+                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+                        <!-- Task Column -->
+                        <ng-container matColumnDef="task">
+                            <th mat-header-cell *matHeaderCellDef> Task </th>
+                            <td mat-cell *matCellDef="let element"> {{element.task}} </td>
+                        </ng-container>
+
+                        <!-- Completion Column -->
+                        <ng-container matColumnDef="completion">
+                            <th mat-header-cell *matHeaderCellDef> Completion </th>
+                            <td mat-cell *matCellDef="let element"> {{element.completion}} </td>
+                        </ng-container>
+
+                        <!-- Assignee Column -->
+                        <ng-container matColumnDef="assignee">
+                            <th mat-header-cell *matHeaderCellDef> Assignee </th>
+                            <td mat-cell *matCellDef="let element"> {{element.assignee}} </td>
+                        </ng-container>
+
+                        <!-- Special Instructions Column -->
+                        <ng-container matColumnDef="specialInstructions">
+                            <th mat-header-cell *matHeaderCellDef> Special Instructions </th>
+                            <td mat-cell *matCellDef="let element"> {{element.specialInstructions}} </td>
+                        </ng-container>
+
+                        <!-- Exceptions Column -->
+                        <ng-container matColumnDef="exceptions">
+                            <th mat-header-cell *matHeaderCellDef> Exceptions </th>
+                            <td mat-cell *matCellDef="let element"> {{element.exceptions}} </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                </ng-container>
+            </ng-container>
+            <ng-container *ngIf="spinnerTable">
+                <div class="spinner-container">
+                    <mat-spinner></mat-spinner>
+                </div>
+            </ng-container>
+        </ng-container>
+    </mat-card>
 </div>
