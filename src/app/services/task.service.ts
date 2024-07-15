@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class TaskService {
-  private apiUrl = 'http://localhost:5000/dashboard'; // Adjust the URL/port as needed
+  private apiUrl = 'http://localhost:5001/dashboard'; // Adjust the URL/port as needed
 
   constructor(private http: HttpClient) { }
 
@@ -35,7 +35,7 @@ export class TaskService {
 
 }
 getProjectList(email: string): Observable<any> {
-  return this.http.get<any>(`http://localhost:5000/project/get_my_projects?email=${email}`).pipe(
+  return this.http.get<any>(`http://localhost:5001/project/get_my_projects?email=${email}`).pipe(
     tap(response => {
       if (response && response.token) {
         console.log('response:', response);
@@ -45,7 +45,7 @@ getProjectList(email: string): Observable<any> {
 
 }
 getProjectInfo(project_id: string): Observable<any> {
-  return this.http.get<any>(`http://localhost:5000/project/project_view?project_id=${project_id}`).pipe(
+  return this.http.get<any>(`http://localhost:5001/project/project_view?project_id=${project_id}`).pipe(
     tap(response => {
       if (response && response.token) {
         console.log('response:', response);
