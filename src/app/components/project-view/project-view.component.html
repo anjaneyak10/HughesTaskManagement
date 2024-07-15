@@ -17,7 +17,11 @@
             <ng-container *ngIf="!spinnerTable">
                 <ng-container *ngIf="dataSource.data.length">
                     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-
+                           <!-- Function Column -->
+                           <ng-container matColumnDef="function">
+                            <th mat-header-cell *matHeaderCellDef> Exceptions </th>
+                            <td mat-cell *matCellDef="let element"> {{element.function}} </td>
+                        </ng-container>
                         <!-- Task Column -->
                         <ng-container matColumnDef="task">
                             <th mat-header-cell *matHeaderCellDef> Task </th>
@@ -47,6 +51,9 @@
                             <th mat-header-cell *matHeaderCellDef> Exceptions </th>
                             <td mat-cell *matCellDef="let element"> {{element.exceptions}} </td>
                         </ng-container>
+
+                       
+
                         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                     </table>

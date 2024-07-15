@@ -8,6 +8,7 @@ interface Project {
   assignee: string;
   specialInstructions: string;
   exceptions: string;
+  function:string;
 }
 interface ProjectSelect{
   name: string;
@@ -30,7 +31,7 @@ const projectList: ProjectSelect[] = []
   styleUrls: ['./project-view.component.css']
 })
 export class ProjectViewComponent implements OnInit {
-  displayedColumns: string[] = ['task', 'completion', 'assignee', 'specialInstructions', 'exceptions'];
+  displayedColumns: string[] = ['function','task', 'completion', 'assignee', 'specialInstructions', 'exceptions'];
   dataSource: MatTableDataSource<Project>;
   projectNames: string[] =[];
   spinner = true;
@@ -60,11 +61,12 @@ export class ProjectViewComponent implements OnInit {
     }
     this.taskService.getProjectInfo(filterValue).subscribe(projectInfo => {
       console.log(filterValue);
+      console.log(JSON.stringify(projectInfo));
       this.dataSource = new MatTableDataSource<Project>([]);
       this.spinnerTable = true;
       PROJECT_DATA=[]
       projectInfo.forEach((i: any) => {
-      PROJECT_DATA.push({ task: i.taskname, completion: i.completion, assignee: i.assignee, specialInstructions: i.specialinstructions, exceptions: i.exceptions});
+      PROJECT_DATA.push({ task: i.taskname, completion: i.completion, assignee: i.assignee, specialInstructions: i.specialinstructions, exceptions: i.exceptions,function:i.function});
       });
       console.log(PROJECT_DATA)
       this.dataSource = new MatTableDataSource(PROJECT_DATA);
