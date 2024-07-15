@@ -18,12 +18,16 @@ export class AuthService {
         if (response && response.token) {
           this.setToken(response.token);
           this.setUserRole(response.token.user.role);
+          this.setEmail(username);
           console.log('Token received:', response.token)
         }
       })
     );
   }
-
+  setEmail(email: string): void {
+    console.log('Setting email:', email);
+    localStorage.setItem('email', email);
+  }
   setToken(token: string): void {
     console.log('Setting token:', token);
     localStorage.setItem('token', token);

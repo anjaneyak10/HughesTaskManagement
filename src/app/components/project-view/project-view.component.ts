@@ -7,7 +7,7 @@ interface Project {
   completion: string;
   assignee: string;
   specialInstructions: string;
-  exceptions: string;
+  exception: string;
   function:string;
 }
 interface ProjectSelect{
@@ -16,11 +16,11 @@ interface ProjectSelect{
 }
 
 /*const PROJECT_DATA: Project[] = [
-  { task: 'Invoicing', completion: '80%', assignee: '', specialInstructions: '', exceptions: '', dependentTasks: 123 },
-  { task: 'Obtain Final Site List', completion: '', assignee: 'Nike', specialInstructions: 'Something special', exceptions: 'Some Exception', dependentTasks: 1 },
-  { task: 'Obtain Final Site List', completion: '', assignee: 'Nike', specialInstructions: 'Something special', exceptions: 'Some Exception', dependentTasks: 1 },
-  { task: 'Something Else', completion: '80%', assignee: '', specialInstructions: '', exceptions: '', dependentTasks: 123 },
-  { task: 'Obtain Final Site List', completion: '', assignee: 'Nike', specialInstructions: 'Something special', exceptions: 'Some Exception', dependentTasks: 1 }
+  { task: 'Invoicing', completion: '80%', assignee: '', specialInstructions: '', exception: '', dependentTasks: 123 },
+  { task: 'Obtain Final Site List', completion: '', assignee: 'Nike', specialInstructions: 'Something special', exception: 'Some Exception', dependentTasks: 1 },
+  { task: 'Obtain Final Site List', completion: '', assignee: 'Nike', specialInstructions: 'Something special', exception: 'Some Exception', dependentTasks: 1 },
+  { task: 'Something Else', completion: '80%', assignee: '', specialInstructions: '', exception: '', dependentTasks: 123 },
+  { task: 'Obtain Final Site List', completion: '', assignee: 'Nike', specialInstructions: 'Something special', exception: 'Some Exception', dependentTasks: 1 }
 ];*/
 var PROJECT_DATA: Project[] = [];
 const projectList: ProjectSelect[] = []
@@ -31,7 +31,7 @@ const projectList: ProjectSelect[] = []
   styleUrls: ['./project-view.component.css']
 })
 export class ProjectViewComponent implements OnInit {
-  displayedColumns: string[] = ['function','task', 'completion', 'assignee', 'specialInstructions', 'exceptions'];
+  displayedColumns: string[] = ['function','task', 'completion', 'assignee', 'specialInstructions', 'exception'];
   dataSource: MatTableDataSource<Project>;
   projectNames: string[] =[];
   spinner = true;
@@ -41,7 +41,9 @@ export class ProjectViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.taskService.getProjectList('sst@gmail.com').subscribe(tasks => {
+    let  email=localStorage.getItem('email');
+    if(email){
+    this.taskService.getProjectList(email).subscribe(tasks => {
       console.log(JSON.stringify(tasks));
       tasks.forEach((proj: any) => {
         projectList.push({name:proj.projectname,projectId:proj.projectid}); // Add project name to the Set
@@ -50,6 +52,7 @@ export class ProjectViewComponent implements OnInit {
       console.log(this.projectNames);
       this.spinner = false;
     });
+  }
   }
 
   applyFilter(filterValue: string): void {
@@ -60,15 +63,13 @@ export class ProjectViewComponent implements OnInit {
       }
     }
     this.taskService.getProjectInfo(filterValue).subscribe(projectInfo => {
-      console.log(filterValue);
-      console.log(JSON.stringify(projectInfo));
+      console.log(localStorage.getItem('email'));
       this.dataSource = new MatTableDataSource<Project>([]);
       this.spinnerTable = true;
       PROJECT_DATA=[]
       projectInfo.forEach((i: any) => {
-      PROJECT_DATA.push({ task: i.taskname, completion: i.completion, assignee: i.assignee, specialInstructions: i.specialinstructions, exceptions: i.exceptions,function:i.function});
+      PROJECT_DATA.push({ task: i.taskname, completion: i.completion, assignee: i.assignee, specialInstructions: i.specialinstructions, exception: i.exception,function:i.function});
       });
-      console.log(PROJECT_DATA)
       this.dataSource = new MatTableDataSource(PROJECT_DATA);
       this.spinnerTable = false;
     });

@@ -23,8 +23,10 @@ export class EmployeeDashboardComponent {
   upcomingTasks: Task[] = [];
   completedTasks: Task[] = [];
   constructor(private taskService: TaskService) {
-    const openTasks$ = this.taskService.getOpenTasks('sst@gmail.com');
-    const closedTasks$ = this.taskService.getclosedTasks('sst@gmail.com');
+    let  email=localStorage.getItem('email');
+    if(email){
+    const openTasks$ = this.taskService.getOpenTasks(email);
+    const closedTasks$ = this.taskService.getclosedTasks(email);
   
     forkJoin([openTasks$, closedTasks$]).subscribe({
       next: ([openTasksResponse, closedTasksResponse]) => {
@@ -43,6 +45,7 @@ export class EmployeeDashboardComponent {
         this.spinner = false; // Hide spinner when both requests are completed
       }
     });
+  }
   }
       
   }
