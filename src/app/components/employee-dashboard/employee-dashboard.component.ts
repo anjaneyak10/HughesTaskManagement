@@ -8,6 +8,8 @@ interface Task {
   assignee: string;
   specialInstructions: string;
   exceptions: string;
+  dueDate: string;
+  completedDate: string;
 }
 
 @Component({
@@ -18,7 +20,8 @@ interface Task {
 export class EmployeeDashboardComponent {
   openTasks: any[] = [];
   closedTasks: any[] = [];
-  displayedColumns: string[] = ['taskName', 'projectId', 'assignee', 'specialInstructions', 'exceptions'];
+  displayedColumns: string[] = ['taskName', 'projectId', 'assignee', 'specialInstructions', 'exceptions','duedate'];
+  completeddisplayedColumns: string[] = ['taskName', 'projectId', 'assignee', 'specialInstructions', 'exceptions'];
   spinner = true;
   upcomingTasks: Task[] = [];
   completedTasks: Task[] = [];
@@ -32,13 +35,14 @@ export class EmployeeDashboardComponent {
       next: ([openTasksResponse, closedTasksResponse]) => {
         this.openTasks = openTasksResponse.open_tasks;
         for (let i of this.openTasks) {
-          console.log(i);
-          this.upcomingTasks.push({name: i[0], organization: i[1], assignee: i[3], specialInstructions: '', exceptions: ''});
+          const date = new Date(i.duedate);
+          const formattedDate = ((date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear());
+          this.upcomingTasks.push({name: i.taskname, organization: i.projectname, assignee: i.assigneeemail, specialInstructions: i.specialinstruction, exceptions: i.exception, dueDate: formattedDate, completedDate: i.completeddate});
         }
   
         this.closedTasks = closedTasksResponse.closed_tasks;
         for (let i of this.closedTasks) {
-          this.completedTasks.push({name: i[0], organization: i[1], assignee: i[3], specialInstructions: '', exceptions: ''});
+          this.completedTasks.push({name: i.taskname, organization: i.projectname, assignee: i.assigneeemail, specialInstructions: i.specialinstruction, exceptions: i.exception, dueDate: i.duedate, completedDate: i.completeddate});
         }
       },
       complete: () => {

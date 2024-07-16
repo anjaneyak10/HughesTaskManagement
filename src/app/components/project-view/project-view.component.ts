@@ -34,6 +34,7 @@ export class ProjectViewComponent implements OnInit {
   displayedColumns: string[] = ['function','task', 'completion', 'assignee', 'specialInstructions', 'exception'];
   dataSource: MatTableDataSource<Project>;
   projectNames: string[] =[];
+  projectProgress=75
   spinner = true;
   spinnerTable=false;
   constructor(private taskService: TaskService) {

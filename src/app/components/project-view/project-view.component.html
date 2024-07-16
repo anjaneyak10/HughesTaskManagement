@@ -1,5 +1,9 @@
 <div class="main-content">
     <mat-card>
+        <mat-card-header>
+            <mat-icon mat-card-avatar class="profileTitle" >account_circle</mat-icon>
+            <mat-card-title class="cardTitle">My Projects</mat-card-title>
+          </mat-card-header>
         <ng-container *ngIf="spinner">
             <div class="spinner-container">
                 <mat-spinner></mat-spinner>
@@ -21,6 +25,15 @@
         </ng-container>
             <ng-container *ngIf="!spinnerTable">
                 <ng-container *ngIf="dataSource.data.length">
+
+                    <div class="container">
+                        <div class="status-bar">
+                          <p class="status">Project Status: 75%</p>
+                          <mat-progress-bar class="bar" mode="determinate" [value]="projectProgress"></mat-progress-bar>
+                        </div>
+                        <button mat-raised-button class="createTask" color="primary">Create Task</button>
+                      </div>
+
                     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
                            <!-- Function Column -->
                            <ng-container matColumnDef="function">

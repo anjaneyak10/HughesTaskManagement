@@ -9,21 +9,21 @@
   flex-direction: column;
   align-items: center;
   padding: 20px 0;
+  width:auto;
 }
 
 .navigation {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  width: 100%;
+  align-items: left;
+  width: auto;
 }
 
 .nav-item {
   text-decoration: none;
-  color: white; /* Adjust text color as needed */
+  color: white;
   padding: 10px;
-  text-align: center;
-  width: 100%;
+  text-align: left;
 }
 
 .nav-item:hover {
