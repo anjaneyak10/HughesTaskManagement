@@ -1,3 +1,4 @@
+
 .main-content {
     display: flex;
     flex-direction: column;
@@ -23,9 +24,10 @@
     color: #21294f;
     margin-left: 26px;
   }
-  mat-card {
+  mat-card[_ngcontent-ng-c3417010798] {
     margin: 20px;
-  }
+    height: 704px;
+}
   mat-form-field {
     width: auto;
     margin-bottom: 10px;
@@ -58,3 +60,11 @@
     padding:0px 10px;
     font-size: large;
   }
+  .completed {
+    color: green;
+  }
+  
+  .not-completed {
+    color: red;
+  }
+ 

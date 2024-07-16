@@ -3,8 +3,8 @@ import { TaskService } from 'src/app/services/task.service';
 import { forkJoin } from 'rxjs';
 
 interface Task {
-  name: string;
-  organization: string;
+  taskName: string;
+  projectId: string;
   assignee: string;
   specialInstructions: string;
   exceptions: string;
@@ -20,7 +20,7 @@ interface Task {
 export class EmployeeDashboardComponent {
   openTasks: any[] = [];
   closedTasks: any[] = [];
-  displayedColumns: string[] = ['taskName', 'projectId', 'assignee', 'specialInstructions', 'exceptions','duedate'];
+  displayedColumns: string[] = ['taskName', 'projectId', 'assignee', 'specialInstructions', 'exceptions','dueDate'];
   completeddisplayedColumns: string[] = ['taskName', 'projectId', 'assignee', 'specialInstructions', 'exceptions'];
   spinner = true;
   upcomingTasks: Task[] = [];
@@ -37,12 +37,12 @@ export class EmployeeDashboardComponent {
         for (let i of this.openTasks) {
           const date = new Date(i.duedate);
           const formattedDate = ((date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear());
-          this.upcomingTasks.push({name: i.taskname, organization: i.projectname, assignee: i.assigneeemail, specialInstructions: i.specialinstruction, exceptions: i.exception, dueDate: formattedDate, completedDate: i.completeddate});
+          this.upcomingTasks.push({taskName: i.taskname, projectId: i.projectname, assignee: i.assigneeemail, specialInstructions: i.specialinstruction, exceptions: i.exception, dueDate: formattedDate, completedDate: i.completeddate});
         }
   
         this.closedTasks = closedTasksResponse.closed_tasks;
         for (let i of this.closedTasks) {
-          this.completedTasks.push({name: i.taskname, organization: i.projectname, assignee: i.assigneeemail, specialInstructions: i.specialinstruction, exceptions: i.exception, dueDate: i.duedate, completedDate: i.completeddate});
+          this.completedTasks.push({taskName: i.taskname, projectId: i.projectname, assignee: i.assigneeemail, specialInstructions: i.specialinstruction, exceptions: i.exception, dueDate: i.duedate, completedDate: i.completeddate});
         }
       },
       complete: () => {

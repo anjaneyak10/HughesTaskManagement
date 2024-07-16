@@ -1,109 +1,57 @@
 <main class="main-content">
- 
   <mat-card>
     <mat-card-header>
-      <mat-icon mat-card-avatar class="profileTitle" >account_circle</mat-icon>
+      <mat-icon mat-card-avatar class="profileTitle">account_circle</mat-icon>
       <mat-card-title class="cardTitle">My Tasks</mat-card-title>
     </mat-card-header>
-    <ng-container *ngIf="spinner" >
+    <ng-container *ngIf="spinner">
       <div class="spinner-container">
-    <mat-spinner></mat-spinner>
-    </div>
-  </ng-container>
-<ng-container *ngIf="!spinner" >
-    <mat-card-content>
-      <mat-tab-group>
-        <mat-tab label="Upcoming">
-          <div>
-            <ng-container *ngIf="upcomingTasks.length" >
-            <table mat-table [dataSource]="upcomingTasks" class="mat-elevation-z8">
-              <!-- Task Name Column -->
-              <ng-container matColumnDef="taskName">
-                <th mat-header-cell *matHeaderCellDef> Task Name </th>
-                <td mat-cell *matCellDef="let task"> {{task.name}} </td>
+        <mat-spinner></mat-spinner>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="!spinner">
+      <mat-card-content>
+        <mat-tab-group>
+          <mat-tab label="Upcoming">
+            <div>
+              <ng-container *ngIf="upcomingTasks.length">
+              <br/>
+                <table mat-table [dataSource]="upcomingTasks" class="mat-elevation-z8">
+                  <!-- Columns definition -->
+                  <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
+                    <th mat-header-cell *matHeaderCellDef [ngStyle]="{'background-color': '#21294f', 'color': '#ffffff'}">{{ column | uppercase }}</th>
+                    <td mat-cell *matCellDef="let task">{{ task[column] }}</td>
+                  </ng-container>
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns; let i = index" [ngStyle]="{'background-color': i % 2 === 0 ? '#f0f0f0' : '#ffffff'}"></tr>
+                </table>
               </ng-container>
-              <!-- Company Column -->
-              <ng-container matColumnDef="projectId">
-                <th mat-header-cell *matHeaderCellDef>Project</th>
-                <td mat-cell *matCellDef="let task"> {{task.organization}} </td>
+              <ng-container *ngIf="!upcomingTasks.length">
+                <h1>No Upcoming Tasks</h1>
               </ng-container>
-              <!-- Assignee Column -->
-              <ng-container matColumnDef="assignee">
-                <th mat-header-cell *matHeaderCellDef> Assignee </th>
-                <td mat-cell *matCellDef="let task"> {{task.assignee}} </td>
+            </div>
+          </mat-tab>
+          <mat-tab label="Completed">
+            <div>
+              <ng-container *ngIf="completedTasks.length">
+                <br/>
+                <table mat-table [dataSource]="completedTasks" class="mat-elevation-z8">
+                  <!-- Columns definition -->
+                  <ng-container *ngFor="let column of completeddisplayedColumns" [matColumnDef]="column">
+                    <th mat-header-cell *matHeaderCellDef [ngStyle]="{'background-color': '#21294f', 'color': '#ffffff'}">{{ column | uppercase }}</th>
+                    <td mat-cell *matCellDef="let task">{{ task[column] }}</td>
+                  </ng-container>
+                  <tr mat-header-row *matHeaderRowDef="completeddisplayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: completeddisplayedColumns; let i = index" [ngStyle]="{'background-color': i % 2 === 0 ? '#f0f0f0' : '#ffffff'}"></tr>
+                </table>
               </ng-container>
-              <!-- Special Instructions Column -->
-              <ng-container matColumnDef="specialInstructions">
-                <th mat-header-cell *matHeaderCellDef> Special Instructions </th>
-                <td mat-cell *matCellDef="let task"> {{task.specialInstructions}} </td>
+              <ng-container *ngIf="!completedTasks.length">
+                <h1>No Completed Tasks</h1>
               </ng-container>
-              <!-- Exceptions Column -->
-              <ng-container matColumnDef="exceptions">
-                <th mat-header-cell *matHeaderCellDef> Exceptions </th>
-                <td mat-cell *matCellDef="let task"> {{task.exceptions}} </td>
-              </ng-container>
-               <!-- dueDate Column -->
-               <ng-container matColumnDef="duedate">
-                <th mat-header-cell *matHeaderCellDef> Due Date </th>
-                <td mat-cell *matCellDef="let task"> {{task.dueDate}} </td>
-              </ng-container>
-              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            </table>
-            </ng-container>
-            <ng-container *ngIf="!upcomingTasks.length">
-              <h1>No Upcoming Tasks</h1>
-            </ng-container>
-          </div>
-        </mat-tab>
-        <mat-tab label="Completed">
-          <div>
-            <ng-container *ngIf="completedTasks.length" >
-            <table mat-table [dataSource]="completedTasks" class="mat-elevation-z8">
-              <!-- Task Name Column -->
-              <ng-container matColumnDef="taskName">
-                <th mat-header-cell *matHeaderCellDef> Task Name </th>
-                <td mat-cell *matCellDef="let task"> {{task.name}} </td>
-              </ng-container>
-              <!-- Company Column -->
-              <ng-container matColumnDef="projectId">
-                <th mat-header-cell *matHeaderCellDef> Project</th>
-                <td mat-cell *matCellDef="let task"> {{task.organization}} </td>
-              </ng-container>
-              <!-- Assignee Column -->
-              <ng-container matColumnDef="assignee">
-                <th mat-header-cell *matHeaderCellDef> Assignee </th>
-                <td mat-cell *matCellDef="let task"> {{task.assignee}} </td>
-              </ng-container>
-              <!-- Special Instructions Column -->
-              <ng-container matColumnDef="specialInstructions">
-                <th mat-header-cell *matHeaderCellDef> Special Instructions </th>
-                <td mat-cell *matCellDef="let task"> {{task.specialInstructions}} </td>
-              </ng-container>
-              <!-- Exceptions Column -->
-              <ng-container matColumnDef="exceptions">
-                <th mat-header-cell *matHeaderCellDef> Exceptions </th>
-                <td mat-cell *matCellDef="let task"> {{task.exceptions}} </td>
-              </ng-container>
-              <!-- due Date Column -->
-              <!--<ng-container matColumnDef="completedon">
-                <th mat-header-cell *matHeaderCellDef> Completed On </th>
-                <td mat-cell *matCellDef="let task"> {{task.completeddate}} </td>
-              </ng-container>-->
-              <tr mat-header-row *matHeaderRowDef="completeddisplayedColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: completeddisplayedColumns;"></tr>
-            </table>
-          </ng-container>
-          <ng-container *ngIf="!completedTasks.length" >
-            <h1>No Completed Tasks</h1>
-          </ng-container>
-          </div>
-        </mat-tab>
-      </mat-tab-group>
-    </mat-card-content>
-  </ng-container>
-  
-  
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </mat-card-content>
+    </ng-container>
   </mat-card>
-  
-  </main>
+</main>
