@@ -18,11 +18,17 @@ export class AuthService {
         if (response && response.token) {
           this.setToken(response.token);
           this.setUserRole(response.token.user.role);
+          this.setEmail(username);
           console.log('Token received:', response.token)
         }
       })
     );
   }
+  setEmail(email: string): void {
+    console.log('Setting email:', email);
+    localStorage.setItem('email', email);
+  }
+
 
   getAllUsers(): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/getallusers`, {}).pipe(
@@ -42,6 +48,7 @@ export class AuthService {
       })
     );
   }
+
 
   setToken(token: string): void {
     console.log('Setting token:', token);

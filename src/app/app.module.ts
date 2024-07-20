@@ -1,5 +1,3 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './components/app-routing.module';
@@ -12,7 +10,31 @@ import { ExecutiveDashboardComponent } from './components/executive-dashboard/ex
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { CreateProjectComponent } from './components/create-project/create-project.component';
 import { SelectFunctionalLeadsComponent } from './components/select-functional-leads/select-functional-leads.component';
+
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTableModule } from '@angular/material/table';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSelectModule } from '@angular/material/select';
+
+import { ProjectViewComponent } from './components/project-view/project-view.component';
+
+
+
+  
+
 import { RegisterComponent } from './components/register/register.component'; 
+
 
 
 @NgModule({
@@ -25,7 +47,9 @@ import { RegisterComponent } from './components/register/register.component';
     NavbarComponent,
     CreateProjectComponent,
     SelectFunctionalLeadsComponent,
+    ProjectViewComponent,
     RegisterComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -33,6 +57,20 @@ import { RegisterComponent } from './components/register/register.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    MatCardModule,
+    MatIconModule,
+    MatListModule,
+    MatTabsModule,
+    MatButtonModule,
+    MatTableModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatAutocompleteModule,
+    MatProgressSpinnerModule,
+    MatSelectModule,
+    MatProgressBarModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
