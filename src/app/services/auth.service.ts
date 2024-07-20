@@ -30,6 +30,16 @@ export class AuthService {
         console.log('Users received:', response);
       }),
       map(response => response)
+      );
+  }
+
+  register(email: string, name: string, username: string, role: string, func: string, password: string): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/register`, { email, name, username, role, function: func, password }).pipe(
+      tap(response => {
+        if (response.message === 'User created successfully') {
+          console.log('User registered successfully');
+        }
+      })
     );
   }
 
