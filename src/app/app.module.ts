@@ -10,6 +10,7 @@ import { ExecutiveDashboardComponent } from './components/executive-dashboard/ex
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { CreateProjectComponent } from './components/create-project/create-project.component';
 import { SelectFunctionalLeadsComponent } from './components/select-functional-leads/select-functional-leads.component';
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -32,6 +33,10 @@ import { ProjectViewComponent } from './components/project-view/project-view.com
 
   
 
+import { RegisterComponent } from './components/register/register.component'; 
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,6 +48,8 @@ import { ProjectViewComponent } from './components/project-view/project-view.com
     CreateProjectComponent,
     SelectFunctionalLeadsComponent,
     ProjectViewComponent,
+    RegisterComponent,
+
   ],
   imports: [
     BrowserModule,
