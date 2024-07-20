@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { delay, tap } from 'rxjs/operators';
+import { delay, tap,map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private baseUrl = 'http://127.0.0.1:5000/auth';
+  private baseUrl = 'http://127.0.0.1:8081/auth';
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -22,6 +22,15 @@ export class AuthService {
         }
       })
     );
+  }
+
+  getAllUsers(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/getallusers`, {}).pipe(
+      tap(response => {
+        console.log('Users received:', response);
+      }),
+      map(response => response)
+      );
   }
 
   register(email: string, name: string, username: string, role: string, func: string, password: string): Observable<any> {
@@ -82,4 +91,5 @@ export class AuthService {
         this.router.navigate(['login']);
     }
   }
+
 }
