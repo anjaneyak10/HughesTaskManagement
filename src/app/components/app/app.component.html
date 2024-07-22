@@ -1,2 +1,8 @@
+<mat-sidenav-container class="header" >
+    <mat-sidenav #sidenav mode="side" opened style="background-color: #21294f; color: white;">
 <nav><app-navbar *ngIf="showNavbar()"></app-navbar></nav>
+</mat-sidenav>
+<mat-sidenav-content>
 <router-outlet></router-outlet>
+</mat-sidenav-content>
+</mat-sidenav-container>

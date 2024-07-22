@@ -1,9 +1,28 @@
-<header class="header">
-  <nav class="navigation">
-    <a class="nav-item" (click)="homeButtonClick()">Home</a>
-    <a class="nav-item" (click)="projectViewClick()">Project</a>
-    <a class="nav-item" (click)="createProject()">Create Project</a>
-    <a class="nav-item" (click)="createTemplate()">Create Template</a>
-    <a class="nav-item">Portfolio</a>
-  </nav>
-</header>
+
+    <mat-toolbar color="primary">Menu</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item (click)="homeButtonClick()" >
+        <mat-icon>home</mat-icon>
+        <span>Home</span>
+      </a>
+      <a mat-list-item (click)="taskViewClick()" >
+        <mat-icon>check_circle_outline</mat-icon>
+        <span>My Tasks</span>
+      </a>
+      <a mat-list-item (click)="projectViewClick()" >
+        <mat-icon >work_outline</mat-icon>
+        <span>Project</span>
+      </a>
+      <a mat-list-item >
+        <mat-icon>folder_open</mat-icon>
+        <span>Portfolio</span>
+      </a>
+      <a mat-list-item >
+        <mat-icon>add_circle_outline</mat-icon>
+        <span>Create Project</span>
+      </a>
+      <a mat-list-item >
+        <mat-icon>note_add</mat-icon>
+        <span>Create Template</span>
+      </a>
+    </mat-nav-list>

@@ -32,50 +32,89 @@
                             <mat-progress-bar class="bar" mode="determinate"
                                 [value]="projectProgress"></mat-progress-bar>
                         </div>
-                        <button mat-raised-button class="createTask" color="primary">Create Task</button>
+                        <button mat-raised-button class="createTask" (click)="openCreateTaskModal()"
+                            color="primary">Create Task</button>
                     </div>
 
-                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                    <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
                         <!-- Function Column -->
                         <ng-container matColumnDef="function">
                             <th mat-header-cell *matHeaderCellDef> Function </th>
                             <td mat-cell *matCellDef="let element"> {{element.function}} </td>
                         </ng-container>
-                        <!-- Task Column -->
-                        <ng-container matColumnDef="task">
-                            <th mat-header-cell *matHeaderCellDef> Task </th>
-                            <td mat-cell *matCellDef="let element"> {{element.task}} </td>
-                        </ng-container>
-                        <!-- Completion Column -->
-                        <ng-container matColumnDef="completion">
-                            <th mat-header-cell *matHeaderCellDef> Completion </th>
+
+                        <!-- Expand Column -->
+                        <ng-container matColumnDef="expand">
                             <td mat-cell *matCellDef="let element">
-                                <span *ngIf="element.completion; else notCompleted">
-                                    <mat-icon class="completed">check_circle</mat-icon>
-                                </span>
-                                <ng-template #notCompleted>
-                                    <mat-icon class="not-completed">cancel</mat-icon>
-                                </ng-template>
+                                <button mat-icon-button
+                                    (click)="expandedElement = expandedElement === element ? null : element">
+                                    <mat-icon>{{expandedElement === element ? 'keyboard_arrow_up' :
+                                        'keyboard_arrow_down'}}</mat-icon>
+                                </button>
                             </td>
                         </ng-container>
-                        <!-- Assignee Column -->
-                        <ng-container matColumnDef="assignee">
-                            <th mat-header-cell *matHeaderCellDef> Assignee </th>
-                            <td mat-cell *matCellDef="let element"> {{element.assignee}} </td>
-                        </ng-container>
-                        <!-- Special Instructions Column -->
-                        <ng-container matColumnDef="specialInstructions">
-                            <th mat-header-cell *matHeaderCellDef> Special Instructions </th>
-                            <td mat-cell *matCellDef="let element"> {{element.specialInstructions}} </td>
-                        </ng-container>
-                        <!-- Exception Column -->
-                        <ng-container matColumnDef="exception">
-                            <th mat-header-cell *matHeaderCellDef> Exception </th>
-                            <td mat-cell *matCellDef="let element"> {{element.exception}} </td>
+
+                        <!-- Expanded Detail Column -->
+                        <ng-container matColumnDef="expandedDetail">
+                            <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length + 1">
+                                <div *ngIf="expandedElement === element" [@detailExpand]>
+                                    <!-- Your detailed row content here -->
+
+
+                                    <table mat-table [dataSource]="element.data" class="mat-elevation-z8">
+                                        <!-- Task Column -->
+                                        <ng-container matColumnDef="task">
+                                            <th mat-header-cell *matHeaderCellDef> Task </th>
+                                            <td mat-cell *matCellDef="let element"> {{element.task}} </td>
+                                        </ng-container>
+                                        <!-- Completion Column -->
+                                        <ng-container matColumnDef="completion">
+                                            <th mat-header-cell *matHeaderCellDef> Completion </th>
+                                            <td mat-cell *matCellDef="let element">
+                                                <span *ngIf="element.completion; else notCompleted">
+                                                    <mat-icon class="completed">check_circle</mat-icon>
+                                                </span>
+                                                <ng-template #notCompleted>
+                                                    <mat-icon class="not-completed">cancel</mat-icon>
+                                                </ng-template>
+                                            </td>
+                                        </ng-container>
+                                        <!-- Assignee Column -->
+                                        <ng-container matColumnDef="assignee">
+                                            <th mat-header-cell *matHeaderCellDef> Assignee </th>
+                                            <td mat-cell *matCellDef="let element"> {{element.assignee}} </td>
+                                        </ng-container>
+                                        <!-- Special Instructions Column -->
+                                        <ng-container matColumnDef="specialInstructions">
+                                            <th mat-header-cell *matHeaderCellDef> Special Instructions </th>
+                                            <td mat-cell *matCellDef="let element"> {{element.specialInstructions}}
+                                            </td>
+                                        </ng-container>
+                                        <!-- Exception Column -->
+                                        <ng-container matColumnDef="exception">
+                                            <th mat-header-cell *matHeaderCellDef> Exception </th>
+                                            <td mat-cell *matCellDef="let element"> {{element.exception}} </td>
+                                        </ng-container>
+
+                                        <tr mat-header-row
+                                            *matHeaderRowDef="['task', 'completion', 'assignee', 'specialInstructions', 'exception']"
+                                            [ngStyle]="{'background-color': '#21294f', 'color': '#ffffff'}"></tr>
+                                        <tr mat-row
+                                            *matRowDef="let row; columns: ['task', 'completion', 'assignee', 'specialInstructions', 'exception']; let i = index" [ngStyle]="{'background-color': i % 2 === 0 ? '#f0f0f0' : '#ffffff'}">
+                                        </tr>
+                                    </table>
+
+                                </div>
+                            </td>
                         </ng-container>
 
-                        <tr mat-header-row *matHeaderRowDef="displayedColumns" [ngStyle]="{'background-color': '#21294f', 'color': '#ffffff'}"></tr>
-                        <tr mat-row *matRowDef="let row; columns: displayedColumns; let i = index" [ngStyle]="{'background-color': i % 2 === 0 ? '#f0f0f0' : '#ffffff'}"></tr>
+                        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"
+                            [ngStyle]="{'background-color': '#21294f', 'color': '#ffffff'}"></tr>
+                        <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row"
+                            (click)="expandedElement = expandedElement === element ? null : element"></tr>
+                        <tr mat-row *matRowDef="let element; columns: ['expandedDetail']"
+                            [@detailExpand]="expandedElement === element ? 'expanded' : 'collapsed'"
+                            class="example-detail-row"></tr>
                     </table>
                 </ng-container>
             </ng-container>

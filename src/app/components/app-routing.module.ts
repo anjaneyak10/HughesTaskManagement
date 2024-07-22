@@ -5,6 +5,7 @@ import { AuthGuard } from './guard/auth.guard';
 import { EmployeeDashboardComponent } from './employee-dashboard/employee-dashboard.component';
 import { ExecutiveDashboardComponent } from './executive-dashboard/executive-dashboard.component';
 import { FunctionalLeadDashboardComponent } from './functional-lead-dashboard/functional-lead-dashboard.component';
+import  {HomeComponent} from './home/home.component';
 import { CreateProjectComponent } from './create-project/create-project.component';
 import { SelectFunctionalLeadsComponent } from './select-functional-leads/select-functional-leads.component';
 
@@ -26,6 +27,7 @@ const routes: Routes = [
   {path:'select-functional-leads',component:SelectFunctionalLeadsComponent,canActivate:[AuthGuard]},
   { path: 'create-template', component: CreateTemplateComponent },
   { path: 'select-tasks/:id', component: SelectTasksComponent },
+  {path:'home',component:HomeComponent,canActivate:[AuthGuard]},
 
   { path: 'register', component: RegisterComponent },
   { path: '**', redirectTo: 'login' }
