@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AuthService } from './auth.service';  // **Import AuthService**
+import { AuthService } from './auth.service'; 
 
 
 @Injectable({
@@ -22,7 +22,7 @@ export class TemplateService {
     return this.http.get(`${this.apiUrl}/getalltasks`);
   }
 
-  addTasksToTemplate(templateId: number, taskIds: number[]): Observable<any> {
-    return this.http.post(`${this.apiUrl}/addtasktotemplate`, { templateId, taskId: taskIds });
+  addTasksToTemplate(templateId: string, taskIds: number[]): Observable<any> {
+    return this.http.post(`${this.apiUrl}/addtasktotemplate`, { templateId: templateId, taskId: taskIds });
   }
 }
