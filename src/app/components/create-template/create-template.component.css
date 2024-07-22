@@ -1,0 +1,61 @@
+.main-content {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+  color: #979797;
+  width: calc(100% - 500px); /* Adjust the width based on the navbar width */
+  padding-bottom: 10%;
+  position: absolute;
+  left: 200px; /* Offset from the left to account for the navbar */
+  top: 0; /* Align with the top of the page */
+}
+.profileTitle {
+  color: #21294f;
+  font-size: 60px;
+  overflow: inherit;
+}
+.cardTitle {
+  font-size: 46px;
+  color: #21294f;
+  margin-left: 26px;
+}
+.mat-mdc-card-header {
+  display: flex;
+  padding: 16px;
+}
+mat-card {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.create-template-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+mat-form-field {
+  width: auto;
+  margin-bottom: 10px;
+}
+button {
+  padding: 10px 20px;
+  background-color: #4CAF50; /* Green */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  opacity: 0.7; /* Semi-transparent */
+  transition: 0.3s;
+}
+/* Style the button on hover */
+button:hover {
+  opacity: 1;
+}
+/* Style the button when disabled */
+button[disabled] {
+  background-color: #cccccc;
+  cursor: default;
+  opacity: 0.6;
+}

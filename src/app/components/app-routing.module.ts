@@ -11,6 +11,8 @@ import { SelectFunctionalLeadsComponent } from './select-functional-leads/select
 import { ProjectViewComponent } from './project-view/project-view.component';
 
 import { RegisterComponent } from './register/register.component';
+import { CreateTemplateComponent } from './create-template/create-template.component';
+import { SelectTasksComponent } from './select-tasks/select-tasks.component';
 
 
 
@@ -22,6 +24,8 @@ const routes: Routes = [
   {path:'createproject',component:CreateProjectComponent,canActivate:[AuthGuard]},
   {path:'projectView',component:ProjectViewComponent,canActivate:[AuthGuard]},
   {path:'select-functional-leads',component:SelectFunctionalLeadsComponent,canActivate:[AuthGuard]},
+  { path: 'create-template', component: CreateTemplateComponent },
+  { path: 'select-tasks/:id', component: SelectTasksComponent },
 
   { path: 'register', component: RegisterComponent },
   { path: '**', redirectTo: 'login' }

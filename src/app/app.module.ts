@@ -34,6 +34,8 @@ import { ProjectViewComponent } from './components/project-view/project-view.com
   
 
 import { RegisterComponent } from './components/register/register.component'; 
+import { CreateTemplateComponent } from './components/create-template/create-template.component';
+import { SelectTasksComponent } from './components/select-tasks/select-tasks.component';
 
 
 
@@ -49,6 +51,8 @@ import { RegisterComponent } from './components/register/register.component';
     SelectFunctionalLeadsComponent,
     ProjectViewComponent,
     RegisterComponent,
+    CreateTemplateComponent,
+    SelectTasksComponent
 
   ],
   imports: [

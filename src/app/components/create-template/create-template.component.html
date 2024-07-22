@@ -1,0 +1,15 @@
+<div class="main-content">
+    <mat-card class="matcard">
+        <mat-card-header>
+            <mat-icon mat-card-avatar class="profileTitle">account_circle</mat-icon>
+            <mat-card-title class="cardTitle">Create New Template</mat-card-title>
+        </mat-card-header>
+        <div class="create-template-container">
+            <mat-form-field appearance="outline">
+                <mat-label>Template Name</mat-label>
+                <input matInput [(ngModel)]="templateName" placeholder="Enter template name" required>
+            </mat-form-field>
+            <button mat-raised-button color="primary" (click)="createTemplate()" [disabled]="!templateName">Create Template</button>
+        </div>
+    </mat-card>
+</div>

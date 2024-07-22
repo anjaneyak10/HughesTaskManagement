@@ -25,6 +25,11 @@ export class NavbarComponent {
     this.router.navigate(['/createproject']);
   }
 
+  createTemplate() {
+    this.router.navigate(['/create-template']);
+  }
+
+
   onButton3Click() {
     console.log('Button 3 clicked');
     // Add your logic here

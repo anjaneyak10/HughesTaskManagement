@@ -8,10 +8,14 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
-  private baseUrl = 'http://127.0.0.1:8081/auth';
+  private baseUrl = 'http://127.0.0.1:5000/auth';
 
   constructor(private http: HttpClient, private router: Router) {}
 
+  getEmail(): string | null {
+    return localStorage.getItem('email');
+  }
+  
   login(username: string, password: string): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/login`, { username, password }).pipe(
       tap(response => {
