@@ -5,6 +5,7 @@ import { AuthGuard } from './guard/auth.guard';
 import { EmployeeDashboardComponent } from './employee-dashboard/employee-dashboard.component';
 import { ExecutiveDashboardComponent } from './executive-dashboard/executive-dashboard.component';
 import { FunctionalLeadDashboardComponent } from './functional-lead-dashboard/functional-lead-dashboard.component';
+import  {HomeComponent} from './home/home.component';
 import { CreateProjectComponent } from './create-project/create-project.component';
 import { SelectFunctionalLeadsComponent } from './select-functional-leads/select-functional-leads.component';
 import { ProjectViewComponent } from './project-view/project-view.component';
@@ -16,6 +17,7 @@ const routes: Routes = [
   {path:'createproject',component:CreateProjectComponent,canActivate:[AuthGuard]},
   {path:'projectView',component:ProjectViewComponent,canActivate:[AuthGuard]},
   {path:'select-functional-leads',component:SelectFunctionalLeadsComponent,canActivate:[AuthGuard]},
+  {path:'home',component:HomeComponent,canActivate:[AuthGuard]},
   { path: '**', redirectTo: 'login' }
 ];
 

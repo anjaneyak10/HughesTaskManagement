@@ -3,6 +3,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './components/app-routing.module';
 import { AppComponent } from './components/app/app.component';
 import { LoginComponent } from './components/login/login.component';
+import  {HomeComponent} from './components/home/home.component';
+
 import { AuthInterceptor } from './components/interceptors/auth.interceptor';
 import { EmployeeDashboardComponent } from './components/employee-dashboard/employee-dashboard.component';
 import { FunctionalLeadDashboardComponent } from './components/functional-lead-dashboard/functional-lead-dashboard.component';
@@ -25,11 +27,11 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
-
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { ProjectViewComponent } from './components/project-view/project-view.component';
-
-
-
+import {MatSidenavModule} from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
   
 
 @NgModule({
@@ -43,6 +45,8 @@ import { ProjectViewComponent } from './components/project-view/project-view.com
     CreateProjectComponent,
     SelectFunctionalLeadsComponent,
     ProjectViewComponent,
+    HomeComponent
+
   ],
   imports: [
     BrowserModule,
@@ -63,11 +67,16 @@ import { ProjectViewComponent } from './components/project-view/project-view.com
     MatAutocompleteModule,
     MatProgressSpinnerModule,
     MatSelectModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatDialogModule,
+    MatPaginatorModule,
+    MatSidenavModule,
+    MatToolbarModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+
 })
 export class AppModule { }

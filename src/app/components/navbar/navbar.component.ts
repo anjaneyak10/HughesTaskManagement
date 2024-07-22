@@ -5,7 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent {
 
@@ -15,7 +15,7 @@ export class NavbarComponent {
   ){
   }
   homeButtonClick() {
-    this.authService.navigateBasedOnUserRole();
+    this.router.navigate(['/home']);
   }
   projectViewClick(){
     this.router.navigate(['/projectView']);
@@ -23,6 +23,9 @@ export class NavbarComponent {
 
   createProject() {
     this.router.navigate(['/createproject']);
+  }
+  taskViewClick() {
+    this.authService.navigateBasedOnUserRole();
   }
 
   onButton3Click() {
