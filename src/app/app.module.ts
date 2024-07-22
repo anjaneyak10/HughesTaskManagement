@@ -4,7 +4,7 @@ import { AppRoutingModule } from './components/app-routing.module';
 import { AppComponent } from './components/app/app.component';
 import { LoginComponent } from './components/login/login.component';
 import  {HomeComponent} from './components/home/home.component';
-
+import { RegisterComponent } from './components/register/register.component'; 
 import { AuthInterceptor } from './components/interceptors/auth.interceptor';
 import { EmployeeDashboardComponent } from './components/employee-dashboard/employee-dashboard.component';
 import { FunctionalLeadDashboardComponent } from './components/functional-lead-dashboard/functional-lead-dashboard.component';
@@ -12,6 +12,7 @@ import { ExecutiveDashboardComponent } from './components/executive-dashboard/ex
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { CreateProjectComponent } from './components/create-project/create-project.component';
 import { SelectFunctionalLeadsComponent } from './components/select-functional-leads/select-functional-leads.component';
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -30,8 +31,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { ProjectViewComponent } from './components/project-view/project-view.component';
-import {MatSidenavModule} from '@angular/material/sidenav';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
+
   
 
 @NgModule({
@@ -45,7 +47,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     CreateProjectComponent,
     SelectFunctionalLeadsComponent,
     ProjectViewComponent,
-    HomeComponent
+    HomeComponent,
+    RegisterComponent
 
   ],
   imports: [

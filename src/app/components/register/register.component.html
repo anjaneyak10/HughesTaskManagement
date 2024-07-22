@@ -1,0 +1,48 @@
+<div class="register-container">
+    <h1>HUGHES</h1>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" novalidate>
+      
+      <div class="form-group">
+        <input type="text" formControlName="name" placeholder="Full Name" required>
+        <div class="form-text text-danger" *ngIf="name?.errors?.['required'] && name?.touched">
+          Name is required
+        </div>
+      </div>
+      <div class="form-group">
+        <input type="email" formControlName="email" placeholder="Email ID" required>
+        <div class="form-text text-danger" *ngIf="email?.errors?.['required'] && email?.touched">
+          Email is required
+        </div>
+        <div class="form-text text-danger" *ngIf="email?.errors?.['email'] && email?.touched">
+          Please enter a valid email address
+        </div>
+      </div>
+      <div class="form-group">
+        <input type="text" formControlName="username" placeholder="Username" required>
+        <div class="form-text text-danger" *ngIf="username?.errors?.['required'] && username?.touched">
+          Username is required
+        </div>
+      </div>
+      <div class="form-group">
+        <input type="text" formControlName="role" placeholder="Role" required>
+        <div class="form-text text-danger" *ngIf="role?.errors?.['required'] && role?.touched">
+          Role is required
+        </div>
+      </div>
+      <div class="form-group">
+        <input type="text" formControlName="function" placeholder="Function" required>
+        <div class="form-text text-danger" *ngIf="function?.errors?.['required'] && function?.touched">
+          Function is required
+        </div>
+      </div>
+      <div class="form-group">
+        <input type="password" formControlName="password" placeholder="••••••••••" required>
+        <div class="form-text text-danger" *ngIf="password?.errors?.['required'] && password?.touched">
+          Password is required
+        </div>
+      </div>
+      <button type="submit" class="register-button" [disabled]="registerForm.invalid">REGISTER</button>
+    </form>
+    <div *ngIf="errorMessage" class="form-text text-danger">{{ errorMessage }}</div>
+  </div>
+  
