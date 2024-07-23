@@ -1,2 +1,32 @@
-<mat-card class="matcard">
-</mat-card>
+<div class="summary-container">
+    <mat-card class="summary-card">
+      <mat-card-title>Total Tasks</mat-card-title>
+      <mat-card-content>
+        <h2>{{totalTasks}}</h2>
+      </mat-card-content>
+    </mat-card>
+  
+    <mat-card class="summary-card">
+      <mat-card-title>Completed Tasks</mat-card-title>
+      <mat-card-content>
+        <h2>{{completedTasks}}</h2>
+        <mat-progress-bar mode="determinate" value="{{(completedTasks/totalTasks)*100}}"></mat-progress-bar>
+      </mat-card-content>
+    </mat-card>
+  
+    <mat-card class="summary-card">
+      <mat-card-title>Incomplete Tasks</mat-card-title>
+      <mat-card-content>
+        <h2>{{incompleteTasks}}</h2>
+        <mat-progress-bar mode="determinate" value="{{(incompleteTasks/totalTasks)*100}}"></mat-progress-bar>
+      </mat-card-content>
+    </mat-card>
+  
+    <mat-card class="summary-card">
+      <mat-card-title>Overdue Tasks</mat-card-title>
+      <mat-card-content>
+        <h2>{{overdueTasks}}</h2>
+        <mat-progress-bar mode="determinate" value="{{(overdueTasks/totalTasks)*100}}" color="warn"></mat-progress-bar>
+      </mat-card-content>
+    </mat-card>
+  </div>

@@ -25,8 +25,8 @@ const routes: Routes = [
   {path:'createproject',component:CreateProjectComponent,canActivate:[AuthGuard]},
   {path:'projectView',component:ProjectViewComponent,canActivate:[AuthGuard]},
   {path:'select-functional-leads',component:SelectFunctionalLeadsComponent,canActivate:[AuthGuard]},
-  { path: 'create-template', component: CreateTemplateComponent },
-  { path: 'select-tasks/:id', component: SelectTasksComponent },
+  { path: 'create-template', component: CreateTemplateComponent, canActivate: [AuthGuard] },
+  { path: 'select-tasks/:id', component: SelectTasksComponent,  canActivate: [AuthGuard] },
   {path:'home',component:HomeComponent,canActivate:[AuthGuard]},
 
   { path: 'register', component: RegisterComponent },

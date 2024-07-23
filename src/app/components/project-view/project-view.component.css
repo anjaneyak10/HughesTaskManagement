@@ -4,7 +4,8 @@
   color: #979797;
   font-family: Inter, sans-serif;
   width: 70%;
-  margin:10px
+  margin:10px;
+  height:100%;
 }
   .profileTitle{
     color: #21294f;
@@ -20,10 +21,7 @@
     color: #21294f;
     margin-left: 26px;
   }
-  mat-card[_ngcontent-ng-c3417010798] {
-    margin: 20px;
-    height: 704px;
-}
+
   mat-form-field {
     width: auto;
     margin-bottom: 10px;

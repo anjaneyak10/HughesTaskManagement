@@ -8,10 +8,16 @@
 .sideNav{
   float: unset;
 }
-mat-icon{
-  color: white;
-}
 
+.sideNav{
+  color:white;
+  display: flex;
+  align-items: center; 
+  float: unset;
+}
+.sideNav mat-icon {
+  margin-right: 8px; /* Adjust the space as needed */
+}
 
 .navigation {
   display: flex;

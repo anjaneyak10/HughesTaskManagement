@@ -34,6 +34,10 @@ export class LoginComponent implements OnInit {
   get password() {
     return this.loginForm.get('password');
   }
+  showNavbar(): boolean {
+    return false;
+  }
+
 
   onSubmit(): void {
     
