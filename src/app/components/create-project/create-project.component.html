@@ -9,20 +9,12 @@
     <div>
       <label for="projectTemplateId">Project Template ID:</label>
       <select id="projectTemplateId" [(ngModel)]="projectTemplateId" name="projectTemplateId" required>
-        <option *ngFor="let template of projectTemplates" [value]="template.templateid">{{ template.templateName }}</option>
+        <option *ngFor="let template of projectTemplates" [value]="template.templateId">{{ template.templateName }}</option>
       </select>
     </div>
     <div>
       <label for="dueDate">Due Date:</label>
       <input type="date" id="dueDate" [(ngModel)]="dueDate" name="dueDate" required>
-    </div>
-    <div>
-      <label for="createdBy">Created By:</label>
-      <input type="text" id="createdBy" [(ngModel)]="createdBy" name="createdBy" required>
-    </div>
-    <div>
-      <label for="portfolio">Portfolio:</label>
-      <input type="text" id="portfolio" [(ngModel)]="portfolio" name="portfolio" required>
     </div>
     <button type="submit" [disabled]="projectForm.form.invalid">Create Project</button>
   </form>

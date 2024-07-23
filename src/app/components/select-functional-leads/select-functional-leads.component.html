@@ -1,14 +1,28 @@
-<!-- src/app/select-functional-leads/select-functional-leads.component.html -->
 <div class="select-functional-leads-form">
-    <!-- <h2>Select Functional Leads for {{ project.projectName }}</h2> -->
-    <form (ngSubmit)="onSubmit()" #functionalLeadsForm="ngForm">
-      <div *ngFor="let func of functions">
-        <label>{{ func.function }}</label>
-        <select [(ngModel)]="selectedLeads[func.function]" name="lead{{ func.function }}" required>
-          <option *ngFor="let lead of functionalLeads" [value]="lead.email">{{ lead.name }}</option>
-        </select>
-      </div>
-      <button type="submit" [disabled]="!functionalLeadsForm.form.valid">Submit</button>
-    </form>
+  <form (ngSubmit)="onSubmit()" #functionalLeadsForm="ngForm">
+    <div *ngFor="let func of functions">
+      <label>{{ func.functionName }}</label>
+      <select [(ngModel)]="selectedLeads[func.functionId]" name="lead{{ func.functionId }}" required>
+        <option value="">Select a lead</option>
+        <option *ngFor="let lead of functionalLeads" [value]="lead.email">{{ lead.name }}</option>
+      </select>
+    </div>
+    <button type="submit" [disabled]="!functionalLeadsForm.form.valid">Submit</button>
+  </form>
+</div>
+
+<div *ngIf="showConfirmation" class="modal-overlay">
+  <div class="modal-content">
+    <h3>Success!</h3>
+    <p>Template created successfully!</p>
+    <button (click)="confirmAndRedirect()">OK</button>
   </div>
-  
+</div>
+
+<div *ngIf="showError" class="modal-overlay">
+  <div class="modal-content-error">
+    <h3>Success!</h3>
+    <p>Something went wrong try again!</p>
+    <button (click)="confirmAndRedirectToCreateProject()">OK</button>
+  </div>
+</div>
