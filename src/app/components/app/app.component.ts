@@ -12,6 +12,6 @@ export class AppComponent {
   constructor(private router: Router) {}
 
   showNavbar(): boolean {
-    return this.router.url !== '/login' && this.router.url !== '/register' && this.router.url !== '/select-tasks/temp005';
+    return this.router.url !== '/login' && this.router.url !== '/register' && this.router.url !== '/select-tasks/temp006';
   }
 }
