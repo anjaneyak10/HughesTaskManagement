@@ -1,61 +1,42 @@
-.main-content {
-  display: flex;
-  flex-direction: column;
-  font-size: 12px;
-  color: #979797;
-  width: calc(100% - 500px); /* Adjust the width based on the navbar width */
-  padding-bottom: 10%;
-  position: absolute;
-  left: 200px; /* Offset from the left to account for the navbar */
-  top: 0; /* Align with the top of the page */
-}
-.profileTitle {
-  color: #21294f;
-  font-size: 60px;
-  overflow: inherit;
-}
-.cardTitle {
-  font-size: 46px;
-  color: #21294f;
-  margin-left: 26px;
-}
-.mat-mdc-card-header {
-  display: flex;
-  padding: 16px;
-}
-mat-card {
-  margin: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
 .create-template-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f5f5f5;
 }
+
+h1 {
+  color: #333;
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+.template-form {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
 mat-form-field {
-  width: auto;
-  margin-bottom: 10px;
+  width: 100%;
+  margin-bottom: 1rem;
 }
+
 button {
-  padding: 10px 20px;
-  background-color: #4CAF50; /* Green */
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  opacity: 0.7; /* Semi-transparent */
-  transition: 0.3s;
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+  text-transform: uppercase;
 }
-/* Style the button on hover */
-button:hover {
-  opacity: 1;
-}
-/* Style the button when disabled */
-button[disabled] {
-  background-color: #cccccc;
-  cursor: default;
-  opacity: 0.6;
+
+@media (max-width: 600px) {
+  .template-form {
+    padding: 1.5rem;
+  }
 }

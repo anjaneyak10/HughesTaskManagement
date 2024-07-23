@@ -4,13 +4,8 @@ import { TemplateService } from 'src/app/services/template.service';
 
 @Component({
   selector: 'app-select-tasks',
-  template: `
-    <h2>Select Tasks for Template</h2>
-    <div *ngFor="let task of tasks">
-      <input type="checkbox" [(ngModel)]="task.selected"> {{task.taskName}}
-    </div>
-    <button (click)="addTasksToTemplate()">Done</button>
-  `
+  templateUrl: './select-tasks.component.html',
+  styleUrls: ['./select-tasks.component.css']
 })
 export class SelectTasksComponent implements OnInit {
   tasks: any[] = [];
