@@ -10,6 +10,7 @@ import { TemplateService } from 'src/app/services/template.service';
 export class SelectTasksComponent implements OnInit {
   tasks: any[] = [];
   templateId: string | null = '';
+  showConfirmation: boolean = false;
 
   constructor(
     private templateService: TemplateService,
@@ -37,7 +38,7 @@ export class SelectTasksComponent implements OnInit {
         this.templateService.addTasksToTemplate(this.templateId, selectedTaskIds).subscribe(
           response => {
             console.log('Tasks added to template:', response);
-            this.router.navigate(['/home']);
+            this.showConfirmation = true;
           },
           error => console.error('Error adding tasks to template:', error)
         );
@@ -45,5 +46,9 @@ export class SelectTasksComponent implements OnInit {
     } else {
       console.error('Invalid template ID:', this.templateId);
     }
+  }
+
+  confirmAndRedirect() {
+    this.router.navigate(['/home']);
   }
 }
