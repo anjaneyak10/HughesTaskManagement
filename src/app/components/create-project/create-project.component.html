@@ -1,4 +1,4 @@
-<!-- src/app/create-project/create-project.component.html -->
+<!-- src/app/create-project/create-project.component.html 
 <div class="create-project-form">
   <h2>Create Project</h2>
   <form (ngSubmit)="onSubmit()" #projectForm="ngForm">
@@ -18,4 +18,34 @@
     </div>
     <button type="submit" [disabled]="projectForm.form.invalid">Create Project</button>
   </form>
+</div>-->
+
+<div class="main-content">
+  <mat-card class="matcard">
+      <mat-card-header>
+          <mat-icon mat-card-avatar class="profileTitle">add_circle_outline</mat-icon>
+          <mat-card-title class="cardTitle">Create Project</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+          <form (ngSubmit)="onSubmit()" #projectForm="ngForm" class="create-project-form">
+              <mat-form-field appearance="outline" class="full-width">
+                  <mat-label>Project Name</mat-label>
+                  <input matInput type="text" id="projectName" [(ngModel)]="projectName" name="projectName" required>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="full-width">
+                  <mat-label>Project Template ID</mat-label>
+                  <mat-select id="projectTemplateId" [(ngModel)]="projectTemplateId" name="projectTemplateId" required>
+                      <mat-option *ngFor="let template of projectTemplates" [value]="template.templateId">
+                          {{ template.templateName }}
+                      </mat-option>
+                  </mat-select>
+              </mat-form-field>
+              <div class="button-container">
+                  <button mat-raised-button type="submit" [disabled]="projectForm.form.invalid" color="primary">Next</button>
+              </div>
+          </form>
+      </mat-card-content>
+  </mat-card>
 </div>
+
