@@ -39,4 +39,22 @@ export class ProjectserviceService {
       map(response => response)
     );
   }
+
+  getAllFunctions(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/getallfunctions`, {}).pipe(
+      tap(response => {
+        console.log('Functions received:', response);
+      }),
+      map(response => response)
+    );
+  }
+
+  createTaskinTaskMaster(taskName: string, functionId: number, weightage: string): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/createtaskinmaster`, {taskName, functionId, weightage}).pipe(
+      tap(response => {
+        console.log('Task created:', response);
+      }),
+      map(response => response)
+    );
+  }
 }

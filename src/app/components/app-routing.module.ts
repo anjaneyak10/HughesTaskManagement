@@ -14,6 +14,7 @@ import { ProjectViewComponent } from './project-view/project-view.component';
 import { RegisterComponent } from './register/register.component';
 import { CreateTemplateComponent } from './create-template/create-template.component';
 import { SelectTasksComponent } from './select-tasks/select-tasks.component';
+import { CreateTaskComponent } from './create-task/create-task.component';
 
 
 
@@ -28,7 +29,7 @@ const routes: Routes = [
   { path: 'create-template', component: CreateTemplateComponent, canActivate: [AuthGuard] },
   { path: 'select-tasks/:id', component: SelectTasksComponent,  canActivate: [AuthGuard] },
   {path:'home',component:HomeComponent,canActivate:[AuthGuard]},
-
+  {path:'createtask',component:CreateTaskComponent,canActivate:[AuthGuard]},
   { path: 'register', component: RegisterComponent },
   { path: '**', redirectTo: 'login' }
 ];

@@ -1,0 +1,21 @@
+<div class="create-project-form">
+    <h2>Create Task</h2>
+    <form (ngSubmit)="onSubmit()" #taskForm="ngForm">
+      <div>
+        <label for="projectName">Task Name:</label>
+        <input type="text" id="taskName" [(ngModel)]="taskName" name="taskName" required>
+      </div>
+      <div>
+        <label for="functionId">Function ID:</label>
+        <select id="functionId" [(ngModel)]="functionId" name="functionId" required>
+          <option *ngFor="let function of functions" [value]="function.functionId">{{ function.functionName }}</option>
+        </select>
+      </div>
+      <div>
+        <label for="weightage">Weightage:</label>
+        <input type="text" id="weightage" [(ngModel)]="weightage" name="weightage" required>
+      </div>
+      <button type="submit" [disabled]="taskForm.form.invalid">Create Task</button>
+    </form>
+  </div>
+  
