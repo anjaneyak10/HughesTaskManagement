@@ -21,8 +21,7 @@ mat-header-row {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Use full  height */
-    width:100vh;
+    height: 100vh; 
   }
   
   mat-list-item {
@@ -73,12 +72,12 @@ mat-header-row {
   }
   
   .main-content {
-  font-size: 12px;
-  color: #979797;
-  font-family: Inter, sans-serif;
-  width: 70%;
-  margin:10px;
-  height:100%;
+    font-size: 12px;
+    color: #979797;
+    font-family: Inter, sans-serif;
+    width:87%;
+    position: absolute;
+    margin:10px
   }
   
   .view-toggle {

@@ -3,9 +3,9 @@
   font-size: 12px;
   color: #979797;
   font-family: Inter, sans-serif;
-  width: 70%;
-  margin:10px;
-  height:100%;
+  width:87%;
+  position: absolute;
+  margin:10px
 }
   .profileTitle{
     color: #21294f;
