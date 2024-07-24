@@ -1,33 +1,70 @@
 <h2 mat-dialog-title>Create New Task</h2>
-    <mat-dialog-content>
-        <mat-form-field appearance="fill">
-            <mat-label>Task Name</mat-label>
-            <input matInput>
-          </mat-form-field>
-          <mat-form-field appearance="fill">
-            <mat-label>Project ID</mat-label>
-            <input matInput>
-          </mat-form-field>
-          <mat-form-field appearance="fill">
-            <mat-label>Assignee</mat-label>
-            <input matInput>
-          </mat-form-field>
-          <mat-form-field appearance="fill">
-            <mat-label>Special Instructions</mat-label>
-            <input matInput>
-          </mat-form-field>
-          <mat-form-field appearance="fill">
-            <mat-label>Exceptions</mat-label>
-            <input matInput>
-          </mat-form-field>
-          <mat-form-field appearance="fill">
-            <mat-label>Due Date</mat-label>
-            <input matInput type="date">
-          </mat-form-field>
-   
-      <!-- Add more form fields as needed -->
-    </mat-dialog-content>
-    <mat-dialog-actions align="end">
-      <button mat-button mat-dialog-close>Cancel</button>
-      <button mat-button [mat-dialog-close]="true">Create</button>
-    </mat-dialog-actions>
+<div class="ModalStyle">
+<form #taskForm="ngForm" (ngSubmit)="createTask(taskForm)">
+  <ng-container *ngIf="spinner">
+    <div class="spinner-container">
+      <mat-spinner></mat-spinner>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="!spinner">
+    <div class="form-row">
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Task Name</mat-label>
+        <input matInput [ngModel] name="taskName" required>
+        <mat-error *ngIf="taskForm.submitted && taskForm.controls['taskName']?.invalid">
+          Task Name is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="form-row">
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Assignee</mat-label>
+        <mat-select [ngModel] name="selectedAssignee" required>
+          <mat-option *ngFor="let assignee of assignees" [value]="assignee.email">
+            {{ assignee.name }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="taskForm.submitted && taskForm.controls['selectedAssignee']?.invalid">
+          Assignee is required
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Function</mat-label>
+        <mat-select [ngModel] name="selectedFunction" required>
+          <mat-option *ngFor="let func of functions" [value]="func.functionid">
+            {{ func.functionname }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="taskForm.submitted && taskForm.controls['selectedFunction']?.invalid">
+          Function is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="form-row">
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Exceptions</mat-label>
+        <input matInput [ngModel] name="exceptions">
+      </mat-form-field>
+    </div>
+    <div class="form-row">
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Special Instructions</mat-label>
+        <input matInput [ngModel] name="specialInstructions">
+      </mat-form-field>
+    </div>
+    <div class="form-row">
+    <mat-form-field appearance="fill">
+      <mat-label>Due Date</mat-label>
+      <input matInput [ngModel] name="dueDate" [matDatepicker]="picker" [min]="minDate">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </div>
+  </ng-container>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button type="submit">Create</button>
+  </mat-dialog-actions>
+</form>
+</div>

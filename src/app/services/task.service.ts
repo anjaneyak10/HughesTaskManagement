@@ -1,6 +1,6 @@
 // task.service.ts
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient ,HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
@@ -48,6 +48,25 @@ getProjectInfo(project_id: string): Observable<any> {
     tap(response => {
       if (response && response.token) {
         console.log('response:', response);
+      }
+    })
+  );
+}
+getCreateTaskInfo(project_id: string): Observable<any> {
+  return this.http.get<any>(`http://localhost:5001/project/get_create_task_info?project_id=${project_id}`).pipe(
+    tap(response => {
+      if (response && response.token) {
+        console.log('response:', response);
+      }
+    })
+  );
+}
+
+createTask(taskData: any): Observable<any> {
+  return this.http.post<any>(`http://localhost:5001/project/create_task`, taskData).pipe(
+    tap(response => {
+      if (response.projecttaskid) {
+        console.log('Task created successfully:', response);
       }
     })
   );

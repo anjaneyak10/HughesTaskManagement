@@ -12,7 +12,7 @@ import { ExecutiveDashboardComponent } from './components/executive-dashboard/ex
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { CreateProjectComponent } from './components/create-project/create-project.component';
 import { SelectFunctionalLeadsComponent } from './components/select-functional-leads/select-functional-leads.component';
-
+import { CreateTaskModalComponent } from './components/create-task-modal/create-task-modal.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -33,8 +33,10 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { ProjectViewComponent } from './components/project-view/project-view.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core'; // Import MatNativeDateModule
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
-  
 
 import { CreateTemplateComponent } from './components/create-template/create-template.component';
 import { SelectTasksComponent } from './components/select-tasks/select-tasks.component';
@@ -56,7 +58,8 @@ import { SelectTasksComponent } from './components/select-tasks/select-tasks.com
     CreateTemplateComponent,
     SelectTasksComponent,
     HomeComponent,
-    RegisterComponent
+    RegisterComponent,
+    CreateTaskModalComponent
 
   ],
   imports: [
@@ -82,7 +85,10 @@ import { SelectTasksComponent } from './components/select-tasks/select-tasks.com
     MatDialogModule,
     MatPaginatorModule,
     MatSidenavModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSnackBarModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

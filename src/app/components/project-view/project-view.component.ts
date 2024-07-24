@@ -1,9 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { TaskService } from 'src/app/services/task.service';
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 import { CreateTaskModalComponent } from 'src/app/components/create-task-modal/create-task-modal.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 interface Project {
   data: {
@@ -31,9 +38,12 @@ const projectList: ProjectSelect[] = [];
     trigger('detailExpand', [
       state('collapsed, void', style({ height: '0px', minHeight: '0' })),
       state('expanded', style({ height: '*' })),
-      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+      transition(
+        'expanded <=> collapsed',
+        animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')
+      ),
     ]),
-  ]
+  ],
 })
 export class ProjectViewComponent implements OnInit {
   displayedColumns: string[] = ['function'];
@@ -44,10 +54,13 @@ export class ProjectViewComponent implements OnInit {
   spinnerTable = false;
   columnsToDisplay = ['function'];
   expandedElement: Project | null;
-
-  constructor(private taskService: TaskService, public dialog: MatDialog) {
+  selectedProject:any;
+  
+  constructor(private taskService: TaskService, public dialog: MatDialog, private snackBar: MatSnackBar) {
     this.expandedElement = null;
+    this.selectedProject = null;
   }
+
 
   ngOnInit(): void {
     const email = localStorage.getItem('email');
@@ -73,6 +86,7 @@ export class ProjectViewComponent implements OnInit {
       (project) => project.name === filterValue
     );
     if (selectedProject) {
+      this.selectedProject = selectedProject;
       this.taskService
         .getProjectInfo(selectedProject.projectId)
         .subscribe((projectInfo) => {
@@ -110,13 +124,23 @@ export class ProjectViewComponent implements OnInit {
 
   openCreateTaskModal(): void {
     const dialogRef = this.dialog.open(CreateTaskModalComponent, {
-      width: '30%',
-      // data: { any data to pass }
+      width: 'auto', // Set your desired width
+      height: 'auto', // Set your desired height
+      data: { selectedProjectId: this.selectedProject.projectId },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
-      // Handle result if needed
+      if (result && result.taskCreated) {
+        this.showToast('Task created successfully!');
+        this.applyFilter(this.selectedProject.name);
+      }
+    });
+  }
+  showToast(message: string): void {
+    this.snackBar.open(message, 'Close', {
+      duration: 3000, // Duration in milliseconds
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
     });
   }
 }
