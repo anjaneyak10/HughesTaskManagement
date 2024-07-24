@@ -1,6 +1,7 @@
 // src/app/create-project/create-project.component.ts
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 import { ProjectserviceService } from 'src/app/services/projectservice.service';
 
 @Component({
@@ -15,19 +16,21 @@ export class CreateProjectComponent implements OnInit {
   createdBy: string = '';
   portfolio: string = '';
 
-  projectTemplates: Array<{ taskid: number, templateName: string, templateid: number }> = [];
+  projectTemplates: Array<{ taskid: number, templateName: string, templateId: number }> = [];
 
-  constructor(private projectService: ProjectserviceService,private router:Router) {}
+  constructor(private projectService: ProjectserviceService,private router:Router,private authService: AuthService) {}
 
   ngOnInit() {
     this.projectService.gettemplate().subscribe(
       (templates) => {
         this.projectTemplates = templates; // Assuming templates is an array of template objects
+        console.log('Templates:', this.projectTemplates);
       },
       (error) => {
         console.error('Error fetching templates:', error);
       }
     );
+    this.createdBy=this.authService.getEmail()!;
   }
 
   onSubmit() {

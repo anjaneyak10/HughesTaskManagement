@@ -1,14 +1,73 @@
-<!-- src/app/select-functional-leads/select-functional-leads.component.html -->
+<!--
+
 <div class="select-functional-leads-form">
-    <!-- <h2>Select Functional Leads for {{ project.projectName }}</h2> -->
-    <form (ngSubmit)="onSubmit()" #functionalLeadsForm="ngForm">
-      <div *ngFor="let func of functions">
-        <label>{{ func.function }}</label>
-        <select [(ngModel)]="selectedLeads[func.function]" name="lead{{ func.function }}" required>
-          <option *ngFor="let lead of functionalLeads" [value]="lead.email">{{ lead.name }}</option>
-        </select>
-      </div>
-      <button type="submit" [disabled]="!functionalLeadsForm.form.valid">Submit</button>
-    </form>
+  <form (ngSubmit)="onSubmit()" #functionalLeadsForm="ngForm">
+    <div *ngFor="let func of functions">
+      <label>{{ func.functionName }}</label>
+      <select [(ngModel)]="selectedLeads[func.functionId]" name="lead{{ func.functionId }}" required>
+        <option value="">Select a lead</option>
+        <option *ngFor="let lead of functionalLeads" [value]="lead.email">{{ lead.name }}</option>
+      </select>
+    </div>
+    <button type="submit" [disabled]="!functionalLeadsForm.form.valid">Submit</button>
+  </form>
+</div>
+
+<div *ngIf="showConfirmation" class="modal-overlay">
+  <div class="modal-content">
+    <h3>Success!</h3>
+    <p>Project created successfully!</p>
+    <button (click)="confirmAndRedirect()">OK</button>
   </div>
-  
+</div>
+
+<div *ngIf="showError" class="modal-overlay">
+  <div class="modal-content-error">
+    <h3>Success!</h3>
+    <p>Something went wrong try again!</p>
+    <button (click)="confirmAndRedirectToCreateProject()">OK</button>
+  </div>
+</div>-->
+
+<div class="main-content">
+  <mat-card class="matcard">
+    <mat-card-header>
+      <mat-icon mat-card-avatar class="profileTitle">people_outline</mat-icon>
+      <mat-card-title class="cardTitle">Select Functional Leads</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form (ngSubmit)="onSubmit()" #functionalLeadsForm="ngForm" class="select-functional-leads-form">
+        <div class="form-grid">
+          <div *ngFor="let func of functions" class="form-group">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>{{ func.functionName }}</mat-label>
+              <mat-select [(ngModel)]="selectedLeads[func.functionId]" name="lead{{ func.functionId }}" required>
+                <mat-option value="">Select a lead</mat-option>
+                <mat-option *ngFor="let lead of functionalLeads" [value]="lead.email">{{ lead.email }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="button-container">
+          <button mat-raised-button type="submit" [disabled]="!functionalLeadsForm.form.valid" color="primary">Submit</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+  <div *ngIf="showConfirmation" class="modal-overlay">
+    <div class="modal-content">
+      <h3>Success!</h3>
+      <p>Project created successfully!</p>
+      <button mat-button (click)="confirmAndRedirect()">OK</button>
+    </div>
+  </div>
+
+  <div *ngIf="showError" class="modal-overlay">
+    <div class="modal-content-error">
+      <h3>Error</h3>
+      <p>Something went wrong, try again!</p>
+      <button mat-button (click)="confirmAndRedirectToCreateProject()">OK</button>
+    </div>
+  </div>
+</div>

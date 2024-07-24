@@ -9,7 +9,7 @@ import { Observable,tap ,map} from 'rxjs';
 })
 export class ProjectserviceService {
 
-  private baseUrl = 'http://127.0.0.1:8081/project';
+  private baseUrl = 'http://127.0.0.1:8080/project';
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -22,10 +22,19 @@ export class ProjectserviceService {
       map(response => response.templates)
     );
   }
-  getFunctions(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/getallfunctions`, {}).pipe(
+  getFunctions(templateId: string): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/getfunctions`, {templateId}).pipe(
       tap(response => {
         console.log('Functions received:', response);
+      }),
+      map(response => response)
+    );
+  }
+
+  createProject(projectName:string,projectTemplateId:string,createdByEmail:string,projectFunctionLeads:any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/saveproject`, {projectName, projectTemplateId,createdByEmail,projectFunctionLeads}).pipe(
+      tap(response => {
+        console.log('Project created:', response);
       }),
       map(response => response)
     );
