@@ -1,118 +1,136 @@
 .select-tasks-container {
-    padding: 20px;
-    height: calc(100vh - 40px); /* Full viewport height minus padding */
-    display: flex;
-    flex-direction: column;
-  }
-  
-  h2 {
-    margin-bottom: 20px;
-    color: #333;
-    font-weight: 500;
-  }
-  
-  .table-container {
-    flex: 1;
-    overflow-y: auto;
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    margin-bottom: 20px;
-  }
-  
-  thead {
-    background-color: #f8f9fa;
-    position: sticky;
-    top: 0;
-    z-index: 1;
-  }
-  
-  th, td {
-    padding: 12px 15px;
-    text-align: left;
-    border-bottom: 1px solid #e9ecef;
-  }
-  
-  th {
-    background-color: #f1f3f5;
-    color: #495057;
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 0.85em;
-    letter-spacing: 0.5px;
-  }
-  
-  tr:hover {
-    background-color: #e9ecef;
-  }
-  
-  input[type="checkbox"] {
-    margin-right: 10px;
-  }
-  
-  button {
-    background-color: #007bff;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.2s;
-    align-self: flex-start;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
+  padding: 20px;
+  height: calc(100vh - 40px); /* Full viewport height minus padding */
+  display: flex;
+  flex-direction: column;
+}
 
-  .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-  
-  .modal-content {
-    background-color: white;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    max-width: 400px;
-    width: 90%;
-  }
-  
-  .modal-content h3 {
-    margin-top: 0;
-    color: #4CAF50;
-  }
-  
-  .modal-content p {
-    margin-bottom: 20px;
-    font-size: 18px;
-  }
-  
-  .modal-content button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.2s;
-  }
-  
-  .modal-content button:hover {
-    background-color: #45a049;
-  }
+h2 {
+  margin-bottom: 20px;
+  color: #333;
+  font-weight: 500;
+}
+
+.dual-list-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.list {
+  flex: 1;
+  margin: 0 10px;
+  background-color: #f8f9fa;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #e9ecef;
+}
+
+.list h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: #495057;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.85em;
+  letter-spacing: 0.5px;
+}
+
+.list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.list li {
+  padding: 8px 12px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.list li:hover {
+  background-color: #e9ecef;
+}
+
+input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+button.small-button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.2s;
+  margin-top: 10px;
+  width: auto;
+}
+
+button.small-button-done {
+  background-color: #087431;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.2s;
+  margin-top: 10px;
+  width: 120px;
+}
+
+button.small-button:hover {
+  background-color: #0056b3;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+}
+
+.modal-content h3 {
+  margin-top: 0;
+  color: #4CAF50;
+}
+
+.modal-content p {
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+.modal-content button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.2s;
+}
+
+.modal-content button:hover {
+  background-color: #45a049;
+}

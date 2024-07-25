@@ -1,22 +1,27 @@
 <div class="select-tasks-container">
   <h2>Select Tasks for Template</h2>
-  <div class="table-container">
-    <table>
-      <thead>
-        <tr>
-          <th>SELECT</th>
-          <th>TASK NAME</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let task of tasks">
-          <td><input type="checkbox" [(ngModel)]="task.selected"></td>
-          <td>{{task.taskName}}</td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="dual-list-container">
+    <div class="list">
+      <h3>Add</h3>
+      <ul>
+        <li *ngFor="let task of source">
+          <input type="checkbox" [(ngModel)]="task.selected" (change)="addTask(task)" [checked]="task.selected" /> {{ task.taskName }}
+        </li>
+      </ul>
+      <button class="small-button" (click)="addAllTasks()">Add All</button>
+    </div>
+
+    <div class="list">
+      <h3>Remove</h3>
+      <ul>
+        <li *ngFor="let task of confirmed">
+          <input type="checkbox" [(ngModel)]="task.selected" (change)="removeTask(task)" [checked]="task.selected" /> {{ task.taskName }}
+        </li>
+      </ul>
+      <button class="small-button" (click)="removeAllTasks()">Remove All</button>
+    </div>
   </div>
-  <button (click)="addTasksToTemplate()">Done</button>
+  <button class="small-button-done" (click)="addTasksToTemplate()">Done</button>
 </div>
 
 <div *ngIf="showConfirmation" class="modal-overlay">
