@@ -42,6 +42,7 @@ export class CreateProjectComponent implements OnInit {
       portfolio: this.portfolio
     };
     console.log('Project Created:', project);
+    console.log(this.createdBy);
 
     this.router.navigate(['/select-functional-leads'], { state: { project } });
   }

@@ -52,7 +52,7 @@ export class SelectFunctionalLeadsComponent implements OnInit {
 
   onSubmit() {
       console.log('Project with Functional Leads:', this.project, this.selectedLeads);
-      this.projectService.createProject(this.project.projectName, this.project.projectTemplateId, this.project.createdByEmail, this.selectedLeads).subscribe(
+      this.projectService.createProject(this.project.projectName, this.project.projectTemplateId, this.project.createdBy, this.selectedLeads).subscribe(
         (response) => {
           console.log('Project created:', response);
           this.showConfirmation = true;
