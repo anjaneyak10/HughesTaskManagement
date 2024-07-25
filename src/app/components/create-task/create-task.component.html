@@ -1,3 +1,4 @@
+<!--
 <div class="create-project-form">
     <h2>Create Task</h2>
     <form (ngSubmit)="onSubmit()" #taskForm="ngForm">
@@ -18,4 +19,39 @@
       <button type="submit" [disabled]="taskForm.form.invalid">Create Task</button>
     </form>
   </div>
-  
+-->
+
+<div class="main-content">
+  <mat-card class="matcard">
+    <mat-card-header>
+      <mat-icon mat-card-avatar class="profileTitle">add_circle_outline</mat-icon>
+      <mat-card-title class="cardTitle">Create Task</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form (ngSubmit)="onSubmit()" #taskForm="ngForm" class="create-task-form">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Task Name</mat-label>
+          <input matInput type="text" id="taskName" [(ngModel)]="taskName" name="taskName" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Function ID</mat-label>
+          <mat-select id="functionId" [(ngModel)]="functionId" name="functionId" required>
+            <mat-option *ngFor="let function of functions" [value]="function.functionId">
+              {{ function.functionName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Weightage</mat-label>
+          <input matInput type="text" id="weightage" [(ngModel)]="weightage" name="weightage" required>
+        </mat-form-field>
+
+        <div class="button-container">
+          <button mat-raised-button type="submit" [disabled]="taskForm.form.invalid" color="primary">Create Task</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
