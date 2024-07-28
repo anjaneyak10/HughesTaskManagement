@@ -36,7 +36,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core'; // Import MatNativeDateModule
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 import { CreateTemplateComponent } from './components/create-template/create-template.component';
 import { SelectTasksComponent } from './components/select-tasks/select-tasks.component';
@@ -88,7 +88,8 @@ import { SelectTasksComponent } from './components/select-tasks/select-tasks.com
     MatToolbarModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatSlideToggleModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

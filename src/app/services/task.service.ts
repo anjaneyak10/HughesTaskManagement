@@ -33,6 +33,16 @@ export class TaskService {
     );
 
 }
+changeTaskStatus(taskData: any): Observable<any> {
+  return this.http.post<any>(`http://localhost:5001/dashboard/change_task_status`, taskData).pipe(
+    tap(response => {
+      if (response.status === 200) {
+        console.log('Status updated successfully:', response);
+      }
+    })
+  );
+}
+
 getProjectList(email: string): Observable<any> {
   return this.http.get<any>(`http://localhost:5001/project/get_my_projects?email=${email}`).pipe(
     tap(response => {

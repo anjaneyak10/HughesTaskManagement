@@ -22,8 +22,15 @@
                     <th mat-header-cell *matHeaderCellDef [ngStyle]="{'background-color': '#21294f', 'color': '#ffffff'}">{{ column | uppercase }}</th>
                     <td mat-cell *matCellDef="let task">{{ task[column] }}</td>
                   </ng-container>
-                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                  <tr mat-row *matRowDef="let row; columns: displayedColumns; let i = index" [ngStyle]="{'background-color': i % 2 === 0 ? '#f0f0f0' : '#ffffff'}"></tr>
+                  <ng-container matColumnDef="Status">
+                    <th mat-header-cell *matHeaderCellDef [ngStyle]="{'background-color': '#21294f', 'color': '#ffffff'}">Status</th>
+                    <td mat-cell *matCellDef="let task">
+                      <mat-slide-toggle [checked]="task.completion" color="primary" (change)="toggleStatus(task)">
+                      </mat-slide-toggle>
+                    </td>
+                  </ng-container>
+                  <tr mat-header-row *matHeaderRowDef="['taskName', 'projectId', 'assignee', 'specialInstructions', 'exceptions', 'dueDate','Status']"></tr>
+                  <tr mat-row *matRowDef="let row; columns: ['taskName', 'projectId', 'assignee', 'specialInstructions', 'exceptions', 'dueDate','Status']; let i = index" [ngStyle]="{'background-color': i % 2 === 0 ? '#f0f0f0' : '#ffffff'}" (click)="onRowClick(row)"></tr>
                 </table>
                 <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
               </ng-container>
@@ -40,10 +47,20 @@
                   <!-- Columns definition -->
                   <ng-container *ngFor="let column of completedDisplayedColumns" [matColumnDef]="column">
                     <th mat-header-cell *matHeaderCellDef [ngStyle]="{'background-color': '#21294f', 'color': '#ffffff'}">{{ column | uppercase }}</th>
-                    <td mat-cell *matCellDef="let task">{{ task[column] }}</td>
+                    <td mat-cell *matCellDef="let task">
+                      <span *ngIf="column === 'taskName'" >{{ task[column] }}</span>
+                      <span *ngIf="column !== 'taskName'">{{ task[column] }}</span>
+                    </td>
                   </ng-container>
-                  <tr mat-header-row *matHeaderRowDef="completedDisplayedColumns"></tr>
-                  <tr mat-row *matRowDef="let row; columns: completedDisplayedColumns; let i = index" [ngStyle]="{'background-color': i % 2 === 0 ? '#f0f0f0' : '#ffffff'}"></tr>
+                  <ng-container matColumnDef="Status">
+                    <th mat-header-cell *matHeaderCellDef [ngStyle]="{'background-color': '#21294f', 'color': '#ffffff'}">Status</th>
+                    <td mat-cell *matCellDef="let task">
+                      <mat-slide-toggle [checked]="task.completion"  color="primary" (change)="toggleStatus(task)">
+                      </mat-slide-toggle>
+                    </td>
+                  </ng-container>
+                  <tr mat-header-row *matHeaderRowDef="['taskName', 'projectId', 'assignee', 'specialInstructions', 'exceptions', 'completedDate','Status']"></tr>
+                  <tr mat-row *matRowDef="let row; columns: ['taskName', 'projectId', 'assignee', 'specialInstructions', 'exceptions', 'completedDate','Status']; let i = index" [ngStyle]="{'background-color': i % 2 === 0 ? '#f0f0f0' : '#ffffff'}" (click)="onRowClick(row)"></tr>
                 </table>
                 <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
               </ng-container>

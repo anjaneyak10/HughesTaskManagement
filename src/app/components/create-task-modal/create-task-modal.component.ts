@@ -49,7 +49,7 @@ export class CreateTaskModalComponent {
         exception: form.value.exceptions,
         special_instruction: form.value.specialInstructions,
         duedate: form.value.dueDate?formattedDueDate:null,
-        weightage:20,
+        weightage:3,
         createdby: email
       };
       console.log('Task data:', JSON.stringify(taskData));

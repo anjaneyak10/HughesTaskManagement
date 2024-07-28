@@ -3,7 +3,9 @@ import { forkJoin } from 'rxjs';
 import { TaskService } from 'src/app/services/task.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-
+import { CreateTaskModalComponent } from 'src/app/components/create-task-modal/create-task-modal.component';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 interface Task {
   taskName: string;
   projectId: string;
@@ -12,6 +14,8 @@ interface Task {
   exceptions: string;
   dueDate: string;
   completedDate: string;
+  completion: boolean;
+  projecttaskid: string;
 }
 
 @Component({
@@ -29,7 +33,7 @@ export class EmployeeDashboardComponent implements OnInit {
   @ViewChild('upcomingPaginator') upcomingPaginator !: MatPaginator;
   @ViewChild('completedPaginator') completedPaginator!: MatPaginator;
 
-  constructor(private taskService: TaskService) {
+  constructor(private taskService: TaskService,public dialog: MatDialog, private snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -42,6 +46,10 @@ export class EmployeeDashboardComponent implements OnInit {
         next: ([openTasksResponse, closedTasksResponse]) => {
           this.upcomingTasks.data = this.processTasks(openTasksResponse.open_tasks);
           this.completedTasks.data = this.processTasks(closedTasksResponse.closed_tasks);
+
+          console.log('Open tasks:', openTasksResponse);
+          console.log('Closed tasks:', closedTasksResponse);
+
         },
         complete: () => {
           this.spinner = false; // Hide spinner when both requests are completed
@@ -56,19 +64,42 @@ export class EmployeeDashboardComponent implements OnInit {
   }
 
   private processTasks(tasks: any[]): Task[] {
+    console.log(JSON.stringify(tasks));
     return tasks.map(task => ({
       taskName: task.taskname,
+      taskId: task.taskid,
       projectId: task.projectname,
       assignee: task.assigneeemail,
       specialInstructions: task.specialinstruction,
       exceptions: task.exception,
       dueDate: this.formatDate(task.duedate),
-      completedDate: task.completeddate // Only for completed tasks
+      completedDate: task.completeddate, 
+      completion: task.completion,
+      projecttaskid:task.projecttaskid 
     }));
   }
 
   private formatDate(dateString: string): string {
     const date = new Date(dateString);
     return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
+  }
+  onRowClick(row:any ){
+    console.log('Row clicked:', row);
+  }
+ 
+  toggleStatus(task: any): void {
+    const newStatus = task.completion? false : true;
+    console.log(JSON.stringify(task));
+    const taskData = { email: localStorage.getItem('email'), project_task_id: task.projecttaskid, status: newStatus };
+    console.log(taskData)
+    this.taskService.changeTaskStatus(taskData).subscribe(
+      response => {
+        console.log('Status updated successfully:', response);
+        location.reload();
+      },
+      error => {
+        console.error('Error updating status', error);
+      }
+    );
   }
 }
