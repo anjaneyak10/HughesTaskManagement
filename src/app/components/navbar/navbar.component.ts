@@ -42,4 +42,8 @@ export class NavbarComponent {
     console.log('Button 4 clicked');
     // Add your logic here
   }
+
+  createTask() {
+    this.router.navigate(['/createtask']);
+  }
 }

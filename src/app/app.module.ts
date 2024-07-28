@@ -40,6 +40,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 import { CreateTemplateComponent } from './components/create-template/create-template.component';
 import { SelectTasksComponent } from './components/select-tasks/select-tasks.component';
+import { CreateTaskComponent } from './components/create-task/create-task.component';
 
 
 
@@ -59,8 +60,8 @@ import { SelectTasksComponent } from './components/select-tasks/select-tasks.com
     SelectTasksComponent,
     HomeComponent,
     RegisterComponent,
-    CreateTaskModalComponent
-
+    CreateTaskModalComponent,
+    CreateTaskComponent,
   ],
   imports: [
     BrowserModule,
