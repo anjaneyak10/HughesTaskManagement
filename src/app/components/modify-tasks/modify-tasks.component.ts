@@ -3,6 +3,7 @@ import { TemplateService } from 'src/app/services/template.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ModifyTaskModalComponent } from '../modify-task-modal/modify-task-modal.component';
+import { ColDef } from 'ag-grid-community'; // Column Definition Type Interface
 export interface Task {
   function_id: string;
   function_name: string;
@@ -16,14 +17,32 @@ export interface Task {
   styleUrls: ['./modify-tasks.component.css']
 })
 
+
 export class ModifyTasksComponent {
   source: any[] = [];
   tasks: Task[]= [];
   spinner=false;
   filteredTasks: Task[] = [];
   searchTerm: string = '';
+  columnDefs: ColDef<Task>[] =[
+    { headerName: 'Function Name', field: 'function_name', sortable: true, filter: true },
+    { headerName: 'Task Name', field: 'taskName', sortable: true, filter: true },
+    { headerName: 'Weightage', field: 'weightage', sortable: true, filter: true }
+  ];
+
+  defaultColDef = {
+    flex: 1,
+    minWidth: 100,
+    resizable: true
+  };
 constructor(private templateService: TemplateService,public dialog: MatDialog, private snackBar: MatSnackBar) { 
   this.spinner=true;
+}
+ngAfterViewInit() {
+  // Ensure styles are loaded before initializing the grid
+  setTimeout(() => {
+    // Any additional initialization logic can go here
+  }, 0);
 }
   ngOnInit() {
     this.getAlltasks();
@@ -34,23 +53,18 @@ constructor(private templateService: TemplateService,public dialog: MatDialog, p
       response => {
       this.tasks = response.tasks;
       console.log('Tasks:', this.tasks);
-      this.spinner=false;
       this.filteredTasks = this.tasks;
+      this.spinner=false;
       },
       error => console.error('Error fetching tasks:', error)
     );
-  }
-  applyFilter() {
-    if(this.searchTerm !== '') {
-    this.filteredTasks = this.tasks.filter(task => task.taskName.toLowerCase().includes(this.searchTerm.toLowerCase()));
-    }
   }
   onRowClick(row:any|null):void {
    console.log('Row clicked:', row);
    const dialogRef = this.dialog.open(ModifyTaskModalComponent, {
     width: 'auto', // Set your desired width
     height: 'auto', // Set your desired height
-    data: { task: row },
+    data: { task: row.data },
   });
 
   dialogRef.afterClosed().subscribe((result) => {

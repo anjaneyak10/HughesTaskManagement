@@ -38,7 +38,7 @@ import { MatNativeDateModule } from '@angular/material/core'; // Import MatNativ
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-
+import { AgGridAngular } from 'ag-grid-angular';
 
 
 import { CreateTemplateComponent } from './components/create-template/create-template.component';
@@ -97,7 +97,8 @@ import { ModifyTaskModalComponent } from './components/modify-task-modal/modify-
     MatNativeDateModule,
     MatSnackBarModule,
     MatSlideToggleModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    AgGridAngular
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
