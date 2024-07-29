@@ -24,6 +24,9 @@ export class NavbarComponent {
   createProject() {
     this.router.navigate(['/createproject']);
   }
+  modifyTasksClick(){
+    this.router.navigate(['/modifytasks']);
+  } 
   taskViewClick() {
     this.authService.navigateBasedOnUserRole();
   }

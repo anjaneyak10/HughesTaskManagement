@@ -37,11 +37,15 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core'; // Import MatNativeDateModule
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
+
 
 import { CreateTemplateComponent } from './components/create-template/create-template.component';
 import { SelectTasksComponent } from './components/select-tasks/select-tasks.component';
 import { CreateTaskComponent } from './components/create-task/create-task.component';
-
+import { ModifyTasksComponent } from './components/modify-tasks/modify-tasks.component';
+import { ModifyTaskModalComponent } from './components/modify-task-modal/modify-task-modal.component';
 
 
 @NgModule({
@@ -62,6 +66,8 @@ import { CreateTaskComponent } from './components/create-task/create-task.compon
     RegisterComponent,
     CreateTaskModalComponent,
     CreateTaskComponent,
+    ModifyTasksComponent,
+    ModifyTaskModalComponent
   ],
   imports: [
     BrowserModule,
@@ -90,7 +96,8 @@ import { CreateTaskComponent } from './components/create-task/create-task.compon
     MatDatepickerModule,
     MatNativeDateModule,
     MatSnackBarModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatCheckboxModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

@@ -16,7 +16,9 @@
             <div>
               <ng-container *ngIf="upcomingTasks.data.length">
               <br/>
-                <table mat-table [dataSource]="upcomingTasks" class="mat-elevation-z8">
+              <ng-container *ngFor="let project of upcomingTasks.data">
+                <h1>{{ project.projectId }}</h1>
+                <table mat-table [dataSource]="project.data" class="mat-elevation-z8">
                   <!-- Columns definition -->
                   <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
                     <th mat-header-cell *matHeaderCellDef [ngStyle]="{'background-color': '#21294f', 'color': '#ffffff'}">{{ column | uppercase }}</th>
@@ -29,10 +31,11 @@
                       </mat-slide-toggle>
                     </td>
                   </ng-container>
-                  <tr mat-header-row *matHeaderRowDef="['taskName', 'projectId', 'assignee', 'specialInstructions', 'exceptions', 'dueDate','Status']"></tr>
-                  <tr mat-row *matRowDef="let row; columns: ['taskName', 'projectId', 'assignee', 'specialInstructions', 'exceptions', 'dueDate','Status']; let i = index" [ngStyle]="{'background-color': i % 2 === 0 ? '#f0f0f0' : '#ffffff'}" (click)="onRowClick(row)"></tr>
+                  <tr mat-header-row *matHeaderRowDef="['taskName', 'assignee', 'specialInstructions', 'exceptions', 'dueDate','Status']"></tr>
+                  <tr mat-row *matRowDef="let row; columns: ['taskName', 'assignee', 'specialInstructions', 'exceptions', 'dueDate','Status']; let i = index" [ngStyle]="{'background-color': i % 2 === 0 ? '#f0f0f0' : '#ffffff'}" (click)="onRowClick(row)"></tr>
                 </table>
                 <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+              </ng-container>
               </ng-container>
               <ng-container *ngIf="!upcomingTasks.data.length">
                 <h1>No Upcoming Tasks</h1>
@@ -43,7 +46,9 @@
             <div>
               <ng-container *ngIf="completedTasks.data.length">
                 <br/>
-                <table mat-table [dataSource]="completedTasks" class="mat-elevation-z8">
+                <ng-container *ngFor="let project of completedTasks.data">
+                  <h1>{{ project.projectId }}</h1>
+                <table mat-table [dataSource]="project.data" class="mat-elevation-z8">
                   <!-- Columns definition -->
                   <ng-container *ngFor="let column of completedDisplayedColumns" [matColumnDef]="column">
                     <th mat-header-cell *matHeaderCellDef [ngStyle]="{'background-color': '#21294f', 'color': '#ffffff'}">{{ column | uppercase }}</th>
@@ -59,9 +64,10 @@
                       </mat-slide-toggle>
                     </td>
                   </ng-container>
-                  <tr mat-header-row *matHeaderRowDef="['taskName', 'projectId', 'assignee', 'specialInstructions', 'exceptions', 'completedDate','Status']"></tr>
-                  <tr mat-row *matRowDef="let row; columns: ['taskName', 'projectId', 'assignee', 'specialInstructions', 'exceptions', 'completedDate','Status']; let i = index" [ngStyle]="{'background-color': i % 2 === 0 ? '#f0f0f0' : '#ffffff'}" (click)="onRowClick(row)"></tr>
+                  <tr mat-header-row *matHeaderRowDef="['taskName', 'assignee', 'specialInstructions', 'exceptions', 'completedDate','Status']"></tr>
+                  <tr mat-row *matRowDef="let row; columns: ['taskName', 'assignee', 'specialInstructions', 'exceptions', 'completedDate','Status']; let i = index" [ngStyle]="{'background-color': i % 2 === 0 ? '#f0f0f0' : '#ffffff'}" (click)="onRowClick(row)"></tr>
                 </table>
+                </ng-container>
                 <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
               </ng-container>
               <ng-container *ngIf="!completedTasks.data.length">

@@ -1,0 +1,44 @@
+<mat-dialog-content>
+    <h2 mat-dialog-title>Modify Task</h2>
+    <form (ngSubmit)="modifyTask(task)" class="modify-task-form">
+        <ng-container *ngIf="spinner">
+            <div class="spinner-container">
+                <mat-spinner></mat-spinner>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="!spinner">
+            <div class="form-row">
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Task Name</mat-label>
+                    <input matInput type="text" [(ngModel)]="task.taskName" name="taskName" required>
+                    <mat-icon matSuffix>task</mat-icon>
+                </mat-form-field>
+            </div>
+            <div class="form-row">
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Function Name</mat-label>
+                    <mat-select [(ngModel)]="task.function_name" name="functionId" required>
+                        <mat-option *ngFor="let function of functionNames" [value]="function">
+                            {{ function }}
+                        </mat-option>
+                    </mat-select>
+                    <mat-icon matSuffix>functions</mat-icon>
+                </mat-form-field>
+            </div>
+            <div class="form-row">
+                <mat-form-field appearance="outline" class="half-width">
+                    <mat-label>Weightage</mat-label>
+                    <input matInput type="number" [(ngModel)]="task.weightage" name="weightage" required min="1"
+                        max="5">
+                    <mat-icon matSuffix>scale</mat-icon>
+                </mat-form-field>
+                <mat-checkbox [(ngModel)]="task.is_obsolete" name="is_obsolete" class="half-width">Is
+                    Obsolete</mat-checkbox>
+            </div>
+            <mat-dialog-actions align="end">
+                <button mat-button mat-dialog-close>Cancel</button>
+                <button mat-raised-button color="primary" type="submit">Save changes</button>
+            </mat-dialog-actions>
+        </ng-container>
+    </form>
+</mat-dialog-content>

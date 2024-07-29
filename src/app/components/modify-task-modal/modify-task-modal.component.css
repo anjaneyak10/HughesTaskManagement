@@ -1,0 +1,18 @@
+
+  .modify-task-form .form-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .modify-task-form .full-width {
+    width: 100%;
+  }
+  .modify-task-form .half-width {
+    width: 48%;
+  }
+  .spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
