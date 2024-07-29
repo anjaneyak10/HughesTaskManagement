@@ -16,7 +16,7 @@ export class ModifyTaskModalComponent {
     'Invoicing',
     'Program Team',
     'Support',
-    'Score Card'
+    'ScoreCard'
   ];
   constructor(private templateService: TemplateService,@Optional() @Inject(MAT_DIALOG_DATA) public data: any,private dialogRef: MatDialogRef<ModifyTaskModalComponent>) { 
     
@@ -31,7 +31,9 @@ export class ModifyTaskModalComponent {
 
   modifyTask(task: any): void {
     this.spinner=true;
+
     console.log('Task to modify:', task);
+    delete task.is_obsolete;
     this.templateService.modifyTaskInMaster(task).subscribe(
       response => {
         console.log('Task Modified Successfully', response);
