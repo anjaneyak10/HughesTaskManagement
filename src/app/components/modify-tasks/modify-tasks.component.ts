@@ -20,7 +20,8 @@ export class ModifyTasksComponent {
   source: any[] = [];
   tasks: Task[]= [];
   spinner=false;
-  
+  filteredTasks: Task[] = [];
+  searchTerm: string = '';
 constructor(private templateService: TemplateService,public dialog: MatDialog, private snackBar: MatSnackBar) { 
   this.spinner=true;
 }
@@ -34,12 +35,17 @@ constructor(private templateService: TemplateService,public dialog: MatDialog, p
       this.tasks = response.tasks;
       console.log('Tasks:', this.tasks);
       this.spinner=false;
-
+      this.filteredTasks = this.tasks;
       },
       error => console.error('Error fetching tasks:', error)
     );
   }
-  onRowClick(row:any):void {
+  applyFilter() {
+    if(this.searchTerm !== '') {
+    this.filteredTasks = this.tasks.filter(task => task.taskName.toLowerCase().includes(this.searchTerm.toLowerCase()));
+    }
+  }
+  onRowClick(row:any|null):void {
    console.log('Row clicked:', row);
    const dialogRef = this.dialog.open(ModifyTaskModalComponent, {
     width: 'auto', // Set your desired width

@@ -125,6 +125,22 @@ mat-row:nth-child(odd) {
       vertical-align: middle;
       margin-right: 10px;
     }
+    .search-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+  
+    .search-field {
+      flex-grow: 1;
+      margin-right: 10px;
+      
+    }
+  
+    .search-button {
+      height: 56px; /* Match the height of the mat-form-field */
+    }
     @media (max-width: 991px) {
       .header {
         flex-wrap: wrap;
