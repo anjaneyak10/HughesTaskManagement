@@ -5,6 +5,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ColDef } from 'ag-grid-community'; // Column Definition Type Interface
+import { SlideToggleCellRendererComponent } from '../slide-toggle-cell-renderer/slide-toggle-cell-renderer.component';
+
 interface Task {
   data:[{taskName: string;
     assignee: string;
@@ -28,10 +31,32 @@ export class EmployeeDashboardComponent implements OnInit {
   spinner: boolean = true;
   upcomingTasks = new MatTableDataSource<Task>([]);
   completedTasks = new MatTableDataSource<Task>([]);
-
-  @ViewChild('upcomingPaginator') upcomingPaginator !: MatPaginator;
-  @ViewChild('completedPaginator') completedPaginator!: MatPaginator;
-
+  upcomingColumnDefs: ColDef[] = [
+      { headerName: 'Task Name', field: 'taskName', sortable: true, filter: true },
+      { headerName: 'Assignee', field: 'assignee', sortable: true, filter: true },
+      { headerName: 'Special Instructions', field: 'specialInstructions', sortable: true, filter: true },
+      { headerName: 'Exceptions', field: 'exceptions', sortable: true, filter: true },
+      { headerName: 'Due Date', field: 'dueDate', sortable: true, filter: true },
+      {
+        headerName: 'Status', field: 'completion', cellRenderer: SlideToggleCellRendererComponent, cellRendererParams: {
+          onChange: (params:any) => this.toggleStatus(params.data)
+        }
+      }
+  ];
+  
+  completedColumnDefs: ColDef[] = [
+      { headerName: 'Task Name', field: 'taskName', sortable: true, filter: true },
+      { headerName: 'Assignee', field: 'assignee', sortable: true, filter: true },
+      { headerName: 'Special Instructions', field: 'specialInstructions', sortable: true, filter: true },
+      { headerName: 'Exceptions', field: 'exceptions', sortable: true, filter: true },
+      { headerName: 'Completed Date', field: 'completedDate', sortable: true, filter: true },
+      {
+        headerName: 'Status', field: 'completion', cellRenderer: SlideToggleCellRendererComponent, cellRendererParams: {
+          onChange: (params:any) => this.toggleStatus(params.data)
+         }
+      }
+  ];
+  
   constructor(private taskService: TaskService,public dialog: MatDialog) {
   }
 
@@ -56,13 +81,6 @@ export class EmployeeDashboardComponent implements OnInit {
       });
     }
   }
-
-
-  ngAfterViewInit(): void {
-      this.upcomingTasks.paginator = this.upcomingPaginator;
-      this.completedTasks.paginator = this.completedPaginator;
-  }
-
   private processTasks(tasks: any[]): Task[] {
     console.log(JSON.stringify(tasks));
     const taskMap: { [key: string]: Task } = {};
@@ -99,9 +117,11 @@ export class EmployeeDashboardComponent implements OnInit {
   toggleStatus(task: any): void {
     const newStatus = task.completion? false : true;
     this.spinner = true;
+    console.log('Task:', task);
     const taskData = { email: localStorage.getItem('email'), project_task_id: task.projecttaskid, status: newStatus };
     this.taskService.changeTaskStatus(taskData).subscribe(
       response => {
+        console.log('Status updated successfully', response);
         this.getData();
       },
       error => {

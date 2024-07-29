@@ -46,6 +46,10 @@ mat-header-row {
     color: #21294f;
     margin-left: 26px;
   }
+  h1{
+      color: #21294f;
+      text-transform: uppercase;
+  }
   
   
   .navigation {
@@ -79,7 +83,16 @@ mat-header-row {
     position: absolute;
     margin:10px
   }
-  
+  .ag-theme-quartz {
+    --ag-foreground-color: #673ab7;
+    --ag-background-color: rgb(255, 255, 255);
+    --ag-header-foreground-color: rgb(255, 255, 255);
+    --ag-header-background-color: #21294f;
+    --ag-odd-row-background-color: rgb(0, 0, 0, 0.03);
+    --ag-header-column-resize-handle-color: #673ab7;
+
+    --ag-font-size: 17px;
+}
   .view-toggle {
     background-color: #fff;
     border-radius: 8px;

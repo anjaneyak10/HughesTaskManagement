@@ -46,7 +46,8 @@ import { SelectTasksComponent } from './components/select-tasks/select-tasks.com
 import { CreateTaskComponent } from './components/create-task/create-task.component';
 import { ModifyTasksComponent } from './components/modify-tasks/modify-tasks.component';
 import { ModifyTaskModalComponent } from './components/modify-task-modal/modify-task-modal.component';
-
+import { SlideToggleCellRendererComponent } from  './components/slide-toggle-cell-renderer/slide-toggle-cell-renderer.component'
+import { AgGridModule } from 'ag-grid-angular';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { ModifyTaskModalComponent } from './components/modify-task-modal/modify-
     CreateTaskModalComponent,
     CreateTaskComponent,
     ModifyTasksComponent,
-    ModifyTaskModalComponent
+    ModifyTaskModalComponent,
+    SlideToggleCellRendererComponent
   ],
   imports: [
     BrowserModule,
@@ -98,7 +100,8 @@ import { ModifyTaskModalComponent } from './components/modify-task-modal/modify-
     MatSnackBarModule,
     MatSlideToggleModule,
     MatCheckboxModule,
-    AgGridAngular
+    AgGridAngular,
+    AgGridModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
