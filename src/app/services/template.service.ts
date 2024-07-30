@@ -9,7 +9,7 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class TemplateService {
-  private apiUrl = 'http://127.0.0.1:8081/project'; 
+  private apiUrl = 'http://127.0.0.1:8080/project'; 
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
@@ -22,7 +22,6 @@ export class TemplateService {
     return this.http.get(`${this.apiUrl}/getalltasks`);
   }
   modifyTaskInMaster(task: any): Observable<any> {
-    console.log('Task to modify service', task);
     const url = `${this.apiUrl}/modifytaskinmaster`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post(url, task, { headers });

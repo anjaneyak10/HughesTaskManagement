@@ -117,8 +117,8 @@ export class EmployeeDashboardComponent implements OnInit {
   toggleStatus(task: any): void {
     const newStatus = task.completion? false : true;
     this.spinner = true;
-    console.log('Task:', task);
     const taskData = { email: localStorage.getItem('email'), project_task_id: task.projecttaskid, status: newStatus };
+    console.log(JSON.stringify(taskData));
     this.taskService.changeTaskStatus(taskData).subscribe(
       response => {
         console.log('Status updated successfully', response);

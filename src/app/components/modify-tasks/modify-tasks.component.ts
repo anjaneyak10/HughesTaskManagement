@@ -9,7 +9,7 @@ export interface Task {
   function_name: string;
   taskName: string;
   taskid: string;
-  weightage: string;
+  weightage: number;
 }
 @Component({
   selector: 'app-modify-tasks',
