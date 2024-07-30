@@ -28,7 +28,7 @@ export class NavbarComponent {
     this.router.navigate(['/modifytasks']);
   } 
   taskViewClick() {
-    this.authService.navigateBasedOnUserRole();
+    this.router.navigate(['/employeedashboard']);
   }
 
   createTemplate() {

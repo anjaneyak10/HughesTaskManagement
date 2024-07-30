@@ -31,7 +31,15 @@ export class TaskService {
         }
       })
     );
-
+}
+getSummary(email: string): Observable<any> {
+  return this.http.get<any>(`http://localhost:5001/summary/get_summary?email_id=${email}`).pipe(
+    tap(response => {
+      if (response && response.token) {
+        console.log('response:', response);
+      }
+    })
+  );
 }
 changeTaskStatus(taskData: any): Observable<any> {
   return this.http.post<any>(`http://localhost:5001/dashboard/change_task_status`, taskData).pipe(

@@ -93,7 +93,7 @@ export class AuthService {
         this.router.navigate(['functionalleaddashboard']);
         break;
       case 'employee':
-        this.router.navigate(['employeedashboard']);
+        this.router.navigate(['home']);
         break;
       case 'executive':
         this.router.navigate(['executivedashboard']);
