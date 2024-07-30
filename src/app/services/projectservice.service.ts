@@ -57,4 +57,17 @@ export class ProjectserviceService {
       map(response => response)
     );
   }
+
+  getModifyProjectInfo(projectId: string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/getmodifyprojectinfo`,{ params: { projectid: projectId } });
+  }
+
+  modifyprojectLeads(projectId:string,projectFunctionLeads:any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/modifyfunctionalleads`, {projectId,projectFunctionLeads}).pipe(
+      tap(response => {
+        console.log('Project modified:', response);
+      }),
+      map(response => response)
+    );
+  }
 }

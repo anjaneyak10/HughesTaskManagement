@@ -39,6 +39,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AgGridAngular } from 'ag-grid-angular';
+import { CommonModule } from '@angular/common';
+import { ModifyProjectComponent } from './components/modify-project/modify-project.component';
 
 
 import { CreateTemplateComponent } from './components/create-template/create-template.component';
@@ -69,10 +71,12 @@ import { AgGridModule } from 'ag-grid-angular';
     CreateTaskComponent,
     ModifyTasksComponent,
     ModifyTaskModalComponent,
-    SlideToggleCellRendererComponent
+    SlideToggleCellRendererComponent,
+    ModifyProjectComponent,
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
