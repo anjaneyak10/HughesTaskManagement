@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { TaskService } from 'src/app/services/task.service';
 import {
@@ -11,6 +12,7 @@ import {
 import { CreateTaskModalComponent } from 'src/app/components/create-task-modal/create-task-modal.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthService } from 'src/app/services/auth.service';
 
 interface Project {
   data: {
@@ -56,7 +58,7 @@ export class ProjectViewComponent implements OnInit {
   expandedElement: Project | null;
   selectedProject:any;
   
-  constructor(private taskService: TaskService, public dialog: MatDialog, private snackBar: MatSnackBar) {
+  constructor(private taskService: TaskService, public dialog: MatDialog, private snackBar: MatSnackBar, private router: Router,private authService: AuthService) {
     this.expandedElement = null;
     this.selectedProject = null;
   }
@@ -143,4 +145,14 @@ export class ProjectViewComponent implements OnInit {
       verticalPosition: 'top',
     });
   }
+
+  navigateToModifyProject(): void {
+    if (this.selectedProject && this.selectedProject.projectId) {
+      this.router.navigate([`/modifyproject`, this.selectedProject.projectId]);
+    } else {
+      this.showToast('Please select a project first.');
+    }
+    // this.router.navigate(['/modifyproject']);
+  }
 }
+

@@ -1,0 +1,57 @@
+<div class="main-content">
+    <mat-card class="matcard">
+      <mat-card-header>
+        <mat-icon mat-card-avatar class="profileTitle">people_outline</mat-icon>
+        <mat-card-title class="cardTitle">Modify Project</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div *ngIf="projectInfo" class="project-info-container">
+            <h2 class="project-details">Project Details</h2>
+            <mat-divider></mat-divider>
+            <div class="project-detail-item">
+              <span class="project-detail-label">Project Name:</span>
+              <span class="project-detail-value">{{ projectInfo.projectname }}</span>
+            </div>
+            <div class="project-detail-item">
+              <span class="project-detail-label">Template Name:</span>
+              <span class="project-detail-value">{{ projectInfo.templatename }}</span>
+            </div>
+          </div>
+          <mat-divider></mat-divider>
+        <br>
+        <form (ngSubmit)="onSubmit()" #functionalLeadsForm="ngForm" class="select-functional-leads-form">
+          <div class="form-grid">
+            <div *ngFor="let func of functionInfo" class="form-group">
+              <!-- <p>Current Lead: {{ func.functionlead }}</p> -->
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Change Lead for {{ func.functionname }}</mat-label>
+                <mat-select [(ngModel)]="selectedLeads[func.functionid]" name="lead{{ func.functionid }}" required>
+                  <mat-option *ngFor="let lead of allfunctionalLeads" [value]="lead.email">{{ lead.email }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="button-container">
+            <button mat-raised-button type="submit" [disabled]="!functionalLeadsForm.form.valid" color="primary">Submit</button>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  
+    <div *ngIf="showConfirmation" class="modal-overlay">
+      <div class="modal-content">
+        <h3>Success!</h3>
+        <p>Project modified successfully!</p>
+        <button mat-button (click)="confirmAndRedirect()">OK</button>
+      </div>
+    </div>
+  
+    <div *ngIf="showError" class="modal-overlay">
+      <div class="modal-content-error">
+        <h3>Error</h3>
+        <p>Something went wrong, try again!</p>
+        <button mat-button (click)="confirmAndRedirectToCreateProject()">OK</button>
+      </div>
+    </div>
+  </div>
+  

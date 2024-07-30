@@ -34,7 +34,9 @@
                         </div>
                         <button mat-raised-button class="createTask" (click)="openCreateTaskModal()"
                             color="primary">Create Task</button>
-                    </div>
+                        <button mat-raised-button class="modifyProject" (click)="navigateToModifyProject()" 
+                            color="accent">Modify Project</button>
+                    </div>                    
 
                     <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
                         <!-- Function Column -->
