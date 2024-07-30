@@ -30,3 +30,6 @@ mat-progress-bar {
   align-items: center;
   height: 50vh; 
 }
+mat-card{
+  cursor: pointer;
+}

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { TaskService } from 'src/app/services/task.service';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -14,7 +14,10 @@ export class HomeComponent {
   totalTasks=0;
   spinner = false;
 
-  constructor(private taskService: TaskService) {
+  constructor(private taskService: TaskService,private router: Router) {
+  }
+  navigateTo(path: string): void {
+    this.router.navigate([path]);
   }
 ngOnInit(): void {
   this.spinner = true;
