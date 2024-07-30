@@ -72,8 +72,8 @@ export class EmployeeDashboardComponent implements OnInit {
       forkJoin([openTasks$, closedTasks$]).subscribe({
         next: ([openTasksResponse, closedTasksResponse]) => {
           this.upcomingTasks.data = this.processTasks(openTasksResponse.open_tasks);
+          console.log('Open tasks:', JSON.stringify(closedTasksResponse.closed_tasks));
           this.completedTasks.data = this.processTasks(closedTasksResponse.closed_tasks);
-          console.log('Open tasks:', JSON.stringify(this.upcomingTasks.data));
         },
         complete: () => {
           this.spinner = false; // Hide spinner when both requests are completed
@@ -100,7 +100,9 @@ export class EmployeeDashboardComponent implements OnInit {
       if (!taskMap[task.projectname]) {
         taskMap[task.projectname] = { data: [taskData], projectId: task.projectname };
       }
+      else{
       taskMap[task.projectname].data.push(taskData);
+      }
     });
   
     return Object.values(taskMap);
