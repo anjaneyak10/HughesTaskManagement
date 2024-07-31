@@ -36,3 +36,73 @@
     flex-direction: column;
   }
   
+  
+button.small-button-done {
+  background-color: #087431;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.2s;
+  margin-top: 10px;
+  width: 120px;
+}
+
+button.small-button:hover {
+  background-color: #0056b3;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+}
+
+.modal-content h3 {
+  margin-top: 0;
+  color: #4CAF50;
+}
+
+.modal-content p {
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+.modal-content button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.2s;
+}
+
+.modal-content button:hover {
+  background-color: #45a049;
+}
+
+.button-container {
+  display: flex;
+  gap: 10px; /* Adjust the value as needed */
+}

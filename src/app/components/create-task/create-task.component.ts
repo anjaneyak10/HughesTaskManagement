@@ -13,6 +13,7 @@ export class CreateTaskComponent implements OnInit {
   functionId: number | null = null;
   weightage: string = '';
   functions: Array<{ functionId: number, functionName: string }> = [];
+  showConfirmation: boolean = false;
 
   constructor(
     private projectService: ProjectserviceService,
@@ -35,11 +36,18 @@ export class CreateTaskComponent implements OnInit {
     this.projectService.createTaskinTaskMaster(this.taskName, this.functionId!, this.weightage).subscribe(
       (response) => {
         console.log('Task created:', response);
-        this.router.navigate(['/home']);
+        this.showConfirmation = true;
       },
       (error) => {
         console.error('Error creating task:', error);
       }
     );
   }
+  confirmAndRedirect(){
+    this.router.navigate(['/home']);
+  }
+  cancel(){
+    this.router.navigate(['/home']);
+  }
+  
 }
