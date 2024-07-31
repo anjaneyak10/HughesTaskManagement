@@ -1,52 +1,97 @@
-
-    <mat-toolbar color="primary">Menu</mat-toolbar>
-    <mat-nav-list>
-      <a mat-list-item (click)="homeButtonClick()">
-        <div class="sideNav">
-          <mat-icon>home</mat-icon>
-          <span>Home</span>
-        </div>
+<mat-toolbar color="primary">Menu</mat-toolbar>
+<mat-nav-list>
+  <a mat-list-item (click)="homeButtonClick()">
+    <div class="sideNav">
+      <mat-icon>home</mat-icon>
+      <span>Home</span>
+    </div>
+  </a>
+  
+  <mat-expansion-panel class="custom-expansion-panel">
+    <mat-expansion-panel-header>
+      <a  (click)="taskViewClick()">
+      <div class="sideNav">
+        <mat-icon>check_circle_outline</mat-icon>
+        <span>Tasks</span>
+      </div>
       </a>
-      <a mat-list-item (click)="taskViewClick()">
-        <div class="sideNav">
-          <mat-icon>check_circle_outline</mat-icon>
-          <span>My Tasks</span>
-        </div>
-      </a>
-      <a mat-list-item (click)="modifyTasksClick()">
-        <div class="sideNav">
-          <mat-icon>check_circle_outline</mat-icon>
-          <span>Modify Tasks</span>
-        </div>
-      </a>
-      <a mat-list-item (click)="projectViewClick()">
-        <div class="sideNav">
-          <mat-icon>work_outline</mat-icon>
-          <span>Project</span>
-        </div>
-      </a>
-      <a mat-list-item>
-        <div class="sideNav">
-          <mat-icon>folder_open</mat-icon>
-          <span>Portfolio</span>
-        </div>
-      </a>
-      <a mat-list-item (click)="createProject()">
-        <div class="sideNav">
-          <mat-icon>add_circle_outline</mat-icon>
-          <span>Create Project</span>
-        </div>
-      </a>
-      <a mat-list-item (click)="createTemplate()">
-        <div class="sideNav">
-          <mat-icon>note_add</mat-icon>
-          <span>Create Template</span>
-        </div>
-      </a>
-      <a mat-list-item (click)="createTask()">
-        <div class="sideNav">
-          <mat-icon>add_circle_outline</mat-icon>
-          <span>Create Task</span>
-        </div>
-      </a>
-    </mat-nav-list>
+    </mat-expansion-panel-header> 
+    <a mat-list-item (click)="createTask()">
+      <div class="childNav">
+        <mat-icon>subdirectory_arrow_right</mat-icon>
+        <span>Create Task</span>
+      </div>
+    </a>
+    <a mat-list-item (click)="modifyTasksClick()">
+      <div class="childNav">
+        <mat-icon>subdirectory_arrow_right</mat-icon>
+        <span>Modify Tasks</span>
+      </div>
+    </a>
+  </mat-expansion-panel>
+  
+  <mat-expansion-panel class="custom-expansion-panel">
+    <mat-expansion-panel-header>
+      <a (click)="projectViewClick()">
+      <div class="sideNav">
+        <mat-icon>work_outline</mat-icon>
+        <span>Projects</span>
+      </div>
+    </a>
+    </mat-expansion-panel-header>
+    <a mat-list-item (click)="createProject()">
+      <div class="childNav">
+        <mat-icon>subdirectory_arrow_right</mat-icon>
+        <span>Create Project</span>
+      </div>
+    </a>
+    <a mat-list-item>
+      <div class="childNav">
+        <mat-icon>subdirectory_arrow_right</mat-icon>
+        <span>Modify Project</span>
+      </div>
+    </a>
+  </mat-expansion-panel>
+  
+  <mat-expansion-panel class="custom-expansion-panel">
+    <mat-expansion-panel-header>
+      <div class="sideNav">
+        <mat-icon>note_add</mat-icon>
+        <span>Template</span>
+      </div>
+    </mat-expansion-panel-header>
+    <a mat-list-item (click)="createTemplate()">
+      <div class="childNav">
+        <mat-icon>subdirectory_arrow_right</mat-icon>
+        <span>Create Template</span>
+      </div>
+    </a>
+    <a mat-list-item>
+      <div class="childNav">
+        <mat-icon>subdirectory_arrow_right</mat-icon>
+        <span>Modify Template</span>
+      </div>
+    </a>
+  </mat-expansion-panel>
+  
+  <mat-expansion-panel class="custom-expansion-panel">
+    <mat-expansion-panel-header>
+      <div class="sideNav">
+        <mat-icon>folder</mat-icon>
+        <span>Portfolio</span>
+      </div>
+    </mat-expansion-panel-header>
+    <a mat-list-item (click)="createTemplate()">
+      <div class="childNav">
+        <mat-icon>subdirectory_arrow_right</mat-icon>
+        <span>Create Portfolio</span>
+      </div>
+    </a>
+    <a mat-list-item>
+      <div class="childNav">
+        <mat-icon>subdirectory_arrow_right</mat-icon>
+        <span>Modify Portfolio</span>
+      </div>
+    </a>
+  </mat-expansion-panel>
+</mat-nav-list>

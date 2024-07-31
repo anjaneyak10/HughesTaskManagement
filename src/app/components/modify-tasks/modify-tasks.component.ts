@@ -69,7 +69,7 @@ ngAfterViewInit() {
 
   dialogRef.afterClosed().subscribe((result) => {
     if (result && result.taskModified) {
-      this.showToast('Task created successfully!');
+      this.showToast('Task Modified successfully!');
       this.getAlltasks();
     }
   });
@@ -77,7 +77,7 @@ ngAfterViewInit() {
   }
   showToast(message: string): void {
     this.snackBar.open(message, 'Close', {
-      duration: 3000, // Duration in milliseconds
+      duration: 10000, // Duration in milliseconds
       horizontalPosition: 'center',
       verticalPosition: 'top',
     });

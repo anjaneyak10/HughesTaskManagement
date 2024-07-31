@@ -82,7 +82,7 @@ export class ProjectViewComponent implements OnInit {
     }
   }
 
-  applyFilter(filterValue: string): void {
+  selectProject(filterValue: string): void {
     this.spinnerTable = true;
     const selectedProject = projectList.find(
       (project) => project.name === filterValue
@@ -134,13 +134,13 @@ export class ProjectViewComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result && result.taskCreated) {
         this.showToast('Task created successfully!');
-        this.applyFilter(this.selectedProject.name);
+        this.selectProject(this.selectedProject.name);
       }
     });
   }
   showToast(message: string): void {
     this.snackBar.open(message, 'Close', {
-      duration: 3000, // Duration in milliseconds
+      duration: 10000, // Duration in milliseconds
       horizontalPosition: 'center',
       verticalPosition: 'top',
     });

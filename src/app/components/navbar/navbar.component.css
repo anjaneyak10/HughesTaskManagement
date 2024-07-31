@@ -6,19 +6,35 @@
   height: 100%;
 }
 .sideNav{
-  float: unset;
-}
-
-.sideNav{
   color:white;
   display: flex;
   align-items: center; 
   float: unset;
+  pointer-events: none;
+  cursor:default;
 }
 .sideNav mat-icon {
   margin-right: 8px; /* Adjust the space as needed */
 }
 
+.custom-expansion-panel {
+  background-color: #21294f;; /* Background color of the panel */
+  --mat-expansion-header-indicator-color:white;
+}
+.custom-expansion-panel .mat-expansion-panel-header {
+  background-color: #21294f;; /* Background color of the header */
+  color: white; /* Text color of the header */
+}
+.custom-expansion-panel .mat-expansion-panel-header:hover {
+  background-color: #673ab7; /* Background color of the header on hover */
+}
+.childNav{
+  display: flex;
+  align-items: center;
+  float: unset;
+  color:white;
+  margin-left: 22px;
+}
 .navigation {
   display: flex;
   flex-direction: column;

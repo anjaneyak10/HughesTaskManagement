@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { forkJoin } from 'rxjs';
 import { TaskService } from 'src/app/services/task.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { ColDef } from 'ag-grid-community';
 import { SlideToggleCellRendererComponent } from '../slide-toggle-cell-renderer/slide-toggle-cell-renderer.component';
 import { MatTabChangeEvent } from '@angular/material/tabs';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { MatTabGroup } from '@angular/material/tabs';
 
 interface Task {
   data: [{
@@ -16,6 +19,8 @@ interface Task {
     completedDate: string;
     completion: boolean;
     projecttaskid: string;
+    createdOn:string;
+    createdBy:string;
   }],
   projectId: string
 }
@@ -26,6 +31,7 @@ interface Task {
   styleUrls: ['./employee-dashboard.component.css'],
 })
 export class EmployeeDashboardComponent implements OnInit {
+  @ViewChild('tabGroup') tabGroup: MatTabGroup;
   displayedColumns: string[] = ['taskName', 'assignee', 'specialInstructions', 'exceptions', 'dueDate'];
   completedDisplayedColumns: string[] = ['taskName', 'assignee', 'specialInstructions', 'exceptions', 'completedDate'];
   spinner: boolean = true;
@@ -39,6 +45,8 @@ export class EmployeeDashboardComponent implements OnInit {
     { headerName: 'Assignee', field: 'assignee', sortable: true, filter: true },
     { headerName: 'Special Instructions', field: 'specialInstructions', sortable: true, filter: true },
     { headerName: 'Exceptions', field: 'exceptions', sortable: true, filter: true },
+    { headerName: 'Created By', field: 'createdBy', sortable: true, filter: true },
+    { headerName: 'Created On', field: 'createdOn', sortable: true, filter: true },
     { headerName: 'Due Date', field: 'dueDate', sortable: true, filter: true },
     {
       headerName: 'Status', field: 'completion', cellRenderer: SlideToggleCellRendererComponent, cellRendererParams: {
@@ -52,6 +60,8 @@ export class EmployeeDashboardComponent implements OnInit {
     { headerName: 'Assignee', field: 'assignee', sortable: true, filter: true },
     { headerName: 'Special Instructions', field: 'specialInstructions', sortable: true, filter: true },
     { headerName: 'Exceptions', field: 'exceptions', sortable: true, filter: true },
+    { headerName: 'Created By', field: 'createdBy', sortable: true, filter: true },
+    { headerName: 'Created On', field: 'createdOn', sortable: true, filter: true },
     { headerName: 'Completed Date', field: 'completedDate', sortable: true, filter: true },
     {
       headerName: 'Status', field: 'completion', cellRenderer: SlideToggleCellRendererComponent, cellRendererParams: {
@@ -59,16 +69,22 @@ export class EmployeeDashboardComponent implements OnInit {
       }
     }
   ];
-  constructor(private taskService: TaskService) {
+  constructor(private taskService: TaskService, private snackBar: MatSnackBar, private router: Router, private elementRef: ElementRef, private cdr: ChangeDetectorRef) {
+      this.tabGroup = new MatTabGroup(this.elementRef, this.cdr);
     this.spinner = true;
     this.tab = {
       tasks: this.upcomingTasks,
       columnDefs: [],
       noTasksMessage: ''
     }
+    const navigation = this.router.getCurrentNavigation();
+    this.activeTabIndex = navigation && navigation.extras && navigation.extras.state ? navigation.extras.state['data'] : 0;
   }
   ngOnInit(): void {
     this.getData();
+  }
+  ngAfterViewInit(): void {
+    this.selectTab(this.activeTabIndex);
   }
 
   getData(): void {
@@ -84,6 +100,7 @@ export class EmployeeDashboardComponent implements OnInit {
             columnDefs: this.upcomingColumnDefs,
             noTasksMessage: 'No Upcoming Tasks'
           }
+          
           this.spinner = false;
         });
       } else if (tabIndex === 1) {
@@ -95,6 +112,7 @@ export class EmployeeDashboardComponent implements OnInit {
             noTasksMessage: 'No Completed Tasks'
           }
           this.spinner = false;
+          console.log(JSON.stringify(closedTasksResponse))
         });
       }
     }
@@ -104,16 +122,17 @@ export class EmployeeDashboardComponent implements OnInit {
     const taskMap: { [key: string]: Task } = {};
 
     tasks.forEach(task => {
-      const formattedDate = this.formatDate(task.duedate);
       const taskData = {
         taskName: task.taskname,
         assignee: task.assigneeemail,
         specialInstructions: task.specialinstruction,
         exceptions: task.exception,
-        dueDate: formattedDate,
-        completedDate: task.completed_date ? this.formatDate(task.completed_date) : '',
+        dueDate: task.duedate?this.formatDate(task.duedate):'',
+        completedDate: task.completed_date? this.formatDate(task.completed_date) : '',
         completion: task.completion,
         projecttaskid: task.projecttaskid,
+        createdOn:task.createdon?this.formatDate(task.createdon):'',
+        createdBy:task.createdby
       };
       if (!taskMap[task.projectname]) {
         taskMap[task.projectname] = { data: [taskData], projectId: task.projectname };
@@ -126,6 +145,7 @@ export class EmployeeDashboardComponent implements OnInit {
   }
 
   private formatDate(dateString: string): string {
+    console.log(dateString)
     const date = new Date(dateString);
     return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
   }
@@ -135,6 +155,12 @@ export class EmployeeDashboardComponent implements OnInit {
     const taskData = { email: localStorage.getItem('email'), project_task_id: task.projecttaskid, status: task.completion };
     this.taskService.changeTaskStatus(taskData).subscribe(
       response => {
+        if(this.activeTabIndex==0){
+        this.showToast('Marked Task As Complete');
+        }
+        else{
+          this.showToast('Marked Task As Incomplete');
+        }
         this.getData();
       },
       error => {
@@ -142,11 +168,21 @@ export class EmployeeDashboardComponent implements OnInit {
       }
     );
   }
+  showToast(message: string): void {
+    this.snackBar.open(message, 'Close', {
+      duration: 10000, // Duration in milliseconds
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+    });
+  }
 
   onTabChange(event: MatTabChangeEvent): void {
     this.spinner = true;
     console.log('Tab changed:', event.index);
     this.activeTabIndex = event.index;
     this.getData();
+  }
+  selectTab(index: number): void {
+    this.tabGroup.selectedIndex = index;
   }
 }

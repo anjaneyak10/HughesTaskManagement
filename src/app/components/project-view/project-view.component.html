@@ -2,7 +2,7 @@
     <mat-card class="matcard">
         <mat-card-header>
             <mat-icon mat-card-avatar class="profileTitle">account_circle</mat-icon>
-            <mat-card-title class="cardTitle">My Projects</mat-card-title>
+            <mat-card-title class="cardTitle">Projects</mat-card-title>
         </mat-card-header>
         <ng-container *ngIf="spinner">
             <div class="spinner-container">
@@ -11,14 +11,11 @@
         </ng-container>
         <ng-container *ngIf="!spinner">
             <ng-container *ngIf="projectNames.length">
-                <mat-form-field appearance="outline">
-                    <mat-label>Search Projects</mat-label>
-                    <mat-select (selectionChange)="applyFilter($event.value)">
-                        <mat-option *ngFor="let project of projectNames" [value]="project">
-                            {{ project }}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
+                    <div class="summary-container">
+                    <mat-card class="summary-card" *ngFor="let project of projectNames" (click)="selectProject(project)">
+                        <mat-card-title><h2>{{ project }}</h2></mat-card-title>
+                      </mat-card>
+                    </div>
             </ng-container>
             <ng-container *ngIf="!projectNames.length">
                 <h1>No Projects Available</h1>
@@ -35,7 +32,7 @@
                         <button mat-raised-button class="createTask" (click)="openCreateTaskModal()"
                             color="primary">Create Task</button>
                         <button mat-raised-button class="modifyProject" (click)="navigateToModifyProject()" 
-                            color="accent">Modify Project</button>
+                            color="primary">Modify Project</button>
                     </div>                    
 
                     <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">

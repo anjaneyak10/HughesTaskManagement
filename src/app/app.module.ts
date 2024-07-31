@@ -41,7 +41,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AgGridAngular } from 'ag-grid-angular';
 import { CommonModule } from '@angular/common';
 import { ModifyProjectComponent } from './components/modify-project/modify-project.component';
-
+import { MatExpansionModule } from '@angular/material/expansion';
 
 import { CreateTemplateComponent } from './components/create-template/create-template.component';
 import { SelectTasksComponent } from './components/select-tasks/select-tasks.component';
@@ -105,7 +105,8 @@ import { AgGridModule } from 'ag-grid-angular';
     MatSlideToggleModule,
     MatCheckboxModule,
     AgGridAngular,
-    AgGridModule
+    AgGridModule,
+    MatExpansionModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

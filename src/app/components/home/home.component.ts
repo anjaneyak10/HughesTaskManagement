@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { TaskService } from 'src/app/services/task.service';
-import { Router } from '@angular/router';
+import { Router,NavigationExtras } from '@angular/router';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -17,7 +17,17 @@ export class HomeComponent {
   constructor(private taskService: TaskService,private router: Router) {
   }
   navigateTo(path: string): void {
+    if(path !== 'employeedashboard2'){
     this.router.navigate([path]);
+    }
+    else{
+      const navigationExtras: NavigationExtras = {
+        state: {
+          data: 1
+        }
+      };
+      this.router.navigate(['employeedashboard'],navigationExtras);
+    }
   }
 ngOnInit(): void {
   this.spinner = true;
