@@ -5,7 +5,10 @@ mat-row:nth-child(odd) {
 mat-row:nth-child(even) {
   background-color: #ffffff;
 }
-
+.ag-icon {
+    display: block;
+    color: white;
+}
 mat-header-row {
   background-color: #21294f;
   color: #ffffff;
@@ -84,13 +87,13 @@ mat-header-row {
     margin:10px
   }
   .ag-theme-quartz {
-    --ag-foreground-color: #673ab7;
-    --ag-background-color: rgb(255, 255, 255);
+    --ag-foreground-color: white;
+    --ag-background-color: white;
     --ag-header-foreground-color: rgb(255, 255, 255);
     --ag-header-background-color: #21294f;
     --ag-odd-row-background-color: rgb(0, 0, 0, 0.03);
     --ag-header-column-resize-handle-color: white;
-
+    --ag-data-color: black;
     --ag-font-size: 17px;
 }
   .view-toggle {
@@ -136,6 +139,10 @@ mat-header-row {
     width: 17px;
     vertical-align: middle;
     margin-right: 10px;
+  }
+  .toastStyle {
+    margin: 28px;
+    background-color: white;
   }
   @media (max-width: 991px) {
     .header {

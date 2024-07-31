@@ -25,8 +25,8 @@ export class ModifyTasksComponent {
   filteredTasks: Task[] = [];
   searchTerm: string = '';
   columnDefs: ColDef<Task>[] =[
-    { headerName: 'Function Name', field: 'function_name', sortable: true, filter: true },
     { headerName: 'Task Name', field: 'taskName', sortable: true, filter: true },
+    { headerName: 'Function Name', field: 'function_name', sortable: true, filter: true },
     { headerName: 'Weightage', field: 'weightage', sortable: true, filter: true }
   ];
 
@@ -52,7 +52,7 @@ ngAfterViewInit() {
     this.templateService.getAllTasks().subscribe(
       response => {
       this.tasks = response.tasks;
-      console.log('Tasks:', this.tasks);
+      console.log('Tasks:', JSON.stringify(this.tasks));
       this.filteredTasks = this.tasks;
       this.spinner=false;
       },
@@ -62,8 +62,8 @@ ngAfterViewInit() {
   onRowClick(row:any|null):void {
    console.log('Row clicked:', row);
    const dialogRef = this.dialog.open(ModifyTaskModalComponent, {
-    width: 'auto', // Set your desired width
-    height: 'auto', // Set your desired height
+    width: '35%', // Set your desired width
+    height: '43%', // Set your desired height
     data: { task: row.data },
   });
 
@@ -77,7 +77,7 @@ ngAfterViewInit() {
   }
   showToast(message: string): void {
     this.snackBar.open(message, 'Close', {
-      duration: 10000, // Duration in milliseconds
+      duration: 0,// Duration in milliseconds
       horizontalPosition: 'center',
       verticalPosition: 'top',
     });

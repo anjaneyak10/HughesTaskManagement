@@ -21,6 +21,9 @@ interface Task {
     projecttaskid: string;
     createdOn:string;
     createdBy:string;
+    functionName:string;
+    lastUpdatedBy:string;
+    lastUpdatedOn:string;
   }],
   projectId: string
 }
@@ -43,31 +46,41 @@ export class EmployeeDashboardComponent implements OnInit {
   upcomingColumnDefs: ColDef[] = [
     { headerName: 'Task Name', field: 'taskName', sortable: true, filter: true },
     { headerName: 'Assignee', field: 'assignee', sortable: true, filter: true },
-    { headerName: 'Special Instructions', field: 'specialInstructions', sortable: true, filter: true },
-    { headerName: 'Exceptions', field: 'exceptions', sortable: true, filter: true },
-    { headerName: 'Created By', field: 'createdBy', sortable: true, filter: true },
-    { headerName: 'Created On', field: 'createdOn', sortable: true, filter: true },
-    { headerName: 'Due Date', field: 'dueDate', sortable: true, filter: true },
+    { headerName: 'Function Name', field: 'functionName', sortable: true, filter: true },
     {
       headerName: 'Status', field: 'completion', cellRenderer: SlideToggleCellRendererComponent, cellRendererParams: {
         onChange: (params: any) => this.toggleStatus(params.data)
       }
-    }
+    },
+    { headerName: 'Due Date', field: 'dueDate', sortable: true, filter: true ,cellStyle: this.cellStyleFunction},
+    { headerName: 'Special Instructions', field: 'specialInstructions', sortable: true, filter: true },
+    { headerName: 'Exceptions', field: 'exceptions', sortable: true, filter: true },
+    { headerName: 'Last Updated By', field: 'lastUpdatedBy', sortable: true, filter: true },
+    { headerName: 'Last Updated On', field: 'lastUpdatedOn', sortable: true, filter: true },
+    { headerName: 'Created By', field: 'createdBy', sortable: true, filter: true },
+    { headerName: 'Created On', field: 'createdOn', sortable: true, filter: true },
+  
+    
   ];
 
   completedColumnDefs: ColDef[] = [
     { headerName: 'Task Name', field: 'taskName', sortable: true, filter: true },
     { headerName: 'Assignee', field: 'assignee', sortable: true, filter: true },
-    { headerName: 'Special Instructions', field: 'specialInstructions', sortable: true, filter: true },
-    { headerName: 'Exceptions', field: 'exceptions', sortable: true, filter: true },
-    { headerName: 'Created By', field: 'createdBy', sortable: true, filter: true },
-    { headerName: 'Created On', field: 'createdOn', sortable: true, filter: true },
-    { headerName: 'Completed Date', field: 'completedDate', sortable: true, filter: true },
+    { headerName: 'Function Name', field: 'functionName', sortable: true, filter: true },
     {
       headerName: 'Status', field: 'completion', cellRenderer: SlideToggleCellRendererComponent, cellRendererParams: {
         onChange: (params: any) => this.toggleStatus(params.data)
       }
-    }
+    },
+    { headerName: 'Special Instructions', field: 'specialInstructions', sortable: true, filter: true },
+    { headerName: 'Exceptions', field: 'exceptions', sortable: true, filter: true },
+    { headerName: 'Completed Date', field: 'completedDate', sortable: true, filter: true },
+    { headerName: 'Last Updated By', field: 'lastUpdatedBy', sortable: true, filter: true },
+    { headerName: 'Last Updated On', field: 'lastUpdatedOn', sortable: true, filter: true },
+    { headerName: 'Created By', field: 'createdBy', sortable: true, filter: true },
+    { headerName: 'Created On', field: 'createdOn', sortable: true, filter: true },
+   
+    
   ];
   constructor(private taskService: TaskService, private snackBar: MatSnackBar, private router: Router, private elementRef: ElementRef, private cdr: ChangeDetectorRef) {
       this.tabGroup = new MatTabGroup(this.elementRef, this.cdr);
@@ -132,7 +145,10 @@ export class EmployeeDashboardComponent implements OnInit {
         completion: task.completion,
         projecttaskid: task.projecttaskid,
         createdOn:task.createdon?this.formatDate(task.createdon):'',
-        createdBy:task.createdby
+        createdBy:task.createdby,
+        functionName:task.functionname,
+        lastUpdatedBy:task.lastupdatedby,
+        lastUpdatedOn:task.lastupdatedon?this.formatDate(task.lastupdatedon):''
       };
       if (!taskMap[task.projectname]) {
         taskMap[task.projectname] = { data: [taskData], projectId: task.projectname };
@@ -145,7 +161,6 @@ export class EmployeeDashboardComponent implements OnInit {
   }
 
   private formatDate(dateString: string): string {
-    console.log(dateString)
     const date = new Date(dateString);
     return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
   }
@@ -170,19 +185,27 @@ export class EmployeeDashboardComponent implements OnInit {
   }
   showToast(message: string): void {
     this.snackBar.open(message, 'Close', {
-      duration: 10000, // Duration in milliseconds
+      duration: 0, // Duration in milliseconds
       horizontalPosition: 'center',
       verticalPosition: 'top',
+      panelClass: ['toastStyle'],
     });
   }
 
   onTabChange(event: MatTabChangeEvent): void {
     this.spinner = true;
-    console.log('Tab changed:', event.index);
     this.activeTabIndex = event.index;
     this.getData();
   }
   selectTab(index: number): void {
     this.tabGroup.selectedIndex = index;
+  }
+  cellStyleFunction(params: any) {
+    const today = new Date();
+    const dueDate = new Date(params.value);
+    if (dueDate < today) {
+      return { color: 'red', fontWeight: 'bold' };
+    }
+    return null;
   }
 }
