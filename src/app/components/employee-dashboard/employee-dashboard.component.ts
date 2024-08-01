@@ -8,6 +8,9 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { MatTabGroup } from '@angular/material/tabs';
+// import { StatusDropdownRenderComponent } from '../status-dropdown-renderer/status-dropdown-render.component';
+
+import { StatusDropdownRendererComponent } from '../status-dropdown-render/status-dropdown-render.component';
 
 interface Task {
   data: [{
@@ -35,6 +38,7 @@ interface Task {
 })
 export class EmployeeDashboardComponent implements OnInit {
   @ViewChild('tabGroup') tabGroup: MatTabGroup;
+  selectedTab: any;
   displayedColumns: string[] = ['taskName', 'assignee', 'specialInstructions', 'exceptions', 'dueDate'];
   completedDisplayedColumns: string[] = ['taskName', 'assignee', 'specialInstructions', 'exceptions', 'completedDate'];
   spinner: boolean = true;
@@ -48,7 +52,7 @@ export class EmployeeDashboardComponent implements OnInit {
     { headerName: 'Assignee', field: 'assignee', sortable: true, filter: true },
     { headerName: 'Function Name', field: 'functionName', sortable: true, filter: true },
     {
-      headerName: 'Status', field: 'completion', cellRenderer: SlideToggleCellRendererComponent, cellRendererParams: {
+      headerName: 'Status', field: 'completion', cellRenderer: StatusDropdownRendererComponent, cellRendererParams: {
         onChange: (params: any) => this.toggleStatus(params.data)
       }
     },
@@ -68,8 +72,8 @@ export class EmployeeDashboardComponent implements OnInit {
     { headerName: 'Assignee', field: 'assignee', sortable: true, filter: true },
     { headerName: 'Function Name', field: 'functionName', sortable: true, filter: true },
     {
-      headerName: 'Status', field: 'completion', cellRenderer: SlideToggleCellRendererComponent, cellRendererParams: {
-        onChange: (params: any) => this.toggleStatus(params.data)
+      headerName: 'Status', field: 'completion', cellRenderer: StatusDropdownRendererComponent, cellRendererParams: {
+        onChange: (params: any) => params.data.completion = params.value
       }
     },
     { headerName: 'Special Instructions', field: 'specialInstructions', sortable: true, filter: true },
@@ -208,4 +212,32 @@ export class EmployeeDashboardComponent implements OnInit {
     }
     return null;
   }
+
+  
+  onDoneClick(project: any): void {
+    const email = localStorage.getItem('email') || '';
+    
+    const dataToSend = project.data.map((task: any) => ({
+      email: email,
+      project_task_id: task.projecttaskid,
+      status: task.completion === 'true' ? 1 : 0
+    }));
+
+    console.log('Data to send:', dataToSend);
+
+    this.taskService.changeTaskStatus(dataToSend).subscribe(
+      response => {
+        console.log('Status updated successfully:', response);
+        this.showToast('Task statuses updated successfully for ' + project.projectId);
+        this.getData();
+      },
+      error => {
+        console.error('Error updating status:', error);
+        this.showToast('Error updating task statuses for ' + project.projectId);
+      }
+    );
+  }
+
+
+  
 }
