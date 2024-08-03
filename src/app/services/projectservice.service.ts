@@ -70,4 +70,23 @@ export class ProjectserviceService {
       map(response => response)
     );
   }
+
+  getAllProjects(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/getallprojects`, {}).pipe(
+      tap(response => {
+        console.log('Projects received:', response);
+      }),
+      map(response => response)
+    );
+  }
+
+  createPortfolio(portfolioName: string, projects: Array<number>): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/saveportfolio`, {portfolioName, projects}).pipe(
+      tap(response => {
+        console.log('Portfolio created:', response);
+      }),
+      map(response => response)
+    );
+  }
+  
 }

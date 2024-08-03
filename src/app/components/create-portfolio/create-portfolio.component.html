@@ -1,0 +1,39 @@
+<div class="main-content">
+    <mat-card class="matcard">
+      <mat-card-header>
+        <mat-icon mat-card-avatar class="profileTitle">add_circle_outline</mat-icon>
+        <mat-card-title class="cardTitle">Create Portfolio</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form (ngSubmit)="onSubmit()" #taskForm="ngForm" class="create-task-form">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Portfolio Name</mat-label>
+            <input matInput type="text" id="portfolioName" [(ngModel)]="portfolioName" name="portfolioName" required>
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Project</mat-label>
+            <mat-select id="functionId" [(ngModel)]="selectedProjects" name="selectedProjects" multiple required>
+              <mat-option *ngFor="let project of projects" [value]="project.projectId">
+                {{ project.projectName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+  
+          <div class="button-container">
+            <button mat-raised-button type="submit" [disabled]="taskForm.form.invalid" color="primary">Create Portfolio</button>
+            <button mat-raised-button type="button" (click)="cancel()" color="primary">Cancel</button>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  
+  <div *ngIf="showConfirmation" class="modal-overlay">
+    <div class="modal-content">
+      <h3>Success!</h3>
+      <p>Template created successfully!</p>
+      <button (click)="confirmAndRedirect()">OK</button>
+    </div>
+  </div>
+  

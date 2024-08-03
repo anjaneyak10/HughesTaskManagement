@@ -50,6 +50,7 @@ import { ModifyTasksComponent } from './components/modify-tasks/modify-tasks.com
 import { ModifyTaskModalComponent } from './components/modify-task-modal/modify-task-modal.component';
 import { SlideToggleCellRendererComponent } from  './components/slide-toggle-cell-renderer/slide-toggle-cell-renderer.component'
 import { AgGridModule } from 'ag-grid-angular';
+import { CreatePortfolioComponent } from './components/create-portfolio/create-portfolio.component';
 
 @NgModule({
   declarations: [
@@ -73,6 +74,7 @@ import { AgGridModule } from 'ag-grid-angular';
     ModifyTaskModalComponent,
     SlideToggleCellRendererComponent,
     ModifyProjectComponent,
+    CreatePortfolioComponent,
   ],
   imports: [
     BrowserModule,

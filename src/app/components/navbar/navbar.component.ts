@@ -36,6 +36,10 @@ export class NavbarComponent {
     this.router.navigate(['/create-template']);
   }
 
+  createPortfolio() {
+    this.router.navigate(['/create-portfolio']);
+  }
+
 
   onButton3Click() {
     console.log('Button 3 clicked');
