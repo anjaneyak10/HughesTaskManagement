@@ -3,21 +3,27 @@
   <div class="dual-list-container">
     <div class="list">
       <h3>Add</h3>
-      <ul>
-        <li *ngFor="let task of source">
-          <input type="checkbox" [(ngModel)]="task.selected" (change)="addTask(task)" [checked]="task.selected" /> {{ task.taskName }}
-        </li>
-      </ul>
+      <div *ngFor="let functionName of groupedSource | keyvalue">
+        <h4>{{ functionName.key }}</h4>
+        <ul>
+          <li *ngFor="let task of functionName.value">
+            <input type="checkbox" [(ngModel)]="task.selected" (change)="addTask(task)" [checked]="task.selected" /> {{ task.taskname }}
+          </li>
+        </ul>
+      </div>
       <button class="small-button" (click)="addAllTasks()">Add All</button>
     </div>
 
     <div class="list">
       <h3>Remove</h3>
-      <ul>
-        <li *ngFor="let task of confirmed">
-          <input type="checkbox" [(ngModel)]="task.selected" (change)="removeTask(task)" [checked]="task.selected" /> {{ task.taskName }}
-        </li>
-      </ul>
+      <div *ngFor="let functionName of groupedConfirmed | keyvalue">
+        <h4>{{ functionName.key }}</h4>
+        <ul>
+          <li *ngFor="let task of functionName.value">
+            <input type="checkbox" [(ngModel)]="task.selected" (change)="removeTask(task)" [checked]="task.selected" /> {{ task.taskname }}
+          </li>
+        </ul>
+      </div>
       <button class="small-button" (click)="removeAllTasks()">Remove All</button>
     </div>
   </div>
