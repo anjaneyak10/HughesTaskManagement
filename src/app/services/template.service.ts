@@ -27,7 +27,7 @@ export class TemplateService {
     return this.http.post(url, task, { headers });
   }
 
-  addTasksToTemplate(templateId: string, taskIds: number[]): Observable<any> {
+  addTasksToTemplate(templateId: string, taskIds: string[]): Observable<any> {
     return this.http.post(`${this.apiUrl}/addtasktotemplate`, { templateId: templateId, taskId: taskIds });
   }
 }
