@@ -125,19 +125,11 @@ export class ModifyProjectComponent implements OnInit {
   }
 
   confirmAndRedirect(): void {
-    this.router.navigate(['/home']); // Adjust the path as necessary
+    window.location.reload();// Adjust the path as necessary
   }
 
   confirmAndRedirectToCreateProject(): void {
-    this.otherTasks
-    .filter(task => task.selected)  // Filter selected tasks
-    .forEach(task => this.addedTasks.add(task.taskId)); 
-    this.currentTasks
-    .filter(task => task.selected)  // Filter selected tasks
-    .forEach(task => this.removedTasks.add(task.taskId));
-    console.log(this.addedTasks);
-    console.log(this.removedTasks);
-    console.log(this.authService.getEmail());
+    window.location.reload();
   }
 
   toggleForm(): void {

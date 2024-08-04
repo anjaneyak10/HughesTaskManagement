@@ -55,6 +55,6 @@ export class NavbarComponent {
     this.router.navigate(['/createtask']);
   }
   modifyProject() {
-    this.router.navigate(['/modifyproject/proj000060']);
+    this.router.navigate(['/select-project-for-modify']);
   }
 }
