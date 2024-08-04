@@ -88,5 +88,20 @@ export class ProjectserviceService {
       map(response => response)
     );
   }
+
+  gettasks(projectId: string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/getallprojecttasksandnonprojecttasks?projectId=`+projectId,{ params: { projectid: projectId } });
+  }
+
+  modifyTasksInProject(projectId: string, email: string, addedTasksSet: Set<String>, removedTasksSet: Set<String>): Observable<any> {
+    const addedTasks = Array.from(addedTasksSet);
+    const removedTasks = Array.from(removedTasksSet);
+    return this.http.put<any>(`${this.baseUrl}/modifyprojecttasks`, {projectId, email, addedTasks, removedTasks}).pipe(
+      tap(response => {
+        console.log('Tasks modified:', response);
+      }),
+      map(response => response)
+    );
+  }
   
 }

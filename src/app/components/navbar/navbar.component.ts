@@ -54,4 +54,7 @@ export class NavbarComponent {
   createTask() {
     this.router.navigate(['/createtask']);
   }
+  modifyProject() {
+    this.router.navigate(['/modifyproject/proj000060']);
+  }
 }
