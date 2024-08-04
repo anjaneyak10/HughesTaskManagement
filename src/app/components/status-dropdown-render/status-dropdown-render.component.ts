@@ -29,6 +29,8 @@ export class StatusDropdownRendererComponent implements OnInit {
       const colId = (this.params.column as any).colId;
       if (colId) {
         this.params.node.setDataValue(colId, newValue.toString());
+        console.log(this.params.node.data.projecttaskid, " " , newValue);
+        localStorage.setItem(this.params.node.data.projecttaskid, newValue);
       }
     }
   }

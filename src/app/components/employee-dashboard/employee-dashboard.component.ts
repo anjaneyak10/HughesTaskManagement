@@ -11,6 +11,7 @@ import { MatTabGroup } from '@angular/material/tabs';
 // import { StatusDropdownRenderComponent } from '../status-dropdown-renderer/status-dropdown-render.component';
 
 import { StatusDropdownRendererComponent } from '../status-dropdown-render/status-dropdown-render.component';
+import { ICellRendererParams } from 'ag-grid-community';
 
 interface Task {
   data: [{
@@ -38,6 +39,7 @@ interface Task {
 })
 export class EmployeeDashboardComponent implements OnInit {
   @ViewChild('tabGroup') tabGroup: MatTabGroup;
+  params!: ICellRendererParams;
   selectedTab: any;
   displayedColumns: string[] = ['taskName', 'assignee', 'specialInstructions', 'exceptions', 'dueDate'];
   completedDisplayedColumns: string[] = ['taskName', 'assignee', 'specialInstructions', 'exceptions', 'completedDate'];
@@ -220,7 +222,8 @@ export class EmployeeDashboardComponent implements OnInit {
     const dataToSend = project.data.map((task: any) => ({
       email: email,
       project_task_id: task.projecttaskid,
-      status: task.completion === 'true' ? 1 : 0
+      status: localStorage.getItem(this.params.node.data.projecttaskid)
+      // console.log(this.params.node.data.projecttaskid)
     }));
 
     console.log('Data to send:', dataToSend);
