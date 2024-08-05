@@ -3,13 +3,11 @@ import { forkJoin } from 'rxjs';
 import { TaskService } from 'src/app/services/task.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { ColDef } from 'ag-grid-community';
-import { SlideToggleCellRendererComponent } from '../slide-toggle-cell-renderer/slide-toggle-cell-renderer.component';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { MatTabGroup } from '@angular/material/tabs';
 import { StatusDropdownRendererComponent } from '../status-dropdown-render/status-dropdown-render.component';
-import { ICellRendererParams } from 'ag-grid-community';
 
 interface Task {
   data: [{
@@ -37,7 +35,6 @@ interface Task {
 })
 export class EmployeeDashboardComponent implements OnInit {
   @ViewChild('tabGroup') tabGroup: MatTabGroup;
-  params!: ICellRendererParams;
   selectedTab: any;
   displayedColumns: string[] = ['taskName', 'assignee', 'specialInstructions', 'exceptions', 'dueDate'];
   completedDisplayedColumns: string[] = ['taskName', 'assignee', 'specialInstructions', 'exceptions', 'completedDate'];
@@ -45,7 +42,7 @@ export class EmployeeDashboardComponent implements OnInit {
   upcomingTasks = new MatTableDataSource<Task>([]);
   completedTasks = new MatTableDataSource<Task>([]);
   tab: { tasks: MatTableDataSource<Task>; columnDefs: ColDef[]; noTasksMessage: string; };
-  activeTabIndex: number = 0; // Track the active tab index
+  activeTabIndex: number = 0; 
   tabLabel = ['Upcoming', 'Completed'];
   upcomingColumnDefs: ColDef[] = [
     { headerName: 'Task Name', field: 'taskName', sortable: true, filter: true },
@@ -53,7 +50,7 @@ export class EmployeeDashboardComponent implements OnInit {
     { headerName: 'Function Name', field: 'functionName', sortable: true, filter: true },
     {
       headerName: 'Status', field: 'completion', cellRenderer: StatusDropdownRendererComponent, cellRendererParams: {
-        onChange: (params: any) => this.toggleStatus(params.data)
+        onChange: (params: any) => params.data.completion = params.value
       }
     },
     { headerName: 'Due Date', field: 'dueDate', sortable: true, filter: true ,cellStyle: this.cellStyleFunction},
@@ -129,7 +126,6 @@ export class EmployeeDashboardComponent implements OnInit {
             noTasksMessage: 'No Completed Tasks'
           }
           this.spinner = false;
-          console.log(JSON.stringify(closedTasksResponse))
         });
       }
     }
@@ -169,24 +165,6 @@ export class EmployeeDashboardComponent implements OnInit {
     return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
   }
 
-  toggleStatus(task: any): void {
-    this.spinner = true;
-    const taskData = { email: localStorage.getItem('email'), project_task_id: task.projecttaskid, status: task.completion };
-    this.taskService.changeTaskStatus(taskData).subscribe(
-      response => {
-        if(this.activeTabIndex==0){
-        this.showToast('Marked Task As Complete');
-        }
-        else{
-          this.showToast('Marked Task As Incomplete');
-        }
-        this.getData();
-      },
-      error => {
-        console.error('Error updating status', error);
-      }
-    );
-  }
   showToast(message: string): void {
     this.snackBar.open(message, 'Close', {
       duration: 0, // Duration in milliseconds
@@ -216,15 +194,15 @@ export class EmployeeDashboardComponent implements OnInit {
   
   onDoneClick(project: any): void {
     const email = localStorage.getItem('email') || '';
-  
+    
     const dataToSend = project.data.map((task: any) => ({
       email: email,
       project_task_id: task.projecttaskid,
       status: this.stringToBoolean(localStorage.getItem(task.projecttaskid))
     }));
-  
+
     console.log('Data to send:', dataToSend);
-  
+
     this.taskService.changeTaskStatus(dataToSend).subscribe(
       response => {
         console.log('Status updated successfully:', response);
@@ -237,10 +215,9 @@ export class EmployeeDashboardComponent implements OnInit {
       }
     );
   }
-  
+
   private stringToBoolean(value: string | null): boolean {
     return value === 'true';
   }
-  
-    
+
 }
