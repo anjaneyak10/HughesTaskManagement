@@ -41,6 +41,7 @@ getSummary(email: string): Observable<any> {
     })
   );
 }
+
 changeTaskStatus(taskData: any): Observable<any> {
   return this.http.post<any>(`http://localhost:5001/dashboard/change_task_status`, taskData).pipe(
     tap(response => {
@@ -50,6 +51,7 @@ changeTaskStatus(taskData: any): Observable<any> {
     })
   );
 }
+
 
 getProjectList(email: string): Observable<any> {
   return this.http.get<any>(`http://localhost:5001/project/get_my_projects?email=${email}`).pipe(

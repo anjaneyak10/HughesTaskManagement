@@ -4,39 +4,38 @@
       <mat-icon mat-card-avatar class="profileTitle">account_circle</mat-icon>
       <mat-card-title class="cardTitle">My Tasks</mat-card-title>
     </mat-card-header>
-      <mat-card-content>
-        <mat-tab-group (selectedTabChange)="onTabChange($event)" #tabGroup>
-          <ng-container *ngFor="let t of tabLabel; let i = index">
-            <mat-tab [label]="tabLabel[i]">
-              <ng-container *ngIf="!spinner" >
+    <mat-card-content>
+      <mat-tab-group (selectedTabChange)="onTabChange($event)" #tabGroup>
+        <ng-container *ngFor="let t of tabLabel; let i = index">
+          <mat-tab [label]="tabLabel[i]">
+            <ng-container *ngIf="!spinner">
               <div *ngIf="activeTabIndex === i">
                 <ng-container *ngIf="tab.tasks">
-                <ng-container *ngIf="tab.tasks.data">
-                  <br />
-                  <ng-container *ngFor="let project of tab.tasks.data">
+                  <ng-container *ngIf="tab.tasks.data">
                     <br />
-                    <h1>{{ project.projectId }}</h1>
-                    <ag-grid-angular style="width: 100%; height: 250px;" class="ag-theme-quartz" [rowData]="project.data"
-                      [columnDefs]="tab.columnDefs">
-                    </ag-grid-angular>
+                    <ng-container *ngFor="let project of tab.tasks.data">
+                      <br />
+                      <h1>{{ project.projectId }}</h1>
+                      <ag-grid-angular style="width: 100%; height: 250px;" class="ag-theme-quartz"
+                        [rowData]="project.data" [columnDefs]="tab.columnDefs">
+                      </ag-grid-angular>
+                      <button mat-raised-button color="primary" (click)="onDoneClick(project)">Done</button>
+                    </ng-container>
                   </ng-container>
+                  <ng-container *ngIf="!tab.tasks.data">
+                    <h1>{{ tab.noTasksMessage }}</h1>
                   </ng-container>
-                
-    
-                <ng-container *ngIf="!tab.tasks.data">
-                  <h1>{{ tab.noTasksMessage }}</h1>
-                </ng-container>
                 </ng-container>
               </div>
             </ng-container>
-            </mat-tab>
-          </ng-container>
-        </mat-tab-group>
-        <ng-container *ngIf="spinner" >
-          <div class="spinner-container">
-          <mat-spinner></mat-spinner>
-          </div>
+          </mat-tab>
         </ng-container>
-      </mat-card-content>
+      </mat-tab-group>
+      <ng-container *ngIf="spinner">
+        <div class="spinner-container">
+          <mat-spinner></mat-spinner>
+        </div>
+      </ng-container>
+    </mat-card-content>
   </mat-card>
 </main>

@@ -50,8 +50,13 @@ import { ModifyTasksComponent } from './components/modify-tasks/modify-tasks.com
 import { ModifyTaskModalComponent } from './components/modify-task-modal/modify-task-modal.component';
 import { SlideToggleCellRendererComponent } from  './components/slide-toggle-cell-renderer/slide-toggle-cell-renderer.component'
 import { AgGridModule } from 'ag-grid-angular';
+
+import { MatOptionModule } from '@angular/material/core'; // Import MatOptionModule for mat-option
+import { StatusDropdownRendererComponent } from './components/status-dropdown-render/status-dropdown-render.component';
+
 import { CreatePortfolioComponent } from './components/create-portfolio/create-portfolio.component';
 import { SelectProjectForModifyComponent } from './components/select-project-for-modify/select-project-for-modify.component';
+
 
 @NgModule({
   declarations: [
@@ -75,8 +80,11 @@ import { SelectProjectForModifyComponent } from './components/select-project-for
     ModifyTaskModalComponent,
     SlideToggleCellRendererComponent,
     ModifyProjectComponent,
+    StatusDropdownRendererComponent,
+    
     CreatePortfolioComponent,
     SelectProjectForModifyComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -110,7 +118,8 @@ import { SelectProjectForModifyComponent } from './components/select-project-for
     MatCheckboxModule,
     AgGridAngular,
     AgGridModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatOptionModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
