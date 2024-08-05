@@ -238,7 +238,7 @@ export class ProjectViewComponent implements OnInit {
     }
   }
   saveChanges(): void {
-    console.log(JSON.stringify(this.taskChanges));
+    if(this.taskChanges.length === 0){
     this.spinnerTable = true;
     this.taskService.changeAssignees(this.taskChanges).subscribe((resp) => {
       console.log(resp);
@@ -247,7 +247,7 @@ export class ProjectViewComponent implements OnInit {
         this.selectProject(this.selectedProject.name);
       
     });
-   
+   }
   }
   openCreateTaskModal(): void {
     const dialogRef = this.dialog.open(CreateTaskModalComponent, {
