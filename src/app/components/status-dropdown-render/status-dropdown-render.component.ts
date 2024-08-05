@@ -24,13 +24,14 @@ export class StatusDropdownRendererComponent implements OnInit {
   }
 
   onSelectionChange(event: any): void {
-    const newValue = event.value;
+    // const newValue = event.value;
+    const newValue = event.value === 'true';
     if (this.params && this.params.node && this.params.column) {
       const colId = (this.params.column as any).colId;
       if (colId) {
         this.params.node.setDataValue(colId, newValue.toString());
         console.log(this.params.node.data.projecttaskid, " " , newValue);
-        localStorage.setItem(this.params.node.data.projecttaskid, newValue);
+        localStorage.setItem(this.params.node.data.projecttaskid, newValue.toString());
       }
     }
   }

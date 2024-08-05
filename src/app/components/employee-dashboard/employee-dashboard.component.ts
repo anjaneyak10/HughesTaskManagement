@@ -8,8 +8,6 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { MatTabGroup } from '@angular/material/tabs';
-// import { StatusDropdownRenderComponent } from '../status-dropdown-renderer/status-dropdown-render.component';
-
 import { StatusDropdownRendererComponent } from '../status-dropdown-render/status-dropdown-render.component';
 import { ICellRendererParams } from 'ag-grid-community';
 
@@ -218,16 +216,15 @@ export class EmployeeDashboardComponent implements OnInit {
   
   onDoneClick(project: any): void {
     const email = localStorage.getItem('email') || '';
-    
+  
     const dataToSend = project.data.map((task: any) => ({
       email: email,
       project_task_id: task.projecttaskid,
-      status: localStorage.getItem(this.params.node.data.projecttaskid)
-      // console.log(this.params.node.data.projecttaskid)
+      status: this.stringToBoolean(localStorage.getItem(task.projecttaskid))
     }));
-
+  
     console.log('Data to send:', dataToSend);
-
+  
     this.taskService.changeTaskStatus(dataToSend).subscribe(
       response => {
         console.log('Status updated successfully:', response);
@@ -240,7 +237,10 @@ export class EmployeeDashboardComponent implements OnInit {
       }
     );
   }
-
-
   
+  private stringToBoolean(value: string | null): boolean {
+    return value === 'true';
+  }
+  
+    
 }
