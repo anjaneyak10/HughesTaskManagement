@@ -1,5 +1,5 @@
 <div class="main-content">
-    <mat-card class="matcard">
+    <mat-card>
         <mat-card-header>
             <mat-icon mat-card-avatar class="profileTitle">account_circle</mat-icon>
             <mat-card-title class="cardTitle">Projects</mat-card-title>
@@ -25,28 +25,34 @@
 
                     <div class="container">
                         <div class="status-bar">
-                            <p class="status">Project Status: 75%</p>
+                            <p class="status">Project Status: {{projectProgress}}%</p>
                             <mat-progress-bar class="bar" mode="determinate"
                                 [value]="projectProgress"></mat-progress-bar>
                         </div>
                         <button mat-raised-button class="createTask" (click)="openCreateTaskModal()"
                             color="primary">Create Task</button>
-                        <button mat-raised-button class="modifyProject" (click)="navigateToModifyProject()" 
-                            color="primary">Modify Project</button>
                     </div>                    
 
-                    <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
+                    <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="table-margin-bottom">
                         <!-- Function Column -->
                         <ng-container matColumnDef="function">
                             <th mat-header-cell *matHeaderCellDef> Function </th>
-                            <td mat-cell *matCellDef="let element"> {{element.function}} </td>
+                            <td mat-cell *matCellDef="let element"> {{element.functionname}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="score">
+                            <th mat-header-cell *matHeaderCellDef> Score </th>
+                            <td mat-cell *matCellDef="let element"> {{element.functionreadinessscore}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="leadName">
+                            <th mat-header-cell *matHeaderCellDef> Lead Name </th>
+                            <td mat-cell *matCellDef="let element"> {{element.functionleadname}} </td>
                         </ng-container>
 
                         <!-- Expand Column -->
                         <ng-container matColumnDef="expand">
+                            <th mat-header-cell *matHeaderCellDef>  </th>
                             <td mat-cell *matCellDef="let element">
-                                <button mat-icon-button
-                                    (click)="expandedElement = expandedElement === element ? null : element">
+                                <button mat-icon-button>
                                     <mat-icon>{{expandedElement === element ? 'keyboard_arrow_up' :
                                         'keyboard_arrow_down'}}</mat-icon>
                                 </button>
@@ -60,48 +66,14 @@
                                     <!-- Your detailed row content here -->
 
 
-                                    <table mat-table [dataSource]="element.data" class="mat-elevation-z8">
-                                        <!-- Task Column -->
-                                        <ng-container matColumnDef="task">
-                                            <th mat-header-cell *matHeaderCellDef> Task </th>
-                                            <td mat-cell *matCellDef="let element"> {{element.task}} </td>
-                                        </ng-container>
-                                        <!-- Completion Column -->
-                                        <ng-container matColumnDef="completion">
-                                            <th mat-header-cell *matHeaderCellDef> Completion </th>
-                                            <td mat-cell *matCellDef="let element">
-                                                <span *ngIf="element.completion; else notCompleted">
-                                                    <mat-icon class="completed">check_circle</mat-icon>
-                                                </span>
-                                                <ng-template #notCompleted>
-                                                    <mat-icon class="not-completed">cancel</mat-icon>
-                                                </ng-template>
-                                            </td>
-                                        </ng-container>
-                                        <!-- Assignee Column -->
-                                        <ng-container matColumnDef="assignee">
-                                            <th mat-header-cell *matHeaderCellDef> Assignee </th>
-                                            <td mat-cell *matCellDef="let element"> {{element.assignee}} </td>
-                                        </ng-container>
-                                        <!-- Special Instructions Column -->
-                                        <ng-container matColumnDef="specialInstructions">
-                                            <th mat-header-cell *matHeaderCellDef> Special Instructions </th>
-                                            <td mat-cell *matCellDef="let element"> {{element.specialInstructions}}
-                                            </td>
-                                        </ng-container>
-                                        <!-- Exception Column -->
-                                        <ng-container matColumnDef="exception">
-                                            <th mat-header-cell *matHeaderCellDef> Exception </th>
-                                            <td mat-cell *matCellDef="let element"> {{element.exception}} </td>
-                                        </ng-container>
-
-                                        <tr mat-header-row
-                                            *matHeaderRowDef="['task', 'completion', 'assignee', 'specialInstructions', 'exception']"
-                                            [ngStyle]="{'background-color': '#21294f', 'color': '#ffffff'}"></tr>
-                                        <tr mat-row
-                                            *matRowDef="let row; columns: ['task', 'completion', 'assignee', 'specialInstructions', 'exception']; let i = index" [ngStyle]="{'background-color': i % 2 === 0 ? '#f0f0f0' : '#ffffff'}">
-                                        </tr>
-                                    </table>
+                                    <ag-grid-angular
+                                    style="width: 100%; height: 500px;"
+                                    class="ag-theme-quartz"
+                                    [rowData]="element.tasks"
+                                    [columnDefs]="columnDefs"
+                                    [defaultColDef]="defaultColDef"
+                                    [rowClassRules]="rowClassRules">
+                                  </ag-grid-angular>
 
                                 </div>
                             </td>
@@ -115,6 +87,7 @@
                             [@detailExpand]="expandedElement === element ? 'expanded' : 'collapsed'"
                             class="example-detail-row"></tr>
                     </table>
+                    <button  mat-raised-button class="table-margin-bottom" style="width:10%;align-items: center;" color="primary" (click)="saveChanges()">Save Changes</button>
                 </ng-container>
             </ng-container>
             <ng-container *ngIf="spinnerTable">

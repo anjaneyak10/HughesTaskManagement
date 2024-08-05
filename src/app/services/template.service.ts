@@ -21,6 +21,9 @@ export class TemplateService {
   getAllTasks(): Observable<any> {
     return this.http.get(`${this.apiUrl}/getalltasks`);
   }
+  getAllEmails(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/getallemployees`);
+  }
   modifyTaskInMaster(task: any): Observable<any> {
     const url = `${this.apiUrl}/modifytaskinmaster`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });

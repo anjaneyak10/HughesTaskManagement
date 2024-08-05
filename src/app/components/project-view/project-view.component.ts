@@ -2,6 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { TaskService } from 'src/app/services/task.service';
+import { TemplateService } from 'src/app/services/template.service';
+import {
+  ColDef,
+  ColGroupDef,
+  GridApi,
+  GridOptions,
+  ILargeTextEditorParams,
+  IRichCellEditorParams,
+  ISelectCellEditorParams,
+  ITextCellEditorParams,
+  createGrid,
+} from "ag-grid-community";
 import {
   animate,
   state,
@@ -23,6 +35,46 @@ interface Project {
     exception: string;
   }[];
   function: string;
+}
+interface Task {
+  assigneeemail: string;
+  assigneename: string;
+  completion: boolean;
+  createdby: string;
+  createdon: string;
+  duedate: string | null;
+  exception: string | null;
+  lastupdatedby: string | null;
+  lastupdatedon: string | null;
+  projecttaskid: string;
+  specialinstruction: string | null;
+  taskname: string;
+  weightage: string;
+}
+
+interface FunctionInfo {
+  functionid: string;
+  functionleademail: string;
+  functionleadname: string;
+  functionname: string;
+  functionreadinessscore: string;
+  tasks: Task[];
+}
+
+interface ProjectDetails {
+  completion: boolean;
+  createdbyemail: string;
+  createdon: string;
+  functions_info: FunctionInfo[];
+  projectid: string;
+  projectname: string;
+  projecttemplateid: string;
+  readinessscore: string;
+}
+interface taskChange{
+  projecttaskid: string;
+  assigneeemail: string;
+  email: string;
 }
 
 interface ProjectSelect {
@@ -48,17 +100,88 @@ const projectList: ProjectSelect[] = [];
   ],
 })
 export class ProjectViewComponent implements OnInit {
-  displayedColumns: string[] = ['function'];
-  dataSource = new MatTableDataSource<Project>([]);
+  dataSource = new MatTableDataSource<FunctionInfo>([]);
   projectNames: string[] = [];
-  projectProgress = 75;
+  projectProgress: any;
   spinner = true;
+  functions: any[] = [];
+  assignees: any[] = [];
+  taskChanges: taskChange[] = [];
   spinnerTable = false;
-  columnsToDisplay = ['function'];
-  expandedElement: Project | null;
-  selectedProject:any;
-  
-  constructor(private taskService: TaskService, public dialog: MatDialog, private snackBar: MatSnackBar, private router: Router,private authService: AuthService) {
+  columnsToDisplay = ['function', 'score', 'leadName', 'expand'];
+  expandedElement: FunctionInfo | null;
+  selectedProject: any;
+  columnDefs = [
+    { headerName: 'Task', field: 'taskname' },
+    {
+      headerName: 'Completion',
+      field: 'completion',
+      cellRenderer: (params: any) => {
+        const icon = params.value ? 'check_circle' : 'cancel';
+        const className = params.value ? 'completed' : 'not-completed';
+        return `<mat-icon class="${className}">${icon}</mat-icon>`;
+      },
+    },
+    {
+      headerName: 'Assignee Email',
+      field: 'assigneeemail',
+      cellEditor: 'agSelectCellEditor',
+      cellEditorParams: {
+        values: ['dorothy.gordon@hughes.com', 'shruti.nagaraj@hughes.com', 'sindhu.rajan@hughes.com', 'test1@test.com', 'test@test.com'],
+        filterList: true,
+      } as ISelectCellEditorParams,
+      onCellValueChanged: (params: any) => {
+        this.updateTask(params.data);
+      },
+    },
+    { headerName: 'Created By', field: 'createdby' },
+    {
+      headerName: 'Created On',
+      field: 'createdon',
+      cellRenderer: (params: any) => {
+        const date = new Date(params.value);
+        return `${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getDate().toString().padStart(2, '0')}/${date.getFullYear()}`;
+      },
+    },
+    {
+      headerName: 'Due Date',
+      field: 'duedate',
+      cellRenderer: (params: any) => {
+        const date = new Date(params.value);
+        return `${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getDate().toString().padStart(2, '0')}/${date.getFullYear()}`;
+      },
+    },
+    { headerName: 'Exception', field: 'exception' },
+    { headerName: 'Last Updated By', field: 'lastupdatedby' },
+    {
+      headerName: 'Last Updated On',
+      field: 'lastupdatedon',
+      cellRenderer: (params: any) => {
+        const date = new Date(params.value);
+        return `${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getDate().toString().padStart(2, '0')}/${date.getFullYear()}`;
+      },
+    },
+    { headerName: 'Special Instructions', field: 'specialinstruction' },
+    { headerName: 'Weightage', field: 'weightage' },
+  ];
+
+  defaultColDef = {
+    sortable: true,
+    filter: true,
+    resizable: true,
+    editable: true,
+  };
+
+  rowClassRules = {
+    'even-row': (params: any) => params.node.rowIndex % 2 === 0,
+    'odd-row': (params: any) => params.node.rowIndex % 2 !== 0,
+  };
+  constructor(
+    private taskService: TaskService,
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar,
+    private TemplateService: TemplateService,
+    private router: Router  ) {
     this.expandedElement = null;
     this.selectedProject = null;
   }
@@ -66,6 +189,11 @@ export class ProjectViewComponent implements OnInit {
 
   ngOnInit(): void {
     const email = localStorage.getItem('email');
+    this.TemplateService.getAllEmails()
+    .subscribe((resp) => {
+      this.assignees = resp.employees.map((employee: { email: string }) => employee.email);
+      console.log(this.assignees);
+    });
     if (email) {
       this.taskService.getProjectList(email).subscribe((tasks) => {
         tasks.forEach((proj: any) => {
@@ -81,7 +209,18 @@ export class ProjectViewComponent implements OnInit {
       });
     }
   }
-
+  updateTask(task: Task): void {
+    if(this.taskChanges.find((taskChange) => taskChange.projecttaskid === task.projecttaskid)){
+      this.taskChanges = this.taskChanges.filter((taskChange) => taskChange.assigneeemail = task.assigneeemail);
+    }
+    else{
+      this.taskChanges.push({
+        projecttaskid: task.projecttaskid,
+        assigneeemail: task.assigneeemail,
+        email: task.assigneeemail,
+      });
+    }
+  }
   selectProject(filterValue: string): void {
     this.spinnerTable = true;
     const selectedProject = projectList.find(
@@ -89,41 +228,27 @@ export class ProjectViewComponent implements OnInit {
     );
     if (selectedProject) {
       this.selectedProject = selectedProject;
-      this.taskService
-        .getProjectInfo(selectedProject.projectId)
-        .subscribe((projectInfo) => {
-          const PROJECT_DATA: Project[] = [];
-          projectInfo.forEach((i: any) => {
-            if (PROJECT_DATA.find((x) => x.function === i.function)) {
-              PROJECT_DATA.find((x) => x.function === i.function)!.data.push({
-                task: i.taskname,
-                completion: i.completion,
-                assignee: i.assignee,
-                specialInstructions: i.specialinstructions,
-                exception: i.exception,
-              });
-            } else {
-              PROJECT_DATA.push({
-                data: [
-                  {
-                    task: i.taskname,
-                    completion: i.completion,
-                    assignee: i.assignee,
-                    specialInstructions: i.specialinstructions,
-                    exception: i.exception,
-                  },
-                ],
-                function: i.function,
-              });
-            }
-          });
-          console.log(JSON.stringify(PROJECT_DATA));
-          this.dataSource.data = PROJECT_DATA;
+        this.taskService
+          .getProjectInfo(selectedProject.projectId)
+          .subscribe((projectInfo: ProjectDetails) => {
+          this.projectProgress = projectInfo.readinessscore;
+          this.dataSource.data = projectInfo.functions_info;
           this.spinnerTable = false;
         });
     }
   }
+  saveChanges(): void {
+    console.log(JSON.stringify(this.taskChanges));
+    this.spinnerTable = true;
+    this.taskService.changeAssignees(this.taskChanges).subscribe((resp) => {
+      console.log(resp);
 
+        this.showToast('Assignees updated successfully!');
+        this.selectProject(this.selectedProject.name);
+      
+    });
+   
+  }
   openCreateTaskModal(): void {
     const dialogRef = this.dialog.open(CreateTaskModalComponent, {
       width: 'auto', // Set your desired width
@@ -155,4 +280,3 @@ export class ProjectViewComponent implements OnInit {
     // this.router.navigate(['/modifyproject']);
   }
 }
-

@@ -54,7 +54,7 @@ changeTaskStatus(taskData: any): Observable<any> {
 
 
 getProjectList(email: string): Observable<any> {
-  return this.http.get<any>(`http://localhost:5001/project/get_my_projects?email=${email}`).pipe(
+  return this.http.get<any>(`http://localhost:5001/project/get_all_projects?email=${email}`).pipe(
     tap(response => {
       if (response && response.token) {
         console.log('response:', response);
@@ -81,7 +81,15 @@ getCreateTaskInfo(project_id: string): Observable<any> {
     })
   );
 }
-
+changeAssignees(taskAndAssigneesInfo: any[]): Observable<any> {
+  return this.http.post<any>(`http://localhost:5001/project/change_assignees`, taskAndAssigneesInfo).pipe(
+    tap(response => {
+      if (response && response.token) {
+      console.log('response:', response);
+      }
+    })
+  );
+}
 createTask(taskData: any): Observable<any> {
   return this.http.post<any>(`http://localhost:5001/project/create_task`, taskData).pipe(
     tap(response => {
