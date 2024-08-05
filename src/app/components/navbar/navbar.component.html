@@ -45,7 +45,7 @@
         <span>Create Project</span>
       </div>
     </a>
-    <a mat-list-item>
+    <a mat-list-item (click)="modifyProject()">
       <div class="childNav">
         <mat-icon>subdirectory_arrow_right</mat-icon>
         <span>Modify Project</span>
@@ -81,7 +81,7 @@
         <span>Portfolio</span>
       </div>
     </mat-expansion-panel-header>
-    <a mat-list-item (click)="createTemplate()">
+    <a mat-list-item (click)="createPortfolio()">
       <div class="childNav">
         <mat-icon>subdirectory_arrow_right</mat-icon>
         <span>Create Portfolio</span>

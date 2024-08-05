@@ -4,17 +4,23 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ModifyTaskModalComponent } from '../modify-task-modal/modify-task-modal.component';
 import { ColDef } from 'ag-grid-community'; // Column Definition Type Interface
+import { DatePipe } from '@angular/common';
 export interface Task {
   function_id: string;
   function_name: string;
-  taskName: string;
+  taskname: string;
   taskid: string;
   weightage: number;
+  createdbyname: string;
+  createdon: string | null;
+  lastmodifiedbyname: string;
+  lastmodifiedon: string | null;
 }
 @Component({
   selector: 'app-modify-tasks',
   templateUrl: './modify-tasks.component.html',
-  styleUrls: ['./modify-tasks.component.css']
+  styleUrls: ['./modify-tasks.component.css'],
+  providers: [DatePipe]
 })
 
 
@@ -25,9 +31,13 @@ export class ModifyTasksComponent {
   filteredTasks: Task[] = [];
   searchTerm: string = '';
   columnDefs: ColDef<Task>[] =[
-    { headerName: 'Task Name', field: 'taskName', sortable: true, filter: true },
+    { headerName: 'Task Name', field: 'taskname', sortable: true, filter: true },
     { headerName: 'Function Name', field: 'function_name', sortable: true, filter: true },
-    { headerName: 'Weightage', field: 'weightage', sortable: true, filter: true }
+    { headerName: 'Weightage', field: 'weightage', sortable: true, filter: true },
+    { headerName: 'Created By', field: 'createdbyname', sortable: true, filter: true},
+    { headerName: 'Created On', field: 'createdon', sortable: true, filter: true,valueFormatter: this.dateFormatter.bind(this)},
+    { headerName: 'Last Modified By', field: 'lastmodifiedbyname', sortable: true, filter: true},
+    { headerName: 'Last Modified On', field: 'lastmodifiedon', sortable: true, filter: true,valueFormatter: this.dateFormatter.bind(this)}
   ];
 
   defaultColDef = {
@@ -35,7 +45,7 @@ export class ModifyTasksComponent {
     minWidth: 100,
     resizable: true
   };
-constructor(private templateService: TemplateService,public dialog: MatDialog, private snackBar: MatSnackBar) { 
+constructor(private templateService: TemplateService,public dialog: MatDialog, private snackBar: MatSnackBar,private datePipe: DatePipe ) { 
   this.spinner=true;
 }
 ngAfterViewInit() {
@@ -81,5 +91,10 @@ ngAfterViewInit() {
       horizontalPosition: 'center',
       verticalPosition: 'top',
     });
+  }
+
+  dateFormatter(params: any): string {
+    const formattedDate = this.datePipe.transform(params.value, 'MM-dd-yyyy');
+    return formattedDate ? formattedDate : '';  // Provide a default value if the result is null
   }
 }

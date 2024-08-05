@@ -17,6 +17,8 @@ import { SelectTasksComponent } from './select-tasks/select-tasks.component';
 import { CreateTaskComponent } from './create-task/create-task.component';
 import { ModifyTasksComponent } from './modify-tasks/modify-tasks.component';
 import { ModifyProjectComponent } from './modify-project/modify-project.component';
+import { CreatePortfolioComponent } from './create-portfolio/create-portfolio.component';
+import { SelectProjectForModifyComponent } from './select-project-for-modify/select-project-for-modify.component';
 
 
 const routes: Routes = [
@@ -34,6 +36,8 @@ const routes: Routes = [
   {path:'modifytasks',component:ModifyTasksComponent,canActivate:[AuthGuard]},
   { path: 'register', component: RegisterComponent },
   {path:'modifyproject/:projectId',component:ModifyProjectComponent,canActivate:[AuthGuard]},
+  {path:'create-portfolio',component:CreatePortfolioComponent},
+  {path:'select-project-for-modify',component:SelectProjectForModifyComponent,canActivate:[AuthGuard]},
   { path: '**', redirectTo: 'login' }
 ];
 

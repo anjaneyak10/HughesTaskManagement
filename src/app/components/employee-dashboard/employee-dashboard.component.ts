@@ -137,7 +137,7 @@ export class EmployeeDashboardComponent implements OnInit {
     tasks.forEach(task => {
       const taskData = {
         taskName: task.taskname,
-        assignee: task.assigneeemail,
+        assignee: task.name,
         specialInstructions: task.specialinstruction,
         exceptions: task.exception,
         dueDate: task.duedate?this.formatDate(task.duedate):'',
@@ -145,9 +145,9 @@ export class EmployeeDashboardComponent implements OnInit {
         completion: task.completion,
         projecttaskid: task.projecttaskid,
         createdOn:task.createdon?this.formatDate(task.createdon):'',
-        createdBy:task.createdby,
+        createdBy:task.createdbyname,
         functionName:task.functionname,
-        lastUpdatedBy:task.lastupdatedby,
+        lastUpdatedBy:task.lastupdatebyname,
         lastUpdatedOn:task.lastupdatedon?this.formatDate(task.lastupdatedon):''
       };
       if (!taskMap[task.projectname]) {

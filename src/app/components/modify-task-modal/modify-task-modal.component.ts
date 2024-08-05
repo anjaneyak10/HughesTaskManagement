@@ -33,7 +33,7 @@ export class ModifyTaskModalComponent {
     this.task =  {
         functionId: data.task.function_id,
         function_name: data.task.function_name,
-        taskName: data.task.taskName,
+        taskName: data.task.taskname,
         taskId: data.task.taskid,
         weightage: data.task.weightage,
         isObsolete: false

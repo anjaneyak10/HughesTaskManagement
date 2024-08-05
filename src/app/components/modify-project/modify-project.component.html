@@ -1,11 +1,14 @@
 <div class="main-content">
-    <mat-card class="matcard">
-      <mat-card-header>
-        <mat-icon mat-card-avatar class="profileTitle">people_outline</mat-icon>
-        <mat-card-title class="cardTitle">Modify Project</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <div *ngIf="projectInfo" class="project-info-container">
+  <mat-tab-group>
+    <mat-tab label="Modify Functional Leads">
+      <!-- First Form: Modify Functional Leads -->
+      <mat-card class="matcard">
+        <mat-card-header>
+          <mat-icon mat-card-avatar class="profileTitle">people_outline</mat-icon>
+          <mat-card-title class="cardTitle">Modify Project</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div *ngIf="projectInfo" class="project-info-container">
             <h2 class="project-details">Project Details</h2>
             <mat-divider></mat-divider>
             <div class="project-detail-item">
@@ -18,40 +21,75 @@
             </div>
           </div>
           <mat-divider></mat-divider>
-        <br>
-        <form (ngSubmit)="onSubmit()" #functionalLeadsForm="ngForm" class="select-functional-leads-form">
-          <div class="form-grid">
-            <div *ngFor="let func of functionInfo" class="form-group">
-              <!-- <p>Current Lead: {{ func.functionlead }}</p> -->
-              <mat-form-field appearance="outline" class="full-width">
-                <mat-label>Change Lead for {{ func.functionname }}</mat-label>
-                <mat-select [(ngModel)]="selectedLeads[func.functionid]" name="lead{{ func.functionid }}" required>
-                  <mat-option *ngFor="let lead of allfunctionalLeads" [value]="lead.email">{{ lead.email }}</mat-option>
-                </mat-select>
-              </mat-form-field>
+          <br>
+          <form (ngSubmit)="onSubmit()" #functionalLeadsForm="ngForm" class="select-functional-leads-form">
+            <div class="form-grid">
+              <div *ngFor="let func of functionInfo" class="form-group">
+                <mat-form-field appearance="outline" class="full-width">
+                  <mat-label>Change Lead for {{ func.functionname }}</mat-label>
+                  <mat-select [(ngModel)]="selectedLeads[func.functionid]" name="lead{{ func.functionid }}" required>
+                    <mat-option *ngFor="let lead of allfunctionalLeads" [value]="lead.email">{{ lead.email }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
             </div>
+            <div class="button-container">
+              <button mat-raised-button type="submit" [disabled]="!functionalLeadsForm.form.valid" color="primary">Submit</button>
+            </div>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </mat-tab>
+
+    <mat-tab label="Modify Tasks">
+      <div class="select-tasks-container">
+        <h2>Select Tasks for Project</h2>
+        <div class="dual-list-container">
+          <div class="list">
+            <h3>Remove from {{ projectInfo.projectname }}</h3>
+            <ul>
+              <li *ngFor="let task of currentTasks">
+                <input
+  type="checkbox"
+  [(ngModel)]="task.selected"
+/> {{ task.taskName }}
+              </li>
+            </ul>
+            <button class="small-button" (click)="addAllTasks()">Remove All</button>
           </div>
-          <div class="button-container">
-            <button mat-raised-button type="submit" [disabled]="!functionalLeadsForm.form.valid" color="primary">Submit</button>
+    
+          <div class="list">
+            <h3>Add to {{ projectInfo.projectname }}</h3>
+            <ul>
+              <li *ngFor="let task of otherTasks">
+                <input
+  type="checkbox"
+  [(ngModel)]="task.selected"
+/> {{ task.taskName }}
+              </li>
+            </ul>
+            <button class="small-button" (click)="removeAllTasks()">Add All</button>
           </div>
-        </form>
-      </mat-card-content>
-    </mat-card>
-  
-    <div *ngIf="showConfirmation" class="modal-overlay">
-      <div class="modal-content">
-        <h3>Success!</h3>
-        <p>Project modified successfully!</p>
-        <button mat-button (click)="confirmAndRedirect()">OK</button>
+        </div>
+        <button class="small-button-done" (click)="modifyTasksInProject()">Done</button>
       </div>
-    </div>
-  
-    <div *ngIf="showError" class="modal-overlay">
-      <div class="modal-content-error">
-        <h3>Error</h3>
-        <p>Something went wrong, try again!</p>
-        <button mat-button (click)="confirmAndRedirectToCreateProject()">OK</button>
-      </div>
+    </mat-tab>
+    
+  </mat-tab-group>
+
+  <div *ngIf="showConfirmation" class="modal-overlay">
+    <div class="modal-content">
+      <h3>Success!</h3>
+      <p>Project modified successfully!</p>
+      <button mat-button (click)="confirmAndRedirect()">OK</button>
     </div>
   </div>
-  
+
+  <div *ngIf="showError" class="modal-overlay">
+    <div class="modal-content-error">
+      <h3>Error</h3>
+      <p>Something went wrong, try again!</p>
+      <button mat-button (click)="confirmAndRedirectToCreateProject()">OK</button>
+    </div>
+  </div>
+</div>
